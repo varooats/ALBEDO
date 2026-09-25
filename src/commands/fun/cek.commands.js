@@ -31,13 +31,44 @@ function getPercentRange(value) {
   return 'veryHigh';
 }
 
+/**
+ * Fetch group participants prioritizing real phone numbers (s.whatsapp.net) over internal LID
+ */
 async function getGroupParticipants(client, message) {
   const remoteJid = message?.key?.remoteJid;
   if (!remoteJid || !String(remoteJid).endsWith('@g.us')) return [];
 
   try {
     const metadata = await client.groupMetadata(remoteJid);
-    return (metadata?.participants || []).map((p) => p?.id).filter(Boolean);
+    const rawList = metadata?.participants || [];
+    const result = [];
+
+    for (const p of rawList) {
+      // Baileys provides: id (often @lid or @s.whatsapp.net), jid (phone @s.whatsapp.net), lid
+      let bestJid = null;
+      if (p?.jid && p.jid.endsWith('@s.whatsapp.net')) {
+        bestJid = p.jid;
+      } else if (p?.id && p.id.endsWith('@s.whatsapp.net')) {
+        bestJid = p.id;
+      } else if (p?.jid) {
+        bestJid = p.jid;
+      } else if (p?.id) {
+        bestJid = p.id;
+      }
+
+      if (bestJid && !bestJid.endsWith('@lid')) {
+        result.push(bestJid);
+      }
+    }
+
+    // Fallback if all were lid: take any id
+    if (result.length === 0) {
+      for (const p of rawList) {
+        if (p?.jid || p?.id) result.push(p.jid || p.id);
+      }
+    }
+
+    return result.filter(Boolean);
   } catch (error) {
     console.error('[FUN] Failed to get group metadata:', error?.message || error);
     return [];
@@ -127,7 +158,7 @@ function createPersonalCommand(commandName, opts = {}) {
         mentionName: jidToMentionName(target.jid),
       });
 
-      // Always pass mention when showTarget is active so WhatsApp highlights and activates the link
+      // Pass mentions so WhatsApp highlights and enables click
       const options = target.mentioned && target.jid ? { mentions: [target.jid] } : {};
       await replyText(client, message, text, options);
       return true;
