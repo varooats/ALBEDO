@@ -1,0 +1,2012 @@
+[
+  {
+    "name": "The Fool",
+    "arcana": "major",
+    "suit": null,
+    "number": 0,
+    "upright": {
+      "keywords": [
+        "Awal Baru",
+        "Spontanitas",
+        "Kepolosan",
+        "Petualangan"
+      ],
+      "meaning": "Langkah awal perjalanan baru dengan hati terbuka, antusiasme, dan rasa ingin tahu yang segar.",
+      "reflection": "Beri ruang untuk keberanian memulai lembaran baru, namun tetap waspadai langkah di depanmu."
+    },
+    "reversed": {
+      "keywords": [
+        "Kecerobohan",
+        "Ragu Mengambil Risiko",
+        "Naif",
+        "Kelalaian"
+      ],
+      "meaning": "Kecenderungan bertindak gegabah tanpa perhitungan matang atau terlalu takut untuk memulai.",
+      "reflection": "Bedakan antara keberanian yang sehat dengan kepolosan yang mengabaikan kenyataan penting."
+    }
+  },
+  {
+    "name": "The Magician",
+    "arcana": "major",
+    "suit": null,
+    "number": 1,
+    "upright": {
+      "keywords": [
+        "Manifestasi",
+        "Keahlian",
+        "Kekuatan Kehendak",
+        "Potensi Penuh"
+      ],
+      "meaning": "Kamu memiliki kapasitas, keahlian, dan sumber daya yang cukup untuk mewujudkan tujuanmu.",
+      "reflection": "Gunakan potensi dan pengetahuan yang sudah kamu miliki untuk mengambil inisiatif nyata."
+    },
+    "reversed": {
+      "keywords": [
+        "Manipulasi",
+        "Bakat Terpendam",
+        "Ilusi",
+        "Rencana Belum Matang"
+      ],
+      "meaning": "Potensi yang belum terarah atau kecenderungan menggunakan cara yang kurang transparan.",
+      "reflection": "Fokuskan energi pada niat yang jujur dan hindari mencari jalan pintas yang merugikan."
+    }
+  },
+  {
+    "name": "The High Priestess",
+    "arcana": "major",
+    "suit": null,
+    "number": 2,
+    "upright": {
+      "keywords": [
+        "Intuisi",
+        "Kebijaksanaan Batin",
+        "Misteri",
+        "Keheningan"
+      ],
+      "meaning": "Suara batin dan intuisi menyimpan pemahaman yang lebih dalam daripada sekadar logika kasat mata.",
+      "reflection": "Dengarkan firasat dan renungkan situasi dalam ketenangan sebelum membuat kesimpulan."
+    },
+    "reversed": {
+      "keywords": [
+        "Mengabaikan Intuisi",
+        "Rahasia Tersembunyi",
+        "Kegalauan Batin",
+        "Dangkal"
+      ],
+      "meaning": "Keraguan pada kata hati sendiri atau terlalu terdistraksi oleh opini luar yang bising.",
+      "reflection": "Luangkan waktu menyendiri untuk menyelaraskan kembali pikiran dengan perasaan terdalammu."
+    }
+  },
+  {
+    "name": "The Empress",
+    "arcana": "major",
+    "suit": null,
+    "number": 3,
+    "upright": {
+      "keywords": [
+        "Kelimpahan",
+        "Pengasuhan",
+        "Kreativitas",
+        "Kenyamanan"
+      ],
+      "meaning": "Periode pertumbuhan yang subur, kasih sayang, dan daya cipta yang membawa kedamaian.",
+      "reflection": "Rawat ide dan hubunganmu dengan penuh perhatian seperti merawat benih yang sedang tumbuh."
+    },
+    "reversed": {
+      "keywords": [
+        "Ketergantungan",
+        "Kreativitas Buntu",
+        "Overprotektif",
+        "Kekosongan"
+      ],
+      "meaning": "Merasa lelah karena terlalu banyak memberi atau abai terhadap kebutuhan diri sendiri.",
+      "reflection": "Sebelum merawat orang lain atau proyek besar, pastikan energimu sendiri sudah terpenuhi."
+    }
+  },
+  {
+    "name": "The Emperor",
+    "arcana": "major",
+    "suit": null,
+    "number": 4,
+    "upright": {
+      "keywords": [
+        "Struktur",
+        "Otoritas",
+        "Disiplin",
+        "Fondasi Kokoh"
+      ],
+      "meaning": "Kebutuhan akan ketertiban, ketegasan memimpin diri, dan stabilitas aturan yang jelas.",
+      "reflection": "Disiplin dan perencanaan yang terukur akan menjaga apa yang telah kamu bangun tetap kokoh."
+    },
+    "reversed": {
+      "keywords": [
+        "Kekakuan",
+        "Dominasi",
+        "Kurang Disiplin",
+        "Ketidakpastian"
+      ],
+      "meaning": "Kontrol yang terlalu menekan atau sebaliknya, ketidakmampuan menerapkan disiplin pribadi.",
+      "reflection": "Kekuatan sejati lahir dari konsistensi yang tenang, bukan dari paksaan atau kemarahan."
+    }
+  },
+  {
+    "name": "The Hierophant",
+    "arcana": "major",
+    "suit": null,
+    "number": 5,
+    "upright": {
+      "keywords": [
+        "Tradisi",
+        "Bimbingan",
+        "Nilai Etika",
+        "Pembelajaran"
+      ],
+      "meaning": "Pencarian makna melalui kebijaksanaan yang telah teruji dan bimbingan nilai-nilai luhur.",
+      "reflection": "Terkadang cara-cara konvensional dan saran dari mereka yang berpengalaman adalah kompas terbaik."
+    },
+    "reversed": {
+      "keywords": [
+        "Pemberontakan",
+        "Dogma Kaku",
+        "Cara Baru",
+        "Ketidakcocokan Nilai"
+      ],
+      "meaning": "Mempertanyakan norma yang membatasi dan keinginan menemukan jalan keyakinan sendiri.",
+      "reflection": "Tanyakan pada dirimu nilai mana yang benar-benar kamu yakini dan mana yang sekadar ikut-ikutan."
+    }
+  },
+  {
+    "name": "The Lovers",
+    "arcana": "major",
+    "suit": null,
+    "number": 6,
+    "upright": {
+      "keywords": [
+        "Harmoni",
+        "Pilihan Moral",
+        "Koneksi Tulus",
+        "Penyelarasan Nilai"
+      ],
+      "meaning": "Koneksi batin yang mendalam serta momen pengambilan keputusan penting berdasarkan hati nurani.",
+      "reflection": "Pilihlah apa yang sejalan dengan integritas pribadimu, bukan sekadar apa yang terasa nyaman sesaat."
+    },
+    "reversed": {
+      "keywords": [
+        "Ketidakharmonisan",
+        "Pilihan Sulit",
+        "Konflik Nilai",
+        "Salah Paham"
+      ],
+      "meaning": "Ada gesekan komunikasi atau kebimbangan antara logika dan keinginan hati.",
+      "reflection": "Jujurlah mengenai apa yang kamu rasakan tanpa harus menyalahkan keadaan atau orang lain."
+    }
+  },
+  {
+    "name": "The Chariot",
+    "arcana": "major",
+    "suit": null,
+    "number": 7,
+    "upright": {
+      "keywords": [
+        "Tekad Kuat",
+        "Fokus",
+        "Kemenangan",
+        "Kendali Diri"
+      ],
+      "meaning": "Mengatasi rintangan melalui konsentrasi tinggi, kemauan keras, dan keyakinan pada tujuan.",
+      "reflection": "Satukan energi yang saling bertentangan dalam dirimu dan arahkan ke satu garis finish."
+    },
+    "reversed": {
+      "keywords": [
+        "Kehilangan Kendali",
+        "Agresif",
+        "Kehilangan Arah",
+        "Hambatan Berat"
+      ],
+      "meaning": "Dorongan yang terlalu terburu-buru hingga menimbulkan benturan dan hilangnya kendali.",
+      "reflection": "Tarik napas dan perlambat laju; kendali sejati bukan tentang kecepatan, melainkan kestabilan setir."
+    }
+  },
+  {
+    "name": "Strength",
+    "arcana": "major",
+    "suit": null,
+    "number": 8,
+    "upright": {
+      "keywords": [
+        "Keberanian Halus",
+        "Kesabaran",
+        "Welas Asih",
+        "Ketahanan Mental"
+      ],
+      "meaning": "Kekuatan batin yang menaklukkan keraguan dan emosi dengan kelembutan serta kesabaran.",
+      "reflection": "Kekuatan terbesar bukanlah kekerasan fisik, melainkan ketenangan saat menghadapi gejolak."
+    },
+    "reversed": {
+      "keywords": [
+        "Keraguan Diri",
+        "Kelelahan Mental",
+        "Kerapuhan",
+        "Emosi Meledak"
+      ],
+      "meaning": "Rasa tidak percaya diri yang membayangi atau terkurasnya energi emosional.",
+      "reflection": "Bersikaplah lembut pada dirimu sendiri; mengakui rasa lelah adalah bagian dari keberanian."
+    }
+  },
+  {
+    "name": "The Hermit",
+    "arcana": "major",
+    "suit": null,
+    "number": 9,
+    "upright": {
+      "keywords": [
+        "Introspeksi",
+        "Pencarian Kebenaran",
+        "Keheningan",
+        "Bimbingan Batin"
+      ],
+      "meaning": "Mundur sejenak dari keramaian dunia untuk menemukan kejelasan dan jawaban di dalam diri.",
+      "reflection": "Jawaban yang kamu cari seringkali tidak ada di luar sana, melainkan di kedalaman perenunganmu."
+    },
+    "reversed": {
+      "keywords": [
+        "Isolasi Berlebih",
+        "Kesepian",
+        "Menutup Diri",
+        "Menghindari Kenyataan"
+      ],
+      "meaning": "Menyendiri yang berubah menjadi pengasingan diri atau rasa terasing dari lingkungan.",
+      "reflection": "Ada saat untuk merenung di gua batin, namun ada saatnya lentera kebijaksanaanmu harus dibawa keluar."
+    }
+  },
+  {
+    "name": "Wheel of Fortune",
+    "arcana": "major",
+    "suit": null,
+    "number": 10,
+    "upright": {
+      "keywords": [
+        "Siklus Hidup",
+        "Perubahan Tak Terduga",
+        "Peluang",
+        "Karma"
+      ],
+      "meaning": "Roda kehidupan berputar; setiap fase pasang dan surut membawa pelajaran serta peluang baru.",
+      "reflection": "Terimalah bahwa ketidaktetapan adalah sifat alami semesta; bersiaplah menyambut giliranmu di atas."
+    },
+    "reversed": {
+      "keywords": [
+        "Penolakan Perubahan",
+        "Fase Sulit",
+        "Rasa Sial",
+        "Siklus Berulang"
+      ],
+      "meaning": "Menolak menerima perubahan situasi atau terjebak dalam pola kesalahan yang berulang.",
+      "reflection": "Alih-alih melawan arus yang tak bisa diubah, sesuaikan dayungmu dan pelajari polanya."
+    }
+  },
+  {
+    "name": "Justice",
+    "arcana": "major",
+    "suit": null,
+    "number": 11,
+    "upright": {
+      "keywords": [
+        "Keadilan",
+        "Kebenaran",
+        "Sebab Akibat",
+        "Kejernihan Logika"
+      ],
+      "meaning": "Penilaian objektif dan penerimaan konsekuensi dari setiap pilihan yang telah diambil.",
+      "reflection": "Timbanglah fakta secara jujur tanpa terdistorsi oleh bias atau emosi sesaat."
+    },
+    "reversed": {
+      "keywords": [
+        "Ketidakadilan",
+        "Penyangkalan Tanggung Jawab",
+        "Ketidakjujuran",
+        "Bias"
+      ],
+      "meaning": "Menghindari konsekuensi dari tindakan atau merasa diperlakukan tidak adil oleh situasi.",
+      "reflection": "Keadilan dimulai dari kejujuran pada diri sendiri mengenai peranmu dalam situasi yang terjadi."
+    }
+  },
+  {
+    "name": "The Hanged Man",
+    "arcana": "major",
+    "suit": null,
+    "number": 12,
+    "upright": {
+      "keywords": [
+        "Sudut Pandang Baru",
+        "Ikhlas",
+        "Jeda Sejenak",
+        "Pengorbanan"
+      ],
+      "meaning": "Melepaskan kontrol untuk sementara waktu demi melihat situasi dari perspektif yang sama sekali baru.",
+      "reflection": "Kadang berhenti sejenak dan tidak memaksakan kehendak justru membuka pemahaman yang paling berharga."
+    },
+    "reversed": {
+      "keywords": [
+        "Membuang Waktu",
+        "Penundaan Tak Berujung",
+        "Keras Kepala",
+        "Mati Rasa"
+      ],
+      "meaning": "Pengorbanan yang sia-sia atau keengganan beranjak dari posisi yang sebenarnya merugikan.",
+      "reflection": "Lepaskan beban yang tak berguna; jangan jadikan penundaan sebagai kedok untuk tidak bertindak."
+    }
+  },
+  {
+    "name": "Death",
+    "arcana": "major",
+    "suit": null,
+    "number": 13,
+    "upright": {
+      "keywords": [
+        "Transformasi",
+        "Akhir Sebuah Siklus",
+        "Pelepasan",
+        "Ruang Baru"
+      ],
+      "meaning": "Berakhirnya satu fase lama untuk memberi ruang bagi kelahiran hal baru yang lebih segar.",
+      "reflection": "Jangan takut melepaskan apa yang sudah usang; akhir sebuah cerita adalah awal bab berikutnya."
+    },
+    "reversed": {
+      "keywords": [
+        "Menolak Melepas",
+        "Takut Perubahan",
+        "Stagnasi",
+        "Keterikatan Masa Lalu"
+      ],
+      "meaning": "Bertahan pada masa lalu atau kebiasaan lama yang sudah tidak lagi memberikan manfaat positif.",
+      "reflection": "Mempertahankan rantai lama hanya akan memperpanjang rasa lelah; bukalah genggaman tanganmu."
+    }
+  },
+  {
+    "name": "Temperance",
+    "arcana": "major",
+    "suit": null,
+    "number": 14,
+    "upright": {
+      "keywords": [
+        "Keseimbangan",
+        "Moderasi",
+        "Kesabaran",
+        "Penyelarasan"
+      ],
+      "meaning": "Memadukan berbagai unsur secara harmonis, tidak berlebihan, dan menjaga ketenangan emosi.",
+      "reflection": "Jalan tengah dan ketenangan batin akan menghasilkan solusi yang paling berkelanjutan."
+    },
+    "reversed": {
+      "keywords": [
+        "Ketidakseimbangan",
+        "Ekstrem",
+        "Ketidaksabaran",
+        "Konflik Internal"
+      ],
+      "meaning": "Gaya hidup atau pola pikir yang terlalu ekstrem hingga menguras energi vital.",
+      "reflection": "Evaluasi kembali ritme hidupmu; kurangi hal yang berlebihan dan tambahkan apa yang kurang."
+    }
+  },
+  {
+    "name": "The Devil",
+    "arcana": "major",
+    "suit": null,
+    "number": 15,
+    "upright": {
+      "keywords": [
+        "Keterikatan",
+        "Godaan",
+        "Ilusi Batasan",
+        "Materialisme"
+      ],
+      "meaning": "Keterikatan pada kebiasaan buruk, obsesi, atau pola pikir yang membatasi kebebasan diri.",
+      "reflection": "Sadari bahwa belenggu yang membatasi langkahmu seringkali adalah belenggu yang kamu pasang sendiri."
+    },
+    "reversed": {
+      "keywords": [
+        "Pembebasan Diri",
+        "Kesadaran Baru",
+        "Melepas Kecanduan",
+        "Kendali Pulih"
+      ],
+      "meaning": "Mulai menyadari jebakan kebiasaan lama dan berusaha melepaskan diri menuju kemerdekaan batin.",
+      "reflection": "Langkah pertama menuju kebebasan adalah keberanian melihat ilusi dengan mata terbuka."
+    }
+  },
+  {
+    "name": "The Tower",
+    "arcana": "major",
+    "suit": null,
+    "number": 16,
+    "upright": {
+      "keywords": [
+        "Guncangan Tiba-tiba",
+        "Pencerahan Mendadak",
+        "Runtuhnya Ilusi",
+        "Krisis"
+      ],
+      "meaning": "Struktur atau ekspektasi yang rapuh runtuh seketika demi mengungkap kebenaran yang tak terbantahkan.",
+      "reflection": "Meskipun guncangan terasa pahit, pondasi yang salah memang harus runtuh agar yang sejati bisa dibangun."
+    },
+    "reversed": {
+      "keywords": [
+        "Menghindari Bencana",
+        "Ketakutan Akan Kehancuran",
+        "Menunda Keniscayaan"
+      ],
+      "meaning": "Menahan keruntuhan yang tak terelakkan atau berusaha menutup-nutupi masalah mendasar.",
+      "reflection": "Jangan menambal dinding yang pondasinya sudah retak; hadapi kenyataan agar rekonstruksi bisa dimulai."
+    }
+  },
+  {
+    "name": "The Star",
+    "arcana": "major",
+    "suit": null,
+    "number": 17,
+    "upright": {
+      "keywords": [
+        "Harapan",
+        "Inspirasi",
+        "Pemulihan",
+        "Ketenangan Jiwa"
+      ],
+      "meaning": "Cahaya penuntun setelah badai, membawa keyakinan baru, kedamaian, dan optimisme masa depan.",
+      "reflection": "Pelihara harapan di dalam dada; proses pemulihan sedang berlangsung dan cahayamu akan kembali bersinar."
+    },
+    "reversed": {
+      "keywords": [
+        "Pesimisme",
+        "Keputusasaan",
+        "Kehilangan Arah",
+        "Kekecewaan"
+      ],
+      "meaning": "Awan keraguan menutupi pandangan sehingga sulit melihat secercah harapan yang sebenarnya ada.",
+      "reflection": "Ingatlah bahwa bintang tetap bersinar di balik awan; jangan biarkan kekecewaan sesaat memadamkan tekadmu."
+    }
+  },
+  {
+    "name": "The Moon",
+    "arcana": "major",
+    "suit": null,
+    "number": 18,
+    "upright": {
+      "keywords": [
+        "Alam Bawah Sadar",
+        "Misteri",
+        "Ketidakpastian",
+        "Refleksi Emosi"
+      ],
+      "meaning": "Situasi yang masih samar dan dipengaruhi oleh kecemasan, ilusi, serta bayang-bayang batin.",
+      "reflection": "Jangan membuat keputusan tergesa-gesa saat kabut masih tebal; biarkan fakta terungkap perlahan."
+    },
+    "reversed": {
+      "keywords": [
+        "Kabut Tersibak",
+        "Menghadapi Ketakutan",
+        "Kebenaran Terungkap",
+        "Kejernihan"
+      ],
+      "meaning": "Kecemasan mulai mereda dan kebenaran situasi mulai terlihat jelas tanpa distorsi.",
+      "reflection": "Tatap bayangan ketakutanmu secara langsung; kamu akan menyadari bahwa bayangan itu tidak seburuk yang dibayangkan."
+    }
+  },
+  {
+    "name": "The Sun",
+    "arcana": "major",
+    "suit": null,
+    "number": 19,
+    "upright": {
+      "keywords": [
+        "Kebahagiaan",
+        "Kejernihan",
+        "Vitalitas",
+        "Kehangatan"
+      ],
+      "meaning": "Pancaran energi positif, kejelasan arah, keberhasilan, dan sukacita yang murni.",
+      "reflection": "Rayakan hal-hal baik yang ada di sekitarmu dan bagikan kehangatan itu kepada orang-orang terdekat."
+    },
+    "reversed": {
+      "keywords": [
+        "Mendung Sesaat",
+        "Optimisme Berlebih",
+        "Kurang Bersemangat"
+      ],
+      "meaning": "Kegembiraan yang sedikit tertunda atau kesulitan melihat sisi positif dari situasi harian.",
+      "reflection": "Matahari tidak pernah berhenti bersinar; segarkan kembali semangatmu dengan mensyukuri hal-hal kecil."
+    }
+  },
+  {
+    "name": "Judgement",
+    "arcana": "major",
+    "suit": null,
+    "number": 20,
+    "upright": {
+      "keywords": [
+        "Panggilan Jiwa",
+        "Kebangkitan",
+        "Evaluasi Diri",
+        "Keputusan Besar"
+      ],
+      "meaning": "Momen kesadaran tinggi untuk mengevaluasi masa lalu dan melangkah menyambut panggilan hidup baru.",
+      "reflection": "Dengarkan panggilan perubahan dalam dirimu; lepaskan penyesalan masa lalu dan melangkahlah dengan bijak."
+    },
+    "reversed": {
+      "keywords": [
+        "Menghakimi Diri",
+        "Ragu Mengambil Keputusan",
+        "Menolak Panggilan"
+      ],
+      "meaning": "Kritik diri yang terlalu keras atau penolakan untuk belajar dari kesalahan masa lalu.",
+      "reflection": "Maafkan dirimu atas apa yang telah lalu; evaluasi diri bertujuan untuk berkembang, bukan menyiksa diri."
+    }
+  },
+  {
+    "name": "The World",
+    "arcana": "major",
+    "suit": null,
+    "number": 21,
+    "upright": {
+      "keywords": [
+        "Penyelesaian Sempurna",
+        "Pencapaian",
+        "Keutuhan",
+        "Integrasi"
+      ],
+      "meaning": "Puncak dari suatu siklus perjalanan panjang, rasa utuh, dan kesuksesan yang matang.",
+      "reflection": "Apresiasi seberapa jauh kamu telah berproses; satu babak telah tuntas dengan terhormat."
+    },
+    "reversed": {
+      "keywords": [
+        "Tertunda Menyelesaikan",
+        "Belum Tuntas",
+        "Jalan Pintas",
+        "Kekosongan Akhir"
+      ],
+      "meaning": "Tinggal satu langkah kecil menuju garis akhir, namun motivasi melemah atau ada detail yang terlewat.",
+      "reflection": "Selesaikan apa yang telah kamu mulai; tuntaskan urusan yang menggantung agar langkah berikutnya benar-benar ringan."
+    }
+  },
+  {
+    "name": "Ace of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 1,
+    "upright": {
+      "keywords": [
+        "Percikan Ide Baru",
+        "Inspirasi",
+        "Potensi Kreatif",
+        "Antusiasme"
+      ],
+      "meaning": "Munculnya dorongan energi kreatif baru yang membakar semangat untuk memulai karya.",
+      "reflection": "Ambil inisiatif selagi apinya masih berkobar; ide terbaik membutuhkan keberanian tindakan."
+    },
+    "reversed": {
+      "keywords": [
+        "Penundaan Ide",
+        "Kurang Percaya Diri",
+        "Energi Terbuang",
+        "Ragu-ragu"
+      ],
+      "meaning": "Inspirasi terasa terhambat atau hilangnya arah energi sebelum langkah pertama dimulai.",
+      "reflection": "Fokuskan pikiran pada satu langkah konkret daripada membiarkan idemu menguap begitu saja."
+    }
+  },
+  {
+    "name": "Two of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 2,
+    "upright": {
+      "keywords": [
+        "Perencanaan Masa Depan",
+        "Keputusan Berani",
+        "Eksplorasi",
+        "Visi Jauh"
+      ],
+      "meaning": "Memegang kendali atas pencapaian saat ini sambil merancang ekspansi langkah selanjutnya.",
+      "reflection": "Pikirkan gambaran besar; dunia luas menanti pilihan dan komitmenmu untuk melangkah keluar zona nyaman."
+    },
+    "reversed": {
+      "keywords": [
+        "Takut Melangkah",
+        "Rencana Terlalu Rumit",
+        "Zona Nyaman",
+        "Ragu Memilih"
+      ],
+      "meaning": "Keraguan untuk meninggalkan apa yang sudah akrab demi sesuatu yang belum pasti.",
+      "reflection": "Jangan biarkan analisa berlebih melumpuhkan keberanianmu bereksplorasi."
+    }
+  },
+  {
+    "name": "Three of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 3,
+    "upright": {
+      "keywords": [
+        "Kemajuan Nyata",
+        "Ekspansi",
+        "Menanti Hasil",
+        "Peluang Terbuka"
+      ],
+      "meaning": "Benih usaha yang telah ditanam mulai memperlihatkan pergerakan positif dan prospek masa depan.",
+      "reflection": "Tetap sabar dan percaya pada proses yang sedang berjalan sambil bersiap menyambut peluang baru."
+    },
+    "reversed": {
+      "keywords": [
+        "Hambatan Tak Terduga",
+        "Keterlambatan",
+        "Rintangan Luar",
+        "Frustrasi"
+      ],
+      "meaning": "Hasil yang diharapkan membutuhkan waktu lebih lama atau menghadapi jeda tak terduga.",
+      "reflection": "Gunakan jeda ini untuk mengevaluasi strategi logistik dan memperkuat kesabaran mentalmu."
+    }
+  },
+  {
+    "name": "Four of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 4,
+    "upright": {
+      "keywords": [
+        "Perayaan",
+        "Harmoni",
+        "Pencapaian Penting",
+        "Rumah & Kebersamaan"
+      ],
+      "meaning": "Momen penuh sukacita, stabilitas awal yang kokoh, dan rasa syukur bersama orang terdekat.",
+      "reflection": "Nikmati pencapaian fase ini; rayakan kebersamaan sebagai bahan bakar semangat berikutnya."
+    },
+    "reversed": {
+      "keywords": [
+        "Ketegangan Komunitas",
+        "Perayaan Tertunda",
+        "Kurang Nyaman di Rumah"
+      ],
+      "meaning": "Sedikit friksi dalam lingkaran terdekat atau belum sepenuhnya bisa menikmati momen rileks.",
+      "reflection": "Ciptakan kedamaian dari dalam dirimu sendiri sebelum menuntut keharmonisan dari lingkungan."
+    }
+  },
+  {
+    "name": "Five of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 5,
+    "upright": {
+      "keywords": [
+        "Kompetisi",
+        "Perbedaan Pendapat",
+        "Tantangan",
+        "Dinamika Grup"
+      ],
+      "meaning": "Terjadi benturan ide atau persaingan yang menguji kesabaran dan ketajaman argumen.",
+      "reflection": "Lihat gesekan bukan sebagai ancaman, melainkan sebagai uji ketangguhan ide dan karaktermu."
+    },
+    "reversed": {
+      "keywords": [
+        "Menghindari Konflik",
+        "Kompromi Sehat",
+        "Kelelahan Bersaing",
+        "Damai"
+      ],
+      "meaning": "Meredanya pertikaian atau kesadaran untuk tidak memperpanjang perselisihan tak bermakna.",
+      "reflection": "Pilihlah pertarunganmu dengan bijak; tidak semua perdebatan layak menghabiskan energimu."
+    }
+  },
+  {
+    "name": "Six of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 6,
+    "upright": {
+      "keywords": [
+        "Keberhasilan",
+        "Pengakuan Publik",
+        "Kemenangan",
+        "Percaya Diri"
+      ],
+      "meaning": "Kerja kerasmu membuahkan hasil nyata dan diapresiasi positif oleh lingkungan sekitarmu.",
+      "reflection": "Terima apresiasi dengan rendah hati; jadikan pencapaian ini sebagai pemacu standar yang lebih baik."
+    },
+    "reversed": {
+      "keywords": [
+        "Ego Berlebih",
+        "Kurang Dihargai",
+        "Kekecewaan Publik",
+        "Kejatuhan Sesaat"
+      ],
+      "meaning": "Merasa usaha kurang mendapat tempat atau justru terjebak dalam rasa bangga diri berlebihan.",
+      "reflection": "Nilai diri sejatimu tidak semata-mata ditentukan oleh sorak-sorai pujian orang lain."
+    }
+  },
+  {
+    "name": "Seven of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 7,
+    "upright": {
+      "keywords": [
+        "Bertahan Kokoh",
+        "Keteguhan Sikap",
+        "Menghadapi Tekanan",
+        "Integritas"
+      ],
+      "meaning": "Berdiri tegak membela prinsip dan posisimu di tengah kritik atau tekanan dari berbagai arah.",
+      "reflection": "Yakinlah pada pijakanmu; pertahankan apa yang benar dengan kepala dingin dan hati teguh."
+    },
+    "reversed": {
+      "keywords": [
+        "Kewalahan",
+        "Menyerah Pada Tekanan",
+        "Terlalu Defensif",
+        "Lelah Berjuang"
+      ],
+      "meaning": "Beban mempertahankan posisi mulai terasa menguras stamina fisik dan emosional.",
+      "reflection": "Tentukan kapan harus tetap bertahan dan kapan perlu mencari sekutu untuk berbagi beban."
+    }
+  },
+  {
+    "name": "Eight of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 8,
+    "upright": {
+      "keywords": [
+        "Aksi Cepat",
+        "Kabar Datang",
+        "Momentum Positif",
+        "Kemajuan Pesat"
+      ],
+      "meaning": "Segala sesuatu bergerak dengan cepat; pesan, kesempatan, atau perkembangan datang beruntun.",
+      "reflection": "Manfaatkan momentum yang mengalir deras dengan keputusan yang terfokus dan sigap."
+    },
+    "reversed": {
+      "keywords": [
+        "Kepanikan Tergesa-gesa",
+        "Salah Komunikasi",
+        "Keterlambatan Pesan",
+        "Frustrasi"
+      ],
+      "meaning": "Gerakan yang terlalu terburu-buru hingga menimbulkan kekeliruan atau tertundanya kabar penting.",
+      "reflection": "Perlambat sedikit ritme agar pesan dan tindakanmu tetap terkoordinasi dengan akurat."
+    }
+  },
+  {
+    "name": "Nine of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 9,
+    "upright": {
+      "keywords": [
+        "Ketahanan Terakhir",
+        "Kewaspadaan",
+        "Hampir Sampai",
+        "Mental Baja"
+      ],
+      "meaning": "Meskipun lelah dan pernah terluka, kamu masih memiliki sisa tenaga untuk menjaga garis akhir.",
+      "reflection": "Satu tarikan napas lagi; jangan menyerah di dekat garis finis, ketahananmu sedang diuji."
+    },
+    "reversed": {
+      "keywords": [
+        "Kelelahan Parah",
+        "Paranoia Berlebih",
+        "Pertahanan Runtuh",
+        "Keras Kepala"
+      ],
+      "meaning": "Merasa selalu diintai bahaya padahal situasi sebenarnya sudah jauh lebih aman.",
+      "reflection": "Turunkan kewaspadaan ekstremmu; istirahatlah sejenak agar energimu tidak habis terbakar."
+    }
+  },
+  {
+    "name": "Ten of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 10,
+    "upright": {
+      "keywords": [
+        "Beban Berat",
+        "Tanggung Jawab Besar",
+        "Kerja Keras",
+        "Kewalahan"
+      ],
+      "meaning": "Memikul terlalu banyak tanggung jawab sendirian hingga punggung terasa membungkuk.",
+      "reflection": "Sadari batas kapasitasmu; delegasikan tugas atau kurangi beban yang bukan kewajibanmu."
+    },
+    "reversed": {
+      "keywords": [
+        "Melepas Beban",
+        "Menolak Tanggung Jawab Sia-sia",
+        "Pemulihan Energi"
+      ],
+      "meaning": "Mulai menyadari bahwa tidak semua beban hidup orang lain harus kamu pikul di pundakmu.",
+      "reflection": "Lepaskan apa yang tak perlu kamu bawa; langkahmu akan jauh lebih lincah dan sehat."
+    }
+  },
+  {
+    "name": "Page of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 11,
+    "upright": {
+      "keywords": [
+        "Rasa Ingin Tahu",
+        "Eksplorasi Ide",
+        "Antusiasme Muda",
+        "Pesan Inspiratif"
+      ],
+      "meaning": "Jiwa muda yang bersemangat menyambut ide segar dan siap mencoba petualangan baru.",
+      "reflection": "Salurkan rasa penasaranmu ke dalam eksperimen kreatif tanpa takut membuat kesalahan awal."
+    },
+    "reversed": {
+      "keywords": [
+        "Ide Setengah Matang",
+        "Kurang Komitmen",
+        "Prokrastinasi",
+        "Impulsif"
+      ],
+      "meaning": "Banyak ide bermunculan namun minim ketekunan untuk menyelesaikan apa yang sudah dimulai.",
+      "reflection": "Pilihlah satu ide yang paling bernilai dan buktikan dengan komitmen penyelesaian nyata."
+    }
+  },
+  {
+    "name": "Knight of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 12,
+    "upright": {
+      "keywords": [
+        "Aksi Berani",
+        "Gairah Tinggi",
+        "Petualang",
+        "Karismatik"
+      ],
+      "meaning": "Energi membara untuk menerobos tantangan dengan percaya diri tinggi dan kecepatan penuh.",
+      "reflection": "Kombinasikan keberanian aksimu dengan sedikit perhitungan agar tidak tergelincir di tikungan."
+    },
+    "reversed": {
+      "keywords": [
+        "Kecerobohan Emosional",
+        "Amarah Meledak",
+        "Sombong",
+        "Tidak Sabaran"
+      ],
+      "meaning": "Energi panas yang tidak terkendali hingga memicu gesekan atau keputusan gegabah.",
+      "reflection": "Redam ego dan tenangkan pikiran; ketegasan sejati tidak perlu diekspresikan dengan arogansi."
+    }
+  },
+  {
+    "name": "Queen of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 13,
+    "upright": {
+      "keywords": [
+        "Kepercayaan Diri",
+        "Karisma Alami",
+        "Kehangatan",
+        "Mandiri & Tegas"
+      ],
+      "meaning": "Pribadi yang bersinar, percaya diri, berani mengambil panggung, dan membawa energi positif.",
+      "reflection": "Pancarkan keberanian dan kehangatanmu; kehadiranmu mampu menginspirasi orang di sekitarmu."
+    },
+    "reversed": {
+      "keywords": [
+        "Tuntutan Berlebih",
+        "Kecemburuan",
+        "Kehilangan Percaya Diri",
+        "Manipulatif"
+      ],
+      "meaning": "Rasa tidak aman yang ditutupi oleh sikap dominan atau kebutuhan pengakuan berlebih.",
+      "reflection": "Temukan kembali rasa aman dari dalam dirimu; kamu berharga tanpa harus selalu mendominasi."
+    }
+  },
+  {
+    "name": "King of Wands",
+    "arcana": "minor",
+    "suit": "wands",
+    "number": 14,
+    "upright": {
+      "keywords": [
+        "Kepemimpinan Visioner",
+        "Inspirasi Besar",
+        "Ketegasan Eksekusi",
+        "Wibawa"
+      ],
+      "meaning": "Pemimpin yang matang, mampu mengubah visi besar menjadi kenyataan melalui keteladanan.",
+      "reflection": "Pimpin langkahmu dengan integritas; arahkan orang lain dengan visi yang jelas dan memberdayakan."
+    },
+    "reversed": {
+      "keywords": [
+        "Otoriter",
+        "Tidak Mau Mendengar",
+        "Ekspektasi Terlalu Tinggi",
+        "Tiran"
+      ],
+      "meaning": "Sikap keras kepala dalam memimpin yang membuat orang lain merasa tertekan dan menjauh.",
+      "reflection": "Dengarkan masukan tim; pemimpin yang bijak tahu kapan harus mengarahkan dan kapan mendengar."
+    }
+  },
+  {
+    "name": "Ace of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 1,
+    "upright": {
+      "keywords": [
+        "Cinta Tulus",
+        "Keterbukaan Hati",
+        "Kedamaian Batin",
+        "Koneksi Emosional Baru"
+      ],
+      "meaning": "Meluapnya rasa kasih, kehangatan hati, dan potensi hubungan yang tulus dan mendalam.",
+      "reflection": "Buka hatimu untuk menerima dan memberi kebaikan tanpa rasa curiga yang berlebihan."
+    },
+    "reversed": {
+      "keywords": [
+        "Hati Tertutup",
+        "Emosi Terpendam",
+        "Kelelahan Hati",
+        "Kekecewaan"
+      ],
+      "meaning": "Rasa sakit masa lalu membuat hati enggan terbuka untuk koneksi baru.",
+      "reflection": "Beri waktu untuk menyembuhkan luka batin; jangan paksakan membuka diri sebelum kamu siap."
+    }
+  },
+  {
+    "name": "Two of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 2,
+    "upright": {
+      "keywords": [
+        "Kemitraan Sejati",
+        "Koneksi Saling Menghargai",
+        "Ketertarikan",
+        "Keselarasan"
+      ],
+      "meaning": "Hubungan yang didasari oleh rasa saling menghormati, kecocokan emosi, dan kerja sama erat.",
+      "reflection": "Pelihara jembatan komunikasi dua arah dengan kejujuran dan saling mendengarkan."
+    },
+    "reversed": {
+      "keywords": [
+        "Miskomunikasi",
+        "Ketidakseimbangan Memberi",
+        "Jarak Emosional",
+        "Ego Pribadi"
+      ],
+      "meaning": "Ada ketimpangan peran atau salah paham yang merenggangkan kehangatan hubungan.",
+      "reflection": "Duduk bersama dan bicarakan ganjalan hati dengan niat mencari solusi, bukan kemenangan."
+    }
+  },
+  {
+    "name": "Three of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 3,
+    "upright": {
+      "keywords": [
+        "Kebersamaan",
+        "Sahabat Dekat",
+        "Perayaan Sukacita",
+        "Dukungan Komunitas"
+      ],
+      "meaning": "Momen berkumpul dengan orang-orang tercinta, berbagi tawa, dan saling menyemangati.",
+      "reflection": "Luangkan waktu untuk bercengkrama dan mensyukuri kehadiran sahabat yang tulus mendukungmu."
+    },
+    "reversed": {
+      "keywords": [
+        "Gosip Lingkaran",
+        "Perilaku Berlebihan",
+        "Merasa Terasing",
+        "Drama Pertemanan"
+      ],
+      "meaning": "Ada ketidaknyamanan dalam pergaulan atau drama sosial yang menguras ketenangan pikiran.",
+      "reflection": "Pilah lingkaran sosialmu; kedamaian batin jauh lebih penting daripada validasi kelompok."
+    }
+  },
+  {
+    "name": "Four of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 4,
+    "upright": {
+      "keywords": [
+        "Apatis",
+        "Merenung Terlalu Dalam",
+        "Jenuh",
+        "Melewatkan Peluang"
+      ],
+      "meaning": "Rasa bosan atau kecewa membuatmu menutup mata terhadap uluran tangan atau peluang yang ada di depan mata.",
+      "reflection": "Ubah sudut pandangmu; terkadang apa yang kamu butuhkan sudah tersedia tepat di sampingmu."
+    },
+    "reversed": {
+      "keywords": [
+        "Kesadaran Baru",
+        "Bangkit Dari Kejenuhan",
+        "Kesiapan Melangkah",
+        "Rasa Syukur"
+      ],
+      "meaning": "Mulai keluar dari masa berkabung batin dan siap menyambut kembali warna kehidupan.",
+      "reflection": "Tataplah ke depan; ambillah kesempatan baru dengan kesiapan hati yang segar."
+    }
+  },
+  {
+    "name": "Five of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 5,
+    "upright": {
+      "keywords": [
+        "Duka Kekecewaan",
+        "Penyesalan Masa Lalu",
+        "Fokus Pada Kehilangan",
+        "Patah Hati"
+      ],
+      "meaning": "Terpaku pada apa yang sudah tumpah dan rusak, hingga lupa bahwa masih ada cawan yang berdiri.",
+      "reflection": "Wajar merasa sedih, namun jangan biarkan penyesalan membutakanmu dari hal baik yang masih tersisa."
+    },
+    "reversed": {
+      "keywords": [
+        "Penerimaan Kenyataan",
+        "Penyembuhan Diri",
+        "Memaafkan",
+        "Melihat Harapan"
+      ],
+      "meaning": "Mulai ikhlas menerima kenyataan dan membalikkan badan menuju harapan yang masih utuh.",
+      "reflection": "Luka adalah guru kehidupan; bersiaplah melangkah maju dengan hati yang lebih bijaksana."
+    }
+  },
+  {
+    "name": "Six of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 6,
+    "upright": {
+      "keywords": [
+        "Nostalgia Manis",
+        "Kepolosan Hati",
+        "Memori Masa Kecil",
+        "Reuni Hangat"
+      ],
+      "meaning": "Kenangan indah masa lalu membawa kehangatan atau hadirnya kembali sosok yang akrab.",
+      "reflection": "Petik kembali ketulusan dan kesederhanaan masa lalu untuk mewarnai harimu saat ini."
+    },
+    "reversed": {
+      "keywords": [
+        "Terjebak Masa Lalu",
+        "Ketidakdewasaan",
+        "Menolak Bertumbuh",
+        "Romantisasi Palsu"
+      ],
+      "meaning": "Terlalu mendambakan masa lalu hingga melalaikan tanggung jawab dan kenyataan masa kini.",
+      "reflection": "Masa lalu adalah tempat belajar, bukan tempat tinggal; hiduplah di sini dan sekarang."
+    }
+  },
+  {
+    "name": "Seven of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 7,
+    "upright": {
+      "keywords": [
+        "Banyak Pilihan",
+        "Imajinasi Liar",
+        "Ilusi & Harapan",
+        "Kebingungan Memilih"
+      ],
+      "meaning": "Banyak godaan dan opsi yang tampak menarik di permukaan, namun membutuhkan seleksi ketat.",
+      "reflection": "Pilah antara angan-angan kosong dengan kenyataan yang bisa dieksekusi secara nyata."
+    },
+    "reversed": {
+      "keywords": [
+        "Kejernihan Pilihan",
+        "Menghilangkan Ilusi",
+        "Fokus Keputusan",
+        "Realis"
+      ],
+      "meaning": "Mulai tersadar dari lamunan dan mampu menentukan prioritas yang benar-benar esensial.",
+      "reflection": "Pilihlah dengan komitmen penuh; satu langkah nyata jauh lebih berharga daripada seribu khayalan."
+    }
+  },
+  {
+    "name": "Eight of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 8,
+    "upright": {
+      "keywords": [
+        "Meninggalkan Yang Usang",
+        "Mencari Makna Lebih Dalam",
+        "Pelepasan Sukarela"
+      ],
+      "meaning": "Menyadari bahwa situasi saat ini sudah tidak lagi memberi kepuasan batin dan berani beranjak pergi.",
+      "reflection": "Pergi meninggalkan zona aman membutuhkan keberanian; percayalah pada pencarian jiwamu."
+    },
+    "reversed": {
+      "keywords": [
+        "Takut Melangkah Pergi",
+        "Bertahan Pada Kepalsuan",
+        "Ragu Menutup Babak"
+      ],
+      "meaning": "Tahu bahwa situasi sudah tidak sehat, namun masih berat hati untuk melepaskannya.",
+      "reflection": "Jangan buang waktumu di tempat yang tidak menghargai atau memberi ruang untuk bertumbuh."
+    }
+  },
+  {
+    "name": "Nine of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 9,
+    "upright": {
+      "keywords": [
+        "Kepuasan Hati",
+        "Harapan Terwujud",
+        "Kenyamanan Emosi",
+        "Rasa Syukur"
+      ],
+      "meaning": "Dikenal sebagai cawan impian; periode kepuasan batin, rasa cukup, dan kebahagiaan personal.",
+      "reflection": "Nikmati rasa puas ini dengan rendah hati dan luaskan rasa syukurmu kepada sesama."
+    },
+    "reversed": {
+      "keywords": [
+        "Pemuasan Diri Berlebih",
+        "Kepuasan Semu",
+        "Keserakahan",
+        "Kekosongan Batin"
+      ],
+      "meaning": "Mengejar kesenangan materi atau fisik yang ternyata belum mampu mengisi ruang kosong di hati.",
+      "reflection": "Kebahagiaan sejati tidak berasal dari pemanjaan diri berlebih, melainkan ketenangan jiwa."
+    }
+  },
+  {
+    "name": "Ten of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 10,
+    "upright": {
+      "keywords": [
+        "Kebahagiaan Utuh",
+        "Harmoni Keluarga",
+        "Kedamaian Rumah",
+        "Cinta Sejati"
+      ],
+      "meaning": "Puncak keharmonisan emosional, rasa aman bersama orang tercinta, dan kedamaian jangka panjang.",
+      "reflection": "Rawat rasa saling memiliki dalam lingkaran keluargamu; itulah kekayaan batin yang paling berharga."
+    },
+    "reversed": {
+      "keywords": [
+        "Ketidakharmonisan Rumah",
+        "Harapan Tak Realistis",
+        "Keretakan Hubungan"
+      ],
+      "meaning": "Ada ketegangan di balik pintu rumah atau benturan ekspektasi dalam dinamika keluarga.",
+      "reflection": "Turunkan ego masing-masing; keharmonisan dibangun melalui pengertian dan kompromi sabar."
+    }
+  },
+  {
+    "name": "Page of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 11,
+    "upright": {
+      "keywords": [
+        "Pesan Hangat",
+        "Sensitivitas Emosi",
+        "Kreativitas Pemula",
+        "Kejutan Manis"
+      ],
+      "meaning": "Hadirnya kabar baik, ide puitis, atau ajakan koneksi emosional yang menyentuh hati.",
+      "reflection": "Sambut perasaanmu dengan polos dan jujur; jangan takut terlihat lembut atau tersentuh."
+    },
+    "reversed": {
+      "keywords": [
+        "Kekanak-kanakan Emosional",
+        "Moody",
+        "Kekecewaan Kecil",
+        "Dramatis"
+      ],
+      "meaning": "Reaksi emosional yang berlebihan atau perasaan mudah tersinggung oleh hal-hal sepele.",
+      "reflection": "Kelola kepekaanmu agar menjadi empati yang sehat, bukan drama yang membebani orang lain."
+    }
+  },
+  {
+    "name": "Knight of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 12,
+    "upright": {
+      "keywords": [
+        "Romantisme",
+        "Pesona Halus",
+        "Mengikuti Kata Hati",
+        "Utusan Damai"
+      ],
+      "meaning": "Membawa pesan cinta, diplomasi yang santun, dan keberanian memperjuangkan perasaan batin.",
+      "reflection": "Bawalah niat baikmu dengan ketulusan; kata-kata yang lembut mampu meluluhkan kekakuan."
+    },
+    "reversed": {
+      "keywords": [
+        "Manipulasi Emosi",
+        "Ekspektasi Melayang",
+        "Janji Manis Palsu",
+        "Patah Ekspektasi"
+      ],
+      "meaning": "Terjebak dalam ilusi romantis atau janji-janji manis yang tidak dibarengi bukti nyata.",
+      "reflection": "Tegakkan kakimu di atas bumi; jangan terlena oleh pesona yang tidak memiliki pondasi kenyataan."
+    }
+  },
+  {
+    "name": "Queen of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 13,
+    "upright": {
+      "keywords": [
+        "Empati Mendalam",
+        "Intuisi Tajam",
+        "Kecerdasan Emosional",
+        "Penuh Kasih"
+      ],
+      "meaning": "Kedewasaan dalam memahami perasaan diri dan orang lain tanpa menghakimi.",
+      "reflection": "Jadilah tempat berteduh yang aman bagi dirimu dan orang lain melalui telinga yang mau mendengar."
+    },
+    "reversed": {
+      "keywords": [
+        "Keterikatan Emosional Berlebih",
+        "Kelelahan Empati",
+        "Ketidakstabilan Suasana Hati"
+      ],
+      "meaning": "Menyerap terlalu banyak beban emosi orang lain hingga kesehatan mental sendiri terganggu.",
+      "reflection": "Pasang batas emosional yang sehat; kamu berhak menjaga ketenangan hatimu sendiri."
+    }
+  },
+  {
+    "name": "King of Cups",
+    "arcana": "minor",
+    "suit": "cups",
+    "number": 14,
+    "upright": {
+      "keywords": [
+        "Kematangan Emosi",
+        "Ketenangan Menghadapi Badai",
+        "Kebijaksanaan Hati",
+        "Diplomat"
+      ],
+      "meaning": "Mampu menyeimbangkan antara logika dingin dan perasaan hangat dalam menghadapi persoalan rumit.",
+      "reflection": "Tetaplah tenang di tengah gelombang emosi; kebijaksanaanmu adalah jangkar bagi sekitarmu."
+    },
+    "reversed": {
+      "keywords": [
+        "Emosi Dingin / Menutup",
+        "Manipulasi Perasaan",
+        "Kecemasan Terpendam"
+      ],
+      "meaning": "Menekan perasaan terlalu dalam hingga tampak dingin atau menggunakannya untuk mengontrol orang lain.",
+      "reflection": "Akui apa yang kamu rasakan tanpa harus kehilangan kendali; kejujuran emosi adalah kekuatan."
+    }
+  },
+  {
+    "name": "Ace of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 1,
+    "upright": {
+      "keywords": [
+        "Kejernihan Pikiran",
+        "Kebenaran Tegas",
+        "Terobosan Logika",
+        "Keadilan Fakta"
+      ],
+      "meaning": "Kabut kebingungan tersibak oleh pedang kebenaran; pemahaman objektif yang tajam dan terang.",
+      "reflection": "Bicaralah dengan jujur dan jelas; fakta yang tajam akan menyelesaikan keraguan yang berlarut-larut."
+    },
+    "reversed": {
+      "keywords": [
+        "Pikiran Bingung",
+        "Kata-kata Melukai",
+        "Informasi Menyesatkan",
+        "Ketidakadilan"
+      ],
+      "meaning": "Penggunaan logika secara keliru atau ucapan kasar yang meninggalkan luka pada orang lain.",
+      "reflection": "Pastikan kata-katamu didasari niat membangun, bukan sekadar melampiaskan kemarahan."
+    }
+  },
+  {
+    "name": "Two of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 2,
+    "upright": {
+      "keywords": [
+        "Dilema Buntu",
+        "Menutup Mata Dari Fakta",
+        "Pilihan Sulit",
+        "Gencatan Senjata"
+      ],
+      "meaning": "Dua opsi yang sama beratnya membuatmu ragu membuka mata untuk melihat kebenaran situasi.",
+      "reflection": "Buka penutup matamu dan hadapi kenyataan; menunda keputusan tidak akan menghilangkan masalah."
+    },
+    "reversed": {
+      "keywords": [
+        "Kebenaran Terungkap",
+        "Keputusan Terpaksa Diambil",
+        "Kelebihan Informasi"
+      ],
+      "meaning": "Situasi memaksamu untuk tidak lagi netral dan harus menentukan arah pilihan secara tegas.",
+      "reflection": "Ambil keputusan dengan integritas dan terimalah konsekuensi langkah berikutnya."
+    }
+  },
+  {
+    "name": "Three of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 3,
+    "upright": {
+      "keywords": [
+        "Patah Hati",
+        "Kesedihan Mendalam",
+        "Kekecewaan Pahit",
+        "Kebenaran Menyakitkan"
+      ],
+      "meaning": "Rasa sakit emosional akibat pengkhianatan, kehilangan, atau kata-kata yang menusuk hati.",
+      "reflection": "Izinkan dirimu memproses rasa duka; badai ini adalah bagian dari pembersihan menuju kesembuhan."
+    },
+    "reversed": {
+      "keywords": [
+        "Penyembuhan Duka",
+        "Memaafkan Masa Lalu",
+        "Optimisme Bangkit",
+        "Melepas Dendam"
+      ],
+      "meaning": "Luka hati mulai menutup perlahan dan kamu siap melepaskan dendam yang memberatkan jiwa.",
+      "reflection": "Penyembuhan membutuhkan waktu; teruslah melangkah maju dengan kasih sayang pada diri sendiri."
+    }
+  },
+  {
+    "name": "Four of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 4,
+    "upright": {
+      "keywords": [
+        "Istirahat Total",
+        "Pemulihan Energi",
+        "Meditasi",
+        "Menjauh Dari Keributan"
+      ],
+      "meaning": "Perlu menarik diri sejenak dari medan pertempuran untuk memulihkan fisik dan ketenangan mental.",
+      "reflection": "Istirahat bukanlah tanda kekalahan, melainkan persiapan krusial agar pikiranmu kembali jernih."
+    },
+    "reversed": {
+      "keywords": [
+        "Kelelahan Menumpuk",
+        "Burnout",
+        "Terpaksa Bangkit",
+        "Kembali Beraksi"
+      ],
+      "meaning": "Tubuh dan pikiran yang dipaksa bekerja terus-menerus tanpa jeda akan memicu kelelahan ekstrem.",
+      "reflection": "Dengarkan sinyal tubuhmu; jangan menunggu tumbang baru bersedia mengambil jeda."
+    }
+  },
+  {
+    "name": "Five of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 5,
+    "upright": {
+      "keywords": [
+        "Kemenangan Semu",
+        "Konflik Ego",
+        "Kehilangan Teman Demi Menang",
+        "Ketegangan"
+      ],
+      "meaning": "Memenangkan perdebatan dengan cara mempermalukan orang lain, meninggalkan rasa hampa dan permusuhan.",
+      "reflection": "Tanyakan pada dirimu: apakah kemenangan argumen ini sebanding dengan rusaknya hubungan baik?"
+    },
+    "reversed": {
+      "keywords": [
+        "Meredakan Permusuhan",
+        "Menyadari Kesia-siaan Konflik",
+        "Berdamai"
+      ],
+      "meaning": "Kesadaran untuk meletakkan senjata dan menghentikan pertikaian yang sama-sama merugikan.",
+      "reflection": "Mengalah demi perdamaian adalah tanda kedewasaan tertinggi, bukan kelemahan."
+    }
+  },
+  {
+    "name": "Six of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 6,
+    "upright": {
+      "keywords": [
+        "Transisi Menuju Tenang",
+        "Meninggalkan Badai",
+        "Perjalanan Pemulihan",
+        "Harapan Baru"
+      ],
+      "meaning": "Perlahan berlayar meninggalkan perairan yang bergolak menuju pantai yang lebih tenang dan aman.",
+      "reflection": "Meskipun hati masih membawa sisa duka, percayalah bahwa air di depanmu jauh lebih tenang."
+    },
+    "reversed": {
+      "keywords": [
+        "Transisi Terhambat",
+        "Membawa Beban Masa Lalu",
+        "Ketakutan Menatap Depan"
+      ],
+      "meaning": "Kesulitan beradaptasi dengan perubahan atau masih terikat oleh trauma yang ditinggalkan.",
+      "reflection": "Fokuskan pandanganmu ke depan perahu; jangan biarkan ombak belakang menenggelamkan arahmu."
+    }
+  },
+  {
+    "name": "Seven of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 7,
+    "upright": {
+      "keywords": [
+        "Strategi Rahasia",
+        "Kecerdikan",
+        "Menghindari Masalah",
+        "Tindakan Sembunyi-sembunyi"
+      ],
+      "meaning": "Mencoba menyelesaikan urusan sendirian secara diam-diam atau menggunakan taktik yang tidak lazim.",
+      "reflection": "Pastikan strategimu tidak merugikan integritasmu; kejujuran tetaplah benteng pertahanan terbaik."
+    },
+    "reversed": {
+      "keywords": [
+        "Rahasia Terbongkar",
+        "Pengakuan Jujur",
+        "Menghadapi Konsekuensi",
+        "Konseling"
+      ],
+      "meaning": "Beban menyimpan rahasia mulai terasa menyiksa atau kenyataan akhirnya terungkap ke permukaan.",
+      "reflection": "Lebih baik jujur sekarang daripada harus terus menambal kebohongan demi kebohongan."
+    }
+  },
+  {
+    "name": "Eight of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 8,
+    "upright": {
+      "keywords": [
+        "Merasa Terjebak",
+        "Keterbatasan Mental",
+        "Ketakutan Palsu",
+        "Ketidakberdayaan"
+      ],
+      "meaning": "Merasa terkepung oleh keadaan, padahal ikatan yang membelenggumu sebenarnya longgar dan bisa dilepas.",
+      "reflection": "Keluarlah dari penjara pikiranmu sendiri; langkah pertama pembebasan adalah membuka mata batin."
+    },
+    "reversed": {
+      "keywords": [
+        "Melihat Jalan Keluar",
+        "Kebebasan Batin",
+        "Mengatasi Ketakutan",
+        "Harapan Nyata"
+      ],
+      "meaning": "Mulai menyadari bahwa kamu selalu memiliki pilihan untuk keluar dari situasi yang menekan.",
+      "reflection": "Lepaskan penutup matamu dan melangkahlah; pintu kebebasan selalu terbuka untukmu."
+    }
+  },
+  {
+    "name": "Nine of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 9,
+    "upright": {
+      "keywords": [
+        "Kecemasan Malam Hari",
+        "Overthinking",
+        "Rasa Bersalah",
+        "Mimpi Buruk"
+      ],
+      "meaning": "Pikiran berputar liar di tengah malam, membesar-besarkan masalah yang sebenarnya belum tentu terjadi.",
+      "reflection": "Ingatlah bahwa kecemasan adalah ilusi ketakutan; bicarakan bebanmu di siang hari dengan orang yang kamu percaya."
+    },
+    "reversed": {
+      "keywords": [
+        "Kecemasan Mereda",
+        "Harapan Fajar",
+        "Menemukan Solusi Nyata",
+        "Belajar Tenang"
+      ],
+      "meaning": "Malam yang kelam mulai berganti fajar; kamu menyadari bahwa ketakutanmu tidak sebesar kenyataannya.",
+      "reflection": "Tarik napas dalam-dalam; pikiran yang tenang akan menemukan jalan keluar yang jernih."
+    }
+  },
+  {
+    "name": "Ten of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 10,
+    "upright": {
+      "keywords": [
+        "Titik Terendah",
+        "Akhir Yang Menyakitkan",
+        "Kelelahan Total",
+        "Fajar Menanti"
+      ],
+      "meaning": "Puncak penderitaan atau akhir menyakitkan dari suatu masalah; tidak ada lagi yang bisa memburuk setelah ini.",
+      "reflection": "Kamu sudah melewati bagian terburuk; matahari terbit di cakrawala menandai kelahiran lembaran baru."
+    },
+    "reversed": {
+      "keywords": [
+        "Kebangkitan Perlahan",
+        "Pemulihan Dari Krisis",
+        "Menolak Jadi Korban"
+      ],
+      "meaning": "Mulai bangkit dari debu kekalahan dan menyadari bahwa kamu masih bernapas dan mampu berjuang.",
+      "reflection": "Jadikan pengalaman pahit ini sebagai imun ketangguhan jiwa untuk melangkah kembali."
+    }
+  },
+  {
+    "name": "Page of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 11,
+    "upright": {
+      "keywords": [
+        "Rasa Ingin Tahu Tajam",
+        "Kecerdasan Kritis",
+        "Kewaspadaan",
+        "Pencari Fakta"
+      ],
+      "meaning": "Pikiran muda yang haus akan informasi, kritis mengamati detail, dan berani menyuarakan kebenaran.",
+      "reflection": "Gunakan ketajaman analisismu untuk belajar hal berharga, bukan untuk mencari-cari kesalahan orang lain."
+    },
+    "reversed": {
+      "keywords": [
+        "Bicara Tanpa Fakta",
+        "Sinis Berlebih",
+        "Mata-mata Sosial Media",
+        "Gosip Dangkal"
+      ],
+      "meaning": "Terlalu sibuk mengurusi privasi orang lain atau melontarkan komentar sinis yang tidak berdasar.",
+      "reflection": "Arahkan energi mentalmu untuk mengembangkan diri sendiri daripada mengawasi urusan orang lain."
+    }
+  },
+  {
+    "name": "Knight of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 12,
+    "upright": {
+      "keywords": [
+        "Aksi Cepat & Tajam",
+        "Tekad Tanpa Kompromi",
+        "Fokus Misi",
+        "Berani Mengkritisi"
+      ],
+      "meaning": "Melesat maju dengan keyakinan penuh pada logika dan kebenaran misi yang diembannya.",
+      "reflection": "Kecepatan pikiranmu luar biasa, namun perhatikan keselamatan perasaan orang di sekelilingmu."
+    },
+    "reversed": {
+      "keywords": [
+        "Keras Kepala Buta",
+        "Argumen Agresif",
+        "Menabrak Tanpa Pikir",
+        "Sarkasme Tajam"
+      ],
+      "meaning": "Menyerang tanpa pertimbangan matang hingga melukai pihak yang tidak bersalah demi kepuasan ego.",
+      "reflection": "Tarik rem darurat; kecerdasan tanpa kepekaan hati hanya akan melahirkan kehancuran."
+    }
+  },
+  {
+    "name": "Queen of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 13,
+    "upright": {
+      "keywords": [
+        "Kejernihan Objektif",
+        "Kemadirian Pikir",
+        "Kejujuran Tegas",
+        "Kebijaksanaan Logis"
+      ],
+      "meaning": "Mampu melihat situasi tanpa terdistorsi emosi, menjunjung tinggi kebenaran dan batas pribadi yang sehat.",
+      "reflection": "Bersikaplah tegas dan adil; ketegasan yang dibarengi welas asih adalah pelindung terbaikmu."
+    },
+    "reversed": {
+      "keywords": [
+        "Hati Yang Dingin",
+        "Sinis Tajam",
+        "Menutup Diri Dari Kasih",
+        "Kritik Menghancurkan"
+      ],
+      "meaning": "Rasa sakit masa lalu membuat sikapmu menjadi terlalu dingin, sinis, dan sulit didekati.",
+      "reflection": "Melindungi diri tidak harus berarti mematikan kehangatan hatimu; biarkan kebaikan tetap masuk."
+    }
+  },
+  {
+    "name": "King of Swords",
+    "arcana": "minor",
+    "suit": "swords",
+    "number": 14,
+    "upright": {
+      "keywords": [
+        "Otoritas Intelektual",
+        "Keadilan Murni",
+        "Penalaran Rasional",
+        "Ketegasan Etis"
+      ],
+      "meaning": "Pikiran yang matang, berpegang teguh pada fakta, hukum sebab akibat, dan kebenaran objektif.",
+      "reflection": "Buatlah keputusan berdasarkan pertimbangan matang dan prinsip keadilan yang tidak memihak."
+    },
+    "reversed": {
+      "keywords": [
+        "Kekejaman Logika",
+        "Penyalahgunaan Wewenang",
+        "Kaku & Menindas",
+        "Manipulasi Fakta"
+      ],
+      "meaning": "Menggunakan argumen hukum atau logika untuk menekan pihak yang lebih lemah demi kepentingan pribadi.",
+      "reflection": "Ingatlah bahwa hukum tertinggi adalah keadilan yang memanusiakan manusia, bukan sekadar aturan kaku."
+    }
+  },
+  {
+    "name": "Ace of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 1,
+    "upright": {
+      "keywords": [
+        "Peluang Finansial Baru",
+        "Fondasi Praktis",
+        "Kemakmuran Nyata",
+        "Potensi Usaha"
+      ],
+      "meaning": "Hadirnya benih peluang nyata di bidang karier, tabungan, atau proyek yang menjanjikan stabilitas.",
+      "reflection": "Tanam benih ini dengan konsistensi dan perawatan yang disiplin; hasilnya akan berbuah manis."
+    },
+    "reversed": {
+      "keywords": [
+        "Peluang Terlewat",
+        "Perencanaan Finansial Buruk",
+        "Keserakahan",
+        "Ketidakpastian"
+      ],
+      "meaning": "Peluang materi yang kurang dimanfaatkan secara cermat atau pengeluaran yang tidak terkontrol.",
+      "reflection": "Tata ulang anggaran dan prioritas praktismu sebelum mengambil komitmen finansial besar."
+    }
+  },
+  {
+    "name": "Two of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 2,
+    "upright": {
+      "keywords": [
+        "Keseimbangan Fleksibel",
+        "Manajemen Prioritas",
+        "Mengatur Ritme",
+        "Adaptasi"
+      ],
+      "meaning": "Mampu mengatur beberapa tanggung jawab sekaligus dengan kelincahan dan koordinasi yang baik.",
+      "reflection": "Tetaplah fleksibel menghadapi pasang surut rutinitas; buatlah prioritas agar tidak ada bola yang jatuh."
+    },
+    "reversed": {
+      "keywords": [
+        "Kewalahan Finansial",
+        "Kehilangan Keseimbangan",
+        "Salah Prioritas",
+        "Stres Beban"
+      ],
+      "meaning": "Terlalu banyak hal yang diurus secara bersamaan hingga merasa kehabisan napas dan tenaga.",
+      "reflection": "Sederhanakan aktivitasmu; pilih hal yang paling esensial dan lepaskan urusan tambahan sesaat."
+    }
+  },
+  {
+    "name": "Three of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 3,
+    "upright": {
+      "keywords": [
+        "Kolaborasi Ahli",
+        "Kerja Sama Tim",
+        "Kualitas Karya",
+        "Apresiasi Keterampilan"
+      ],
+      "meaning": "Membangun karya berkualitas melalui kerja sama yang solid dengan saling menghargai keahlian masing-masing.",
+      "reflection": "Dengarkan masukan rekan kerja; sinergi tim akan menghasilkan karya yang jauh lebih megah."
+    },
+    "reversed": {
+      "keywords": [
+        "Kurang Koordinasi",
+        "Ego Anggota Tim",
+        "Kualitas Menurun",
+        "Persaingan Internal"
+      ],
+      "meaning": "Ketidaksesuaian visi kerja atau keengganan untuk saling mendengarkan dalam sebuah tim.",
+      "reflection": "Fokuskan kembali tujuan bersama di atas ambisi pribadi demi kelancaran proyek."
+    }
+  },
+  {
+    "name": "Four of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 4,
+    "upright": {
+      "keywords": [
+        "Menjaga Keamanan",
+        "Stabilitas Materi",
+        "Hemat Terukur",
+        "Pondasi Aman"
+      ],
+      "meaning": "Menjaga apa yang telah kamu miliki dengan hati-hati demi memastikan keamanan jangka panjang.",
+      "reflection": "Bijak dalam mengelola sumber daya adalah baik, namun jangan biarkan rasa takut membuatmu kikir."
+    },
+    "reversed": {
+      "keywords": [
+        "Kekikiran Berlebih",
+        "Takut Kehilangan",
+        "Terlalu Protektif",
+        "Belanja Impulsif"
+      ],
+      "meaning": "Rasa takut miskin yang membuatmu menahan segalanya terlalu erat atau justru tiba-tiba kalap belanja.",
+      "reflection": "Kelimpahan mengalir saat dikelola secara seimbang; rasa aman sejati berasal dari kapasitas diri."
+    }
+  },
+  {
+    "name": "Five of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 5,
+    "upright": {
+      "keywords": [
+        "Kesulitan Finansial",
+        "Rasa Terasing",
+        "Fase Keringat & Air Mata",
+        "Bantuan Terabaikan"
+      ],
+      "meaning": "Menghadapi masa sulit secara fisik atau finansial, merasa sendirian di tengah dinginnya kenyataan.",
+      "reflection": "Jangan biarkan rasa gengsi menghalangimu mencari pertolongan; pintu bantuan selalu tersedia bagi yang meminta."
+    },
+    "reversed": {
+      "keywords": [
+        "Pemulihan Perlahan",
+        "Bantuan Datang",
+        "Keluar Dari Masa Kritis",
+        "Harapan Finansial"
+      ],
+      "meaning": "Masa krisis mulai menemukan titik balik positif; ada jalan keluar praktis yang mulai tampak.",
+      "reflection": "Pertahankan optimisme realistismu; pemulihan ekonomi dan fisikmu sedang berproses."
+    }
+  },
+  {
+    "name": "Six of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 6,
+    "upright": {
+      "keywords": [
+        "Kemurahan Hati",
+        "Berbagi Rezeki",
+        "Keadilan Pertukaran",
+        "Bantuan Finansial"
+      ],
+      "meaning": "Aliran memberi dan menerima yang sehat; kesempatan untuk menolong atau menerima bantuan yang tepat guna.",
+      "reflection": "Bantulah mereka yang membutuhkan dengan tulus; rezeki yang dibagikan akan mengundang berkah berlipat."
+    },
+    "reversed": {
+      "keywords": [
+        "Bantuan Bersyarat",
+        "Utang Menumpuk",
+        "Ketidakadilan Distribusi",
+        "Pemanfaatan"
+      ],
+      "meaning": "Ada pamrih tersembunyi di balik bantuan atau kecenderungan terlalu bergantung pada belas kasihan.",
+      "reflection": "Jaga kemandirianmu; pastikan setiap kesepakatan finansial dibuat transparan dan adil."
+    }
+  },
+  {
+    "name": "Seven of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 7,
+    "upright": {
+      "keywords": [
+        "Kesabaran Berproses",
+        "Evaluasi Hasil Kerja",
+        "Investasi Jangka Panjang",
+        "Ketekunan"
+      ],
+      "meaning": "Melihat hasil jerih payah yang sedang tumbuh; momen merenungkan apakah cara kerja saat ini sudah optimal.",
+      "reflection": "Pertumbuhan membutuhkan waktu; jangan mencabut tanaman hanya untuk melihat apakah akarnya tumbuh."
+    },
+    "reversed": {
+      "keywords": [
+        "Frustrasi Hasil Lambat",
+        "Investasi Kurang Tepat",
+        "Malas Merawat",
+        "Putus Asa"
+      ],
+      "meaning": "Merasa lelah karena hasil kerja keras belum terlihat sepadan dengan energi yang dikeluarkan.",
+      "reflection": "Evaluasi metodenya secara objektif; perbaiki strategi yang kurang efisien dengan kepala dingin."
+    }
+  },
+  {
+    "name": "Eight of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 8,
+    "upright": {
+      "keywords": [
+        "Dedikasi Pengrajin",
+        "Mengasah Keahlian",
+        "Detail Kerja",
+        "Kerja Keras Tekun"
+      ],
+      "meaning": "Fokus mendalam pada proses belajar, meningkatkan kualitas keterampilan melalui latihan berulang yang konsisten.",
+      "reflection": "Kehebatan lahir dari pengulangan yang disiplin; cintai proses mengasah bakatmu setiap hari."
+    },
+    "reversed": {
+      "keywords": [
+        "Monoton Tanpa Jiwa",
+        "Pintasan Curang",
+        "Perfeksionisme Melelahkan",
+        "Kurang Fokus"
+      ],
+      "meaning": "Merasa jenuh dengan rutinitas kerja atau terjebak dalam tuntutan kesempurnaan yang tidak realistis.",
+      "reflection": "Kembalikan makna dan tujuan dari apa yang kamu kerjakan; utamakan progres nyata daripada kesempurnaan mutlak."
+    }
+  },
+  {
+    "name": "Nine of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 9,
+    "upright": {
+      "keywords": [
+        "Kemandirian Finansial",
+        "Menikmati Hasil Usaha",
+        "Disiplin Pribadi",
+        "Kedamaian Hidup"
+      ],
+      "meaning": "Meraih kenyamanan hidup berkat kerja keras dan disiplin diri yang terjaga selama bertahun-tahun.",
+      "reflection": "Nikmati pencapaianmu dengan rasa syukur dan keanggunan; kamu layak menikmati buah ketekunanmu."
+    },
+    "reversed": {
+      "keywords": [
+        "Ketergantungan Materi",
+        "Gaya Hidup Melebihi Kemampuan",
+        "Kekosongan Di Balik Mewah"
+      ],
+      "meaning": "Mengorbankan kebahagiaan batin demi citra kemakmuran palsu di mata orang lain.",
+      "reflection": "Sederhanakan gengsimu; kenyamanan sejati adalah ketenangan pikiran tanpa beban utang."
+    }
+  },
+  {
+    "name": "Ten of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 10,
+    "upright": {
+      "keywords": [
+        "Warisan Berkelanjutan",
+        "Kesejahteraan Keluarga",
+        "Fondasi Generasi",
+        "Kemakmuran Utuh"
+      ],
+      "meaning": "Puncak kemakmuran jangka panjang, stabilitas warisan keluarga, dan rasa aman yang melimpah.",
+      "reflection": "Bangunlah sesuatu yang membawa manfaat bagi masa depan bersama, bukan sekadar kepuasan sesaat."
+    },
+    "reversed": {
+      "keywords": [
+        "Sengketa Warisan / Keluarga",
+        "Kerugian Investasi Keluarga",
+        "Tradisi Menyesakkan"
+      ],
+      "meaning": "Perselisihan mengenai pembagian aset atau beban ekspektasi keluarga yang membatasi pilihan hidup.",
+      "reflection": "Selesaikan urusan materi dengan kepala dingin dan kedewasaan agar ikatan keluarga tetap terjaga."
+    }
+  },
+  {
+    "name": "Page of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 11,
+    "upright": {
+      "keywords": [
+        "Semangat Belajar Baru",
+        "Rencana Praktis",
+        "Peluang Usaha Pemula",
+        "Ketekunan"
+      ],
+      "meaning": "Antusiasme mempelajari keterampilan baru atau memulai proyek bisnis dengan persiapan yang matang.",
+      "reflection": "Bangun fondasi belajarmu dengan kokoh; setiap ahli dulunya adalah seorang pemula yang tekun."
+    },
+    "reversed": {
+      "keywords": [
+        "Malas Belajar",
+        "Kurang Fokus Nyata",
+        "Rencana Tanpa Eksekusi",
+        "Menghamburkan Uang"
+      ],
+      "meaning": "Banyak wacana finansial atau karier namun enggan berkeringat untuk mewujudkannya secara bertahap.",
+      "reflection": "Mulailah dari tindakan kecil hari ini; disiplin harian akan mengalahkan bakat yang malas."
+    }
+  },
+  {
+    "name": "Knight of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 12,
+    "upright": {
+      "keywords": [
+        "Konsistensi Tanpa Lelah",
+        "Dapat Diandalkan",
+        "Tanggung Jawab Tinggi",
+        "Metodis"
+      ],
+      "meaning": "Bekerja secara teratur, teliti, setia pada tugas, dan tidak mudah goyah oleh godaan jalan pintas.",
+      "reflection": "Konsistensimu adalah kekuatan supermu; langkah pelan tapi pasti akan mengantarkanmu ke puncak."
+    },
+    "reversed": {
+      "keywords": [
+        "Kekakuan Rutinitas",
+        "Keras Kepala",
+        "Malas Beradaptasi",
+        "Menunda Karena Bosan"
+      ],
+      "meaning": "Terlalu kaku pada metode lama hingga ketinggalan zaman atau merasa terjebak dalam kejenuhan kerja.",
+      "reflection": "Beri sedikit ruang inovasi pada caramu bekerja; efisiensi baru bisa menyegarkan motivasimu."
+    }
+  },
+  {
+    "name": "Queen of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 13,
+    "upright": {
+      "keywords": [
+        "Pengelolaan Bijak",
+        "Kehangatan Praktis",
+        "Kenyamanan Rumah",
+        "Merawat Kelimpahan"
+      ],
+      "meaning": "Kemampuan mengelola sumber daya, merawat keluarga dan finansial dengan kasih dan kepraktisan tinggi.",
+      "reflection": "Ciptakan lingkungan yang nyaman dan produktif; rawatlah tubuh dan keuanganmu secara seimbang."
+    },
+    "reversed": {
+      "keywords": [
+        "Kecemasan Finansial",
+        "Mengabaikan Kesehatan",
+        "Terlalu Terpaku Materi"
+      ],
+      "meaning": "Terlalu khawatir akan masa depan materi hingga lupa merawat kebahagiaan dan kesehatan tubuh.",
+      "reflection": "Kesehatan fisikmu adalah aset utamamu; jangan tukar kesehatan dengan tumpukan kecemasan materi."
+    }
+  },
+  {
+    "name": "King of Pentacles",
+    "arcana": "minor",
+    "suit": "pentacles",
+    "number": 14,
+    "upright": {
+      "keywords": [
+        "Kematangan Finansial",
+        "Kepemimpinan Bisnis",
+        "Stabilitas Kokoh",
+        "Pengusaha Sukses"
+      ],
+      "meaning": "Puncak penguasaan dunia materi, stabilitas finansial yang mapan, dan kemampuan mengayomi sesama.",
+      "reflection": "Gunakan kemapanan dan kebijaksanaanmu untuk menciptakan peluang berkah bagi banyak orang."
+    },
+    "reversed": {
+      "keywords": [
+        "Keserakahan",
+        "Koruptif",
+        "Keras Kepala Mengukur Nilai Orang Dari Uang"
+      ],
+      "meaning": "Menilai segala sesuatu semata-mata dari nominal uang, mengabaikan nurani demi keuntungan sesaat.",
+      "reflection": "Ingatlah bahwa uang adalah alat, bukan tujuan hidup; integritasmu adalah kekayaan abadi."
+    }
+  }
+]

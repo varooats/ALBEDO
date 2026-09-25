@@ -1,0 +1,15 @@
+module.exports = {
+  name: process.env.BOT_NAME || 'ALBEDO',
+  prefix: process.env.BOT_PREFIX || '.',
+  owner: process.env.OWNER_NUMBER || '6285746345170',
+  ownerName: process.env.OWNER_NAME || 'varo',
+  ownerRole: process.env.OWNER_ROLE || 'OWNER BOT',
+  ownerContact: process.env.OWNER_CONTACT || process.env.OWNER_NUMBER || '6285111411152',
+  donateInfo: process.env.DONATE_INFO || 'Hubungi owner untuk detail donasi operasional bot.',
+  developerName: process.env.DEV_NAME || 'Varo',
+  developerRole: process.env.DEV_ROLE || 'Developer',
+  developerGithub: process.env.DEV_GITHUB || 'https://github.com/varooats',
+  developerWebsite: process.env.DEV_WEBSITE || 'https://varooats.xyz',
+  developerInstagram: process.env.DEV_INSTAGRAM || '@varooats',
+  debug: process.env.NODE_ENV !== 'production',
+};

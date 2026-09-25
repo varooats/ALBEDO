@@ -1,0 +1,116 @@
+const { messages } = require('../messages');
+const { replyText } = require('../core/reply');
+const { isOwnerMessage } = require('../core/middleware');
+const { getSenderJid } = require('../utils/message.utils');
+const { getUserByJid } = require('../database/repositories/user.repository');
+const { checkAndConsumeLimit, calculateLimitPrice } = require('../features/limit/limit.service');
+const { sendNativeFlow } = require('../utils/interactive');
+
+// Commands that guests (unregistered users) are permitted to run
+const GUEST_COMMANDS = new Set([
+  'register', 'daftar',
+  'menu', 'help', 'start', 'bantuan', 'menuhelp',
+  'ping', 'p',
+  'owner', 'ownerinfo', 'rules', 'runtime', 'status', 'donate', 'dev', 'github', 'portfolio',
+]);
+
+// Commands that do not consume limits for registered users
+const FREE_COMMANDS = new Set([
+  'register', 'daftar',
+  'menu', 'help', 'start', 'bantuan', 'menuhelp',
+  'store', 'buy', 'toko', 'belilimit',
+  'limit', 'ceklimit', 'kuota',
+  'profile', 'prof', 'idcard', 'id',
+  'editprofile', 'setprofile', 'updateprofile',
+  'score', 'rank', 'level', 'leaderboard', 'lb', 'top', 'daily', 'claim',
+  'ping', 'p',
+  'owner', 'ownerinfo', 'rules', 'runtime', 'status', 'donate', 'dev', 'github', 'portfolio',
+  'games', 'game', 'gamemenu', 'fun',
+]);
+
+async function handleLimitExhausted(client, message, senderJid, remaining, cost) {
+  const p10 = calculateLimitPrice(remaining, 10);
+  const body = messages.store.limitExhausted({
+    remaining,
+    required: cost,
+    p10,
+  });
+
+  const jid = message?.key?.remoteJid;
+
+  try {
+    const sections = [
+      {
+        title: 'LIMIT & STORE',
+        rows: [
+          { id: 'store:buy_10', title: 'Beli +10 Limit', description: `Biaya: ${p10} XP` },
+          { id: 'menu_utama:store', title: 'Buka Toko', description: 'Lihat semua paket limit' },
+        ],
+      },
+    ];
+
+    await sendNativeFlow(client, jid, message, {
+      title: 'LIMIT HABIS',
+      body,
+      sections,
+    });
+  } catch (err) {
+    console.warn('[LIMIT] Interactive flow failed, fallback to text:', err?.message || err);
+    await replyText(
+      client,
+      message,
+      body + '\n\nKetik ```.buy 10``` untuk membeli atau ```.store``` untuk membuka toko.'
+    );
+  }
+}
+
+module.exports = {
+  GUEST_COMMANDS,
+  FREE_COMMANDS,
+  handleCommand: async (client, message, command, args = []) => {
+    if (!command || typeof command.execute !== 'function') {
+      return false;
+    }
+
+    const commandName = (command.name || '').toLowerCase();
+    const isOwner = isOwnerMessage(message);
+    const senderJid = getSenderJid(message);
+
+    // 1. Registration Check: All feature commands require user to be registered
+    const isGuestAllowed = GUEST_COMMANDS.has(commandName);
+    if (!isGuestAllowed && !isOwner) {
+      if (!senderJid) return false;
+      const user = await getUserByJid(senderJid);
+      if (!user) {
+        await replyText(client, message, messages.profile.register.required);
+        return false;
+      }
+    }
+
+    // 2. Limit Check for non-free commands and non-owner users
+    const isFree = command.isFree || FREE_COMMANDS.has(commandName);
+    if (!isFree && !isOwner) {
+      const cost = command.limitCost || 1;
+
+      const limitRes = await checkAndConsumeLimit(senderJid, cost);
+      if (!limitRes.allowed) {
+        await handleLimitExhausted(client, message, senderJid, limitRes.remaining, cost);
+        return false;
+      }
+    }
+
+    try {
+      await command.execute(client, message, args);
+      return true;
+    } catch (error) {
+      console.error('Command execution error:', error);
+      const jid = message?.key?.remoteJid;
+
+      if (jid) {
+        await replyText(client, message, messages.bot.genericError());
+      }
+
+      return false;
+    }
+  },
+};

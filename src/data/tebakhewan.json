@@ -1,0 +1,302 @@
+[
+    {
+        "jawaban": "Harimau",
+        "pertanyaan": "Kucing besar yang memiliki pola loreng oranye hitam dan sangat pandai berenang."
+    },
+    {
+        "jawaban": "Kelelawar",
+        "pertanyaan": "Satu-satunya mamalia yang bisa terbang dan aktif mencari makan pada malam hari."
+    },
+    {
+        "jawaban": "Bunglon",
+        "pertanyaan": "Reptil yang bisa mengubah warna kulitnya sesuai lingkungan dan memiliki lidah yang sangat panjang."
+    },
+    {
+        "jawaban": "Lumba-lumba",
+        "pertanyaan": "Mamalia laut yang sangat cerdas, suka menolong manusia, dan berkomunikasi dengan bunyi klik."
+    },
+    {
+        "jawaban": "Kanguru",
+        "pertanyaan": "Hewan yang bergerak dengan cara melompat dan menyimpan anaknya di dalam kantung perut."
+    },
+    {
+        "jawaban": "Unta",
+        "pertanyaan": "Hewan padang pasir yang memiliki punuk di punggungnya untuk menyimpan cadangan lemak."
+    },
+    {
+        "jawaban": "Burung Hantu",
+        "pertanyaan": "Burung yang kepalanya bisa berputar hingga 270 derajat dan memiliki penglihatan tajam di malam hari."
+    },
+    {
+        "jawaban": "Gurita",
+        "pertanyaan": "Hewan laut bertubuh lunak yang memiliki delapan lengan dan tiga buah jantung."
+    },
+    {
+        "jawaban": "Kuda Nil",
+        "pertanyaan": "Hewan besar yang sering berendam di air sungai, tapi sebenarnya tidak bisa berenang (hanya berjalan di dasar air)."
+    },
+    {
+        "jawaban": "Lebah",
+        "pertanyaan": "Serangga kecil yang hidup berkoloni, menghasilkan madu, dan memiliki sengatan."
+    },
+    {
+        "jawaban": "Panda",
+        "pertanyaan": "Beruang lucu asal Tiongkok yang makanan utamanya adalah bambu."
+    },
+    {
+        "jawaban": "Semut",
+        "pertanyaan": "Serangga kecil yang bisa mengangkat beban berkali-kali lipat dari berat tubuhnya sendiri."
+    },
+    {
+        "jawaban": "Jerapah",
+        "pertanyaan": "Hewan darat tertinggi di dunia yang memiliki leher sangat panjang."
+    },
+    {
+        "jawaban": "Ular",
+        "pertanyaan": "Reptil yang tidak memiliki kaki dan bergerak dengan cara melata menggunakan otot perutnya."
+    },
+    {
+        "jawaban": "Kura-kura",
+        "pertanyaan": "Hewan yang berjalan sangat lambat dan membawa rumah (cangkang) keras di punggungnya."
+    },
+    {
+        "jawaban": "Singa",
+        "pertanyaan": "Kucing besar berjuluk Raja Hutan yang jantannya memiliki rambut lebat di sekitar leher."
+    },
+    {
+        "jawaban": "Monyet",
+        "pertanyaan": "Primata yang sangat lincah, suka memanjat pohon, dan gemar memakan pisang."
+    },
+    {
+        "jawaban": "Buaya",
+        "pertanyaan": "Reptil besar yang hidup di air tawar maupun asin, memiliki rahang sangat kuat dan kulit yang kasar."
+    },
+    {
+        "jawaban": "Bebek",
+        "pertanyaan": "Unggas air yang memiliki kaki berselaput untuk berenang dan paruh pipih."
+    },
+    {
+        "jawaban": "Kelinci",
+        "pertanyaan": "Hewan pengerat bertelinga panjang yang sangat suka memakan wortel dan melompat lincah."
+    },
+    {
+        "jawaban": "Ayam",
+        "pertanyaan": "Unggas yang dipelihara manusia untuk diambil telur dan dagingnya, jantannya berkokok di pagi hari."
+    },
+    {
+        "jawaban": "Kucing",
+        "pertanyaan": "Hewan peliharaan populer yang memiliki kumis, cakar yang bisa ditarik, dan bunyinya 'Meong'."
+    },
+    {
+        "jawaban": "Anjing",
+        "pertanyaan": "Hewan yang dikenal sebagai sahabat manusia, sangat setia, dan memiliki penciuman yang tajam."
+    },
+    {
+        "jawaban": "Kupu-kupu",
+        "pertanyaan": "Serangga cantik bersayap warna-warni yang berasal dari ulat dan kepompong."
+    },
+    {
+        "jawaban": "Nyamuk",
+        "pertanyaan": "Serangga kecil penghisap darah yang dapat menyebabkan penyakit demam berdarah."
+    },
+    {
+        "jawaban": "Ubur-ubur",
+        "pertanyaan": "Hewan laut bertubuh transparan dan lunak yang memiliki tentakel penyengat."
+    },
+    {
+        "jawaban": "Kuda",
+        "pertanyaan": "Hewan berkaki empat yang sangat kuat dan sering digunakan manusia sebagai sarana transportasi atau pacuan."
+    },
+    {
+        "jawaban": "Domba",
+        "pertanyaan": "Hewan ternak yang memiliki bulu tebal dan keriting, sering dicukur untuk dijadikan bahan kain wol."
+    },
+    {
+        "jawaban": "Sapi",
+        "pertanyaan": "Hewan ternak besar pemakan rumput yang menghasilkan susu dan daging untuk dikonsumsi manusia."
+    },
+    {
+        "jawaban": "Kambing",
+        "pertanyaan": "Hewan ternak yang memiliki janggut dan tanduk, suaranya khas 'Mbee'."
+    },
+    {
+        "jawaban": "Badak",
+        "pertanyaan": "Hewan besar berkulit tebal yang memiliki satu atau dua cula di atas hidungnya."
+    },
+    {
+        "jawaban": "Burung Unta",
+        "pertanyaan": "Burung terbesar di dunia yang tidak bisa terbang, tapi bisa lari sangat cepat."
+    },
+    {
+        "jawaban": "Burung Merak",
+        "pertanyaan": "Burung yang terkenal karena keindahan bulu ekornya yang bisa mengembang seperti kipas."
+    },
+    {
+        "jawaban": "Gorila",
+        "pertanyaan": "Kera terbesar yang sangat kuat, tinggal di hutan, dan memiliki DNA sangat mirip dengan manusia."
+    },
+    {
+        "jawaban": "Lalat",
+        "pertanyaan": "Serangga yang sering hinggap di tempat kotor dan membawa kuman penyakit."
+    },
+    {
+        "jawaban": "Laba-laba",
+        "pertanyaan": "Hewan berkaki delapan yang bisa membuat jaring dari perutnya untuk menjebak mangsa."
+    },
+    {
+        "jawaban": "Ulat",
+        "pertanyaan": "Tahap awal dari kupu-kupu yang hobi memakan daun hijau sebelum menjadi kepompong."
+    },
+    {
+        "jawaban": "Belalang",
+        "pertanyaan": "Serangga pelompat pemakan tumbuhan yang memiliki kaki belakang sangat kuat."
+    },
+    {
+        "jawaban": "Capung",
+        "pertanyaan": "Serangga dengan empat sayap transparan yang sering terlihat terbang di sekitar air atau sawah."
+    },
+    {
+        "jawaban": "Kepiting",
+        "pertanyaan": "Hewan bercangkang keras yang memiliki sepasang capit besar dan berjalan miring."
+    },
+    {
+        "jawaban": "Udang",
+        "pertanyaan": "Hewan air yang memiliki tubuh berbuku-buku dan pandai berenang mundur."
+    },
+    {
+        "jawaban": "Ikan Hiu",
+        "pertanyaan": "Predator laut papan atas yang memiliki gigi tajam dan sirip punggung yang khas."
+    },
+    {
+        "jawaban": "Ikan Paus",
+        "pertanyaan": "Mamalia air raksasa yang bernapas menggunakan paru-paru dan mengeluarkan air dari lubang di kepalanya."
+    },
+    {
+        "jawaban": "Burung Elang",
+        "pertanyaan": "Burung pemangsa yang memiliki penglihatan sangat tajam dan kuku cakar yang kuat."
+    },
+    {
+        "jawaban": "Landak",
+        "pertanyaan": "Hewan mamalia kecil yang tubuhnya ditutupi oleh duri-duri tajam untuk perlindungan diri."
+    },
+    {
+        "jawaban": "Kakatua",
+        "pertanyaan": "Burung yang memiliki jambul indah dan dikenal sangat pintar menirukan suara manusia."
+    },
+    {
+        "jawaban": "Cendrawasih",
+        "pertanyaan": "Burung asal Papua yang dijuluki sebagai Burung Surga karena keindahan bulunya."
+    },
+    {
+        "jawaban": "Kasuari",
+        "pertanyaan": "Burung besar yang tidak bisa terbang, memiliki tanduk di atas kepalanya, dan tendangan kaki yang sangat kuat."
+    },
+    {
+        "jawaban": "Komodo",
+        "pertanyaan": "Kadal purba raksasa yang hanya ada di Indonesia, memiliki air liur yang mengandung banyak bakteri mematikan."
+    },
+    {
+        "jawaban": "Tokek",
+        "pertanyaan": "Reptil sejenis cicak namun berukuran lebih besar dan memiliki suara khas yang berulang-ulang."
+    },
+    {
+        "jawaban": "Cicak",
+        "pertanyaan": "Hewan reptil yang sering menempel di dinding rumah dan dapat memutuskan ekornya untuk mengelabui musuh."
+    },
+    {
+        "jawaban": "Kaki Seribu",
+        "pertanyaan": "Hewan bertubuh panjang yang memiliki banyak pasang kaki dan akan menggulung tubuhnya jika merasa terancam."
+    },
+    {
+        "jawaban": "Kalajengking",
+        "pertanyaan": "Hewan arachnida yang memiliki sepasang capit dan ekor melengkung dengan sengat beracun di ujungnya."
+    },
+    {
+        "jawaban": "Lipan",
+        "pertanyaan": "Hewan berbuku-buku yang tubuhnya pipih, memiliki banyak kaki, dan gigitannya sangat menyakitkan serta beracun."
+    },
+    {
+        "jawaban": "Rayap",
+        "pertanyaan": "Serangga kecil pemakan kayu yang hidup berkoloni dan sering merusak perabotan rumah."
+    },
+    {
+        "jawaban": "Tupai",
+        "pertanyaan": "Mamalia kecil yang sangat lincah memanjat pohon, memiliki ekor berbulu tebal, dan suka memakan biji-bijian."
+    },
+    {
+        "jawaban": "Berang-berang",
+        "pertanyaan": "Hewan semi-akuatik yang sangat mahir membangun bendungan di sungai menggunakan kayu dan ranting."
+    },
+    {
+        "jawaban": "Hamster",
+        "pertanyaan": "Hewan pengerat kecil yang sering dijadikan peliharaan, suka menyimpan makanan di kantung pipinya."
+    },
+    {
+        "jawaban": "Tikus",
+        "pertanyaan": "Hewan pengerat yang sering dianggap hama, memiliki gigi depan yang terus tumbuh dan sangat cerdas mencari jalan."
+    },
+    {
+        "jawaban": "Musang",
+        "pertanyaan": "Hewan mamalia yang aktif di malam hari, pandai memanjat, dan beberapa jenisnya dikenal menghasilkan biji kopi luwak."
+    },
+    {
+        "jawaban": "Kelelawar",
+        "pertanyaan": "Hewan yang tidur dengan cara menggantung terbalik dan menggunakan ekolokasi untuk navigasi di kegelapan."
+    },
+    {
+        "jawaban": "Bangau",
+        "pertanyaan": "Burung berkaki panjang dan berparuh besar yang sering terlihat berdiri dengan satu kaki di area perairan."
+    },
+    {
+        "jawaban": "Pelikan",
+        "pertanyaan": "Burung air yang memiliki kantung besar di bawah paruhnya untuk menampung ikan hasil tangkapan."
+    },
+    {
+        "jawaban": "Flamingo",
+        "pertanyaan": "Burung air yang memiliki bulu berwarna merah muda dan leher panjang berbentuk huruf S."
+    },
+    {
+        "jawaban": "Cacing",
+        "pertanyaan": "Hewan bertubuh lunak dan panjang yang hidup di dalam tanah dan sangat bermanfaat untuk menyuburkan tanah."
+    },
+    {
+        "jawaban": "Lintah",
+        "pertanyaan": "Hewan air bertubuh lunak yang hidup dengan cara menghisap darah inangnya menggunakan alat penghisap di ujung tubuhnya."
+    },
+    {
+        "jawaban": "Siput",
+        "pertanyaan": "Hewan bertubuh lunak yang berjalan sangat lambat dan meninggalkan jejak lendir di sepanjang jalannya."
+    },
+    {
+        "jawaban": "Bintang Laut",
+        "pertanyaan": "Hewan laut yang memiliki bentuk tubuh menyerupai bintang dan dapat menumbuhkan kembali lengannya yang putus."
+    },
+    {
+        "jawaban": "Kuda Laut",
+        "pertanyaan": "Hewan laut yang kepalanya menyerupai kuda, dan uniknya, yang jantanlah yang mengandung serta melahirkan anak."
+    },
+    {
+        "jawaban": "Pari",
+        "pertanyaan": "Ikan laut bertubuh pipih dan lebar yang memiliki ekor panjang menyerupai cambuk."
+    },
+    {
+        "jawaban": "Anjing Laut",
+        "pertanyaan": "Mamalia laut yang memiliki sirip sebagai alat gerak dan lapisan lemak tebal untuk bertahan di suhu dingin."
+    },
+    {
+        "jawaban": "Singa Laut",
+        "pertanyaan": "Mamalia laut yang memiliki daun telinga kecil dan bisa berjalan di darat menggunakan sirip depannya."
+    },
+    {
+        "jawaban": "Walrus",
+        "pertanyaan": "Mamalia laut besar yang memiliki sepasang taring panjang dan kumis yang kaku."
+    },
+    {
+        "jawaban": "Hyena",
+        "pertanyaan": "Hewan pemakan bangkai asal Afrika yang suaranya terdengar seperti orang sedang tertawa."
+    },
+    {
+        "jawaban": "Rubah",
+        "pertanyaan": "Hewan mamalia cerdik yang memiliki moncong lancip, telinga tegak, dan ekor yang sangat berbulu."
+    }
+]
