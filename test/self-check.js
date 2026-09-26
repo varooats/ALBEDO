@@ -272,7 +272,9 @@ const menuAudio = require('../src/features/menu/menu.audio');
 assert.strictEqual(typeof menuAudio.getFfmpegPath, 'function');
 assert.strictEqual(typeof menuAudio.getAudioFiles, 'function');
 assert.strictEqual(typeof menuAudio.getRandomAudioFile, 'function');
-assert.strictEqual(typeof menuAudio.convertMp3ToOpus, 'function');
+assert.strictEqual(typeof menuAudio.convertToOpus, 'function');
+assert.strictEqual(typeof menuAudio.generateWaveform, 'function');
+assert.strictEqual(typeof menuAudio.calculateWaveformWithFfmpeg, 'function');
 assert.strictEqual(typeof menuAudio.sendMenuAudio, 'function');
 
 console.log('✅ All self-checks passed! (Commands:', commands.length, ')');
