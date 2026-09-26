@@ -1,6 +1,6 @@
 const { messages } = require('../messages');
 const { replyText } = require('../core/reply');
-const { isOwnerMessage } = require('../core/middleware');
+const { isOwnerMessage, checkCommandAccess } = require('../core/middleware');
 const { getSenderJid } = require('../utils/message.utils');
 const { getUserByJid } = require('../database/repositories/user.repository');
 const { checkAndConsumeLimit, calculateLimitPrice } = require('../features/limit/limit.service');
@@ -12,6 +12,7 @@ const GUEST_COMMANDS = new Set([
   'menu', 'help', 'start', 'bantuan', 'menuhelp',
   'ping', 'p',
   'owner', 'ownerinfo', 'rules', 'runtime', 'status', 'donate', 'dev', 'github', 'portfolio',
+  'settings', 'setting', 'enable', 'disable',
 ]);
 
 // Commands that do not consume limits for registered users
@@ -26,6 +27,13 @@ const FREE_COMMANDS = new Set([
   'ping', 'p',
   'owner', 'ownerinfo', 'rules', 'runtime', 'status', 'donate', 'dev', 'github', 'portfolio',
   'games', 'game', 'gamemenu', 'fun',
+  'afk',
+  'settings', 'setting', 'enable', 'disable',
+  'antilink', 'addlink', 'dellink', 'listlink',
+  'antitoxic', 'addbadword', 'delbadword', 'listbadword',
+  'hidetag', 'ta', 'grouplink', 'groupinfo', 'membercount', 'messagecount',
+  'kick', 'promote', 'demote', 'opengroup', 'closegroup', 'pinchat', 'unpinchat',
+  'setlimit', 'changelimit', 'addlimit', 'restart', 'backup', 'listowner', 'addowner', 'delowner', 'deleteowner',
 ]);
 
 async function handleLimitExhausted(client, message, senderJid, remaining, cost) {
@@ -75,6 +83,20 @@ module.exports = {
     const commandName = (command.name || '').toLowerCase();
     const isOwner = isOwnerMessage(message);
     const senderJid = getSenderJid(message);
+
+    try {
+      const access = await checkCommandAccess(client, message, command.access || 'public', args);
+      if (!access.allowed) {
+        await replyText(client, message, access.reason === 'group'
+          ? 'Perintah ini hanya dapat digunakan di dalam grup.'
+          : 'Khusus admin grup dan owner bot.');
+        return false;
+      }
+    } catch (error) {
+      console.warn('[PERMISSION] Could not verify command access:', error?.message || error);
+      await replyText(client, message, 'Gagal memverifikasi izin grup. Coba lagi nanti.');
+      return false;
+    }
 
     // 1. Registration Check: All feature commands require user to be registered
     const isGuestAllowed = GUEST_COMMANDS.has(commandName);

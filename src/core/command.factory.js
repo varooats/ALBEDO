@@ -5,12 +5,14 @@ function createCommand({
   name,
   aliases = [],
   description = '',
+  access = 'public',
   execute,
 }) {
   return {
     name,
     aliases,
     description,
+    access,
     execute: async (client, message, args = []) => {
       if (typeof execute === 'function') {
         return execute(client, message, args);

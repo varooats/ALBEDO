@@ -36,11 +36,12 @@ module.exports = createCommand({
           clearTimeout(timer);
           deleteSession(jid);
           const xpRes = await awardXp(senderJid, 'correct_quiz');
-          const name = xpRes?.user?.name || `@${senderJid.split('@')[0]}`;
+          const winnerTag = `@${senderJid.split('@')[0]}`;
           await replyText(
             client,
             message,
-            `🎉 *TEBAKAN TEPAT!*\n\nPemenang: ${name}\nAngka rahasia: *${secret}*\nReward: *+10 XP*`
+            `🎉 *TEBAKAN TEPAT!*\n\nPemenang: ${winnerTag}\nAngka rahasia: *${secret}*\nReward: *+10 XP*`,
+            { mentions: [senderJid] }
           );
           return true;
         }

@@ -3,6 +3,7 @@ const { generateWelcomeCard } = require('./welcome.card');
 const { welcomeMessages } = require('../../messages/welcome.messages');
 const { jidToMentionName } = require('../../utils/message.utils');
 const { getUserByJid } = require('../../database/repositories/user.repository');
+const { getGroupSettings } = require('../../database/repositories/group.repository');
 
 /**
  * Handle group-participants.update event from Baileys
@@ -21,6 +22,15 @@ async function handleGroupParticipantsUpdate(client, update) {
   }
 
   const isWelcome = action === 'add';
+
+  // Check group settings if welcome / left messages are enabled
+  try {
+    const settings = await getGroupSettings(groupJid);
+    if (isWelcome && settings.welcome === false) return false;
+    if (!isWelcome && settings.left === false) return false;
+  } catch {
+    // default to enabled if database unreachable
+  }
 
   // 1. Fetch group metadata
   let groupMetadata = null;

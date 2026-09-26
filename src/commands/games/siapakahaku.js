@@ -43,17 +43,18 @@ module.exports = createCommand({
           clearTimeout(timer);
           deleteSession(jid);
           const xpRes = await awardXp(senderJid, 'correct_quiz');
-          const name = xpRes?.user?.name || `@${senderJid.split('@')[0]}`;
+          const winnerTag = `@${senderJid.split('@')[0]}`;
           await replyText(
             client,
             message,
             messages.games.quiz.correct({
-              winner: name,
+              winner: winnerTag,
               answer,
               xp: 10,
               leveledUp: xpRes?.leveledUp,
               newLevel: xpRes?.newLevel,
-            })
+            }),
+            { mentions: [senderJid] }
           );
           return true;
         }

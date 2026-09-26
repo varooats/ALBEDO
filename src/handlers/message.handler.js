@@ -5,6 +5,9 @@ const { getNativeFlowResponseId, sendMainMenu, sendCategoryMenu } = require('../
 const { handleCommand } = require('./command.handler');
 const { getSession } = require('../features/games/game.state');
 const { buyLimit } = require('../features/limit/limit.service');
+const { isGroupMessage } = require('../core/middleware');
+const { getAfk, clearAfk, formatAfkDuration } = require('../features/afk/afk.service');
+const { incrementMessageCount, enforceAntilink, enforceAntitoxic } = require('../features/group/moderation');
 
 async function handleGameMessage(client, message) {
   const jid = message?.key?.remoteJid;
@@ -148,9 +151,59 @@ async function handleInteractiveMessage(client, message, commandMap) {
   }
 }
 
+async function handleGroupModeration(client, message) {
+  const groupJid = message?.key?.remoteJid;
+  if (!isGroupMessage(message)) return false;
+
+  // Count this message
+  incrementMessageCount(groupJid).catch(() => {});
+
+  // Check AFK: if sender is AFK, clear and notify
+  const senderJid = getSenderJid(message);
+  if (senderJid) {
+    const afk = getAfk(senderJid);
+    if (afk) {
+      clearAfk(senderJid);
+      const duration = formatAfkDuration(afk.since);
+      await client.sendMessage(groupJid, {
+        text: `@${String(senderJid).split('@')[0]} sudah kembali setelah AFK selama ${duration}.`,
+        mentions: [senderJid],
+      });
+    }
+  }
+
+  // Anti-link
+  const blocked = await enforceAntilink(client, message, groupJid);
+  if (blocked) return true;
+
+  // Anti-toxic
+  const muted = await enforceAntitoxic(client, message, groupJid);
+  if (muted) return true;
+
+  // AFK mention detection
+  const { resolveMentionJids } = require('../utils/message.utils');
+  const mentioned = resolveMentionJids(message);
+  for (const targetJid of mentioned) {
+    const afkStatus = getAfk(targetJid);
+    if (afkStatus) {
+      const duration = formatAfkDuration(afkStatus.since);
+      await client.sendMessage(groupJid, {
+        text: `@${String(targetJid).split('@')[0]} sedang AFK.\n\nAlasan: ${afkStatus.reason || '—'}\nDurasi: ${duration}`,
+        mentions: [targetJid],
+      }).catch(() => {});
+    }
+  }
+
+  return false;
+}
+
 async function handleMessage(client, message, commandMap) {
   try {
     if (!message?.message) return false;
+
+    // Check group moderation, message counts, and AFK alerts
+    const moderationIntercepted = await handleGroupModeration(client, message);
+    if (moderationIntercepted) return true;
 
     const interactiveHandled = await handleInteractiveMessage(client, message, commandMap);
     if (interactiveHandled) return true;

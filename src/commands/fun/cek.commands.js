@@ -151,16 +151,15 @@ function createPersonalCommand(commandName, opts = {}) {
       const text = formatPersonalBox({
         title,
         targetJid: target.jid,
-        showTarget: target.mentioned,
+        showTarget: true,             // always show — tag is the point
         bodyLabel: data.label,
         bodyValue: `${value}%`,
         quote,
         mentionName: jidToMentionName(target.jid),
       });
 
-      // Pass mentions so WhatsApp highlights and enables click
-      const options = target.mentioned && target.jid ? { mentions: [target.jid] } : {};
-      await replyText(client, message, text, options);
+      // always pass mentions so WhatsApp makes the @number clickable
+      await replyText(client, message, text, { mentions: [target.jid] });
       return true;
     },
   });
@@ -274,15 +273,14 @@ function createHargaDiriCommand() {
       const text = formatPersonalBox({
         title: 'CEK HARGA DIRI',
         targetJid: target.jid,
-        showTarget: target.mentioned,
+        showTarget: true,
         bodyLabel: 'Harga',
         bodyValue: `Rp ${formatCurrency(value)}`,
         quote,
         mentionName: jidToMentionName(target.jid),
       });
 
-      const options = target.mentioned && target.jid ? { mentions: [target.jid] } : {};
-      await replyText(client, message, text, options);
+      await replyText(client, message, text, { mentions: [target.jid] });
       return true;
     },
   });

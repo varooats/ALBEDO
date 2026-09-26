@@ -28,6 +28,52 @@ function isOwnerMessage(message = {}, ownerNumber = config?.owner) {
   return !!owner && !!sender && sender === owner;
 }
 
+async function getGroupMetadata(client, message) {
+  const groupJid = getChatJid(message);
+  if (!isGroupMessage(message) || !client || typeof client.groupMetadata !== 'function') {
+    return null;
+  }
+
+  return client.groupMetadata(groupJid);
+}
+
+function findParticipant(metadata, jid) {
+  const target = String(jid || '').split(':')[0];
+  return (metadata?.participants || []).find((participant) => {
+    const id = String(participant?.id || '').split(':')[0];
+    return id === target;
+  }) || null;
+}
+
+async function isGroupAdmin(client, message) {
+  const metadata = await getGroupMetadata(client, message);
+  const participant = findParticipant(metadata, message?.key?.participant || message?.participant);
+  return participant?.admin === 'admin' || participant?.admin === 'superadmin';
+}
+
+async function isBotAdmin(client, message) {
+  const metadata = await getGroupMetadata(client, message);
+  const botJid = client?.user?.id;
+  const participant = findParticipant(metadata, botJid);
+  return participant?.admin === 'admin' || participant?.admin === 'superadmin';
+}
+
+async function checkCommandAccess(client, message, access = 'public', args = []) {
+  const requiredAccess = typeof access === 'function' ? await access(message, args) : access;
+  if (requiredAccess === 'public') return { allowed: true };
+  access = requiredAccess;
+  const owner = isOwnerMessage(message);
+  if (access === 'owner') return { allowed: owner, reason: 'owner' };
+  if (!isGroupMessage(message)) return { allowed: false, reason: 'group' };
+  if (access === 'group-admin' && (owner || await isGroupAdmin(client, message))) {
+    return { allowed: true };
+  }
+  if (access === 'bot-admin' && (owner || await isBotAdmin(client, message))) {
+    return { allowed: true };
+  }
+  return { allowed: false, reason: access };
+}
+
 function createGuard({
   validate,
   onInvalid,
@@ -107,6 +153,10 @@ module.exports = {
   getChatJid,
   isGroupMessage,
   isOwnerMessage,
+  getGroupMetadata,
+  isGroupAdmin,
+  isBotAdmin,
+  checkCommandAccess,
   createGuard,
   createCooldownStore,
   applyCooldown,

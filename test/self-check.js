@@ -53,6 +53,9 @@ for (const cmd of commands) {
   assert.ok(cmd.name, 'Command must have a name');
   assert.strictEqual(typeof cmd.execute, 'function', `Command ${cmd.name} must have execute function`);
   commandMap.set(cmd.name, cmd);
+  for (const alias of cmd.aliases || []) {
+    commandMap.set(alias, cmd);
+  }
 }
 
 // General & Fun & Store & Limit
@@ -228,5 +231,39 @@ assert.strictEqual(withExif.subarray(12, 16).toString(), 'VP8X', 'First chunk mu
 assert.ok((withExif[20] & 0x08) !== 0, 'VP8X flag must have EXIF bit enabled');
 assert.ok(withExif.includes(Buffer.from('EXIF')), 'Must contain EXIF chunk');
 assert.ok(withExif.includes(Buffer.from('TestPack')), 'EXIF must contain packname');
+
+// 16. Check New Group, Owner, and Main Commands
+assert.ok(commandMap.has('antilink'), 'antilink command should exist');
+assert.ok(commandMap.has('addlink'), 'addlink command should exist');
+assert.ok(commandMap.has('dellink'), 'dellink command should exist');
+assert.ok(commandMap.has('listlink'), 'listlink command should exist');
+assert.ok(commandMap.has('antitoxic'), 'antitoxic command should exist');
+assert.ok(commandMap.has('addbadword'), 'addbadword command should exist');
+assert.ok(commandMap.has('delbadword'), 'delbadword command should exist');
+assert.ok(commandMap.has('listbadword'), 'listbadword command should exist');
+assert.ok(commandMap.has('hidetag'), 'hidetag command should exist');
+assert.ok(commandMap.has('ta'), 'ta alias should exist');
+assert.ok(commandMap.has('grouplink'), 'grouplink command should exist');
+assert.ok(commandMap.has('kick'), 'kick command should exist');
+assert.ok(commandMap.has('promote'), 'promote command should exist');
+assert.ok(commandMap.has('demote'), 'demote command should exist');
+assert.ok(commandMap.has('opengroup'), 'opengroup command should exist');
+assert.ok(commandMap.has('closegroup'), 'closegroup command should exist');
+assert.ok(commandMap.has('groupinfo'), 'groupinfo command should exist');
+assert.ok(commandMap.has('membercount'), 'membercount command should exist');
+assert.ok(commandMap.has('messagecount'), 'messagecount command should exist');
+assert.ok(commandMap.has('pinchat'), 'pinchat command should exist');
+assert.ok(commandMap.has('unpinchat'), 'unpinchat command should exist');
+assert.ok(commandMap.has('afk'), 'afk command should exist');
+assert.ok(commandMap.has('settings'), 'settings command should exist');
+assert.ok(commandMap.has('enable'), 'enable command should exist');
+assert.ok(commandMap.has('disable'), 'disable command should exist');
+assert.ok(commandMap.has('setlimit'), 'setlimit command should exist');
+assert.ok(commandMap.has('addlimit'), 'addlimit command should exist');
+assert.ok(commandMap.has('addowner'), 'addowner command should exist');
+assert.ok(commandMap.has('delowner'), 'delowner command should exist');
+assert.ok(commandMap.has('listowner'), 'listowner command should exist');
+assert.ok(commandMap.has('restart'), 'restart command should exist');
+assert.ok(commandMap.has('backup'), 'backup command should exist');
 
 console.log('✅ All self-checks passed! (Commands:', commands.length, ')');

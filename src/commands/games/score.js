@@ -33,11 +33,12 @@ module.exports = createCommand({
       client,
       message,
       messages.games.system.score({
-        name: user.name || 'User',
+        name: `@${String(targetJid).split('@')[0]}`,
         exp: user.exp || 0,
         level: user.level || 1,
         rank: userRank,
-      })
+      }),
+      { mentions: [targetJid] }
     );
     return true;
   },
