@@ -8,7 +8,7 @@ const {
   checkUrlContentLength,
   MAX_VIDEO_SIZE_BYTES,
 } = require('../../services/downloader/tioo.service');
-const { sendTyping, sendReaction, REACTIONS } = require('../../utils/message.utils');
+const { sendTyping, sendReaction, REACTIONS } = require('../../utils/message');
 
 async function sendDownloaderMenu(client, message) {
   const jid = message?.key?.remoteJid;

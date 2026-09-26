@@ -5,7 +5,7 @@ const { sendNativeFlow } = require('../../utils/interactive');
 const { getMainMenuSection, getFiturBotSection } = require('../../features/menu/menu.builder');
 const { extractMediaBuffer } = require('../../utils/media-helper');
 const stickerService = require('../../services/media/sticker.service');
-const { sendReaction, REACTIONS } = require('../../utils/message.utils');
+const { sendReaction, REACTIONS } = require('../../utils/message');
 
 async function sendStickerMenuReply(client, message, text) {
   const jid = message?.key?.remoteJid;

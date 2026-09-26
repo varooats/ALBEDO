@@ -1,9 +1,9 @@
 const { messages } = require('../messages');
 const { replyText } = require('../core/reply');
 const { isOwnerMessage, checkCommandAccess } = require('../core/middleware');
-const { getSenderJid } = require('../utils/message.utils');
+const { getSenderJid } = require('../utils/message');
 const { getUserByJid } = require('../database/repositories/user.repository');
-const { checkAndConsumeLimit, calculateLimitPrice } = require('../features/limit/limit.service');
+const { checkAndConsumeLimit, calculateLimitPrice } = require('../services/limit/limit.service');
 const { sendNativeFlow } = require('../utils/interactive');
 const { logger } = require('../utils/logger');
 

@@ -1,6 +1,6 @@
 const { createCommand } = require('../../core/command.factory');
 const { replyText } = require('../../core/reply');
-const { resolveMentionJids, getSenderJid } = require('../../utils/message.utils');
+const { resolveMentionJids, getSenderJid } = require('../../utils/message');
 const { awardXp } = require('../../features/games/xp.engine');
 
 module.exports = createCommand({

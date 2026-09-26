@@ -9,7 +9,7 @@ const {
   sendReaction,
   sendTyping,
   REACTIONS,
-} = require('../../utils/message.utils');
+} = require('../../utils/message');
 
 function parseIqcOptions(rawText) {
   let text = String(rawText || '').trim();

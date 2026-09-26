@@ -9,7 +9,7 @@ const {
   detectPlatform,
 } = require('../../services/downloader/tioo.service');
 const { searchYouTube } = require('../../services/downloader/youtube.search');
-const { sendTyping, sendReaction, REACTIONS } = require('../../utils/message.utils');
+const { sendTyping, sendReaction, REACTIONS } = require('../../utils/message');
 
 function parseDurationToSeconds(duration) {
   if (typeof duration === 'number' && Number.isFinite(duration) && duration > 0) {

@@ -3,7 +3,7 @@ const { replyText } = require('../../core/reply');
 const { messages } = require('../../messages');
 const { sendNativeFlow } = require('../../utils/interactive');
 const { getMainMenuSection, getFiturBotSection } = require('../../features/menu/menu.builder');
-const cekCommands = require('./cek.commands');
+const cekCommands = require('./cek');
 
 module.exports = createCommand({
   name: 'fun',

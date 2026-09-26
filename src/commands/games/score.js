@@ -3,7 +3,7 @@ const { replyText } = require('../../core/reply');
 const { messages } = require('../../messages');
 const { getUserByJid } = require('../../database/repositories/user.repository');
 const { getLeaderboard } = require('../../features/games/xp.engine');
-const { getSenderJid, resolveMentionJids } = require('../../utils/message.utils');
+const { getSenderJid, resolveMentionJids } = require('../../utils/message');
 
 module.exports = createCommand({
   name: 'score',

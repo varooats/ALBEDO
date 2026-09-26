@@ -6,14 +6,14 @@ const {
   jidToMentionName,
   sendReaction,
   REACTIONS,
-} = require('../../utils/message.utils');
+} = require('../../utils/message');
 const {
   drawCard,
   drawMultipleCards,
   getThematicReading,
   evaluateYesNo,
   processDailyTarot,
-} = require('../../features/tarot/tarot.service');
+} = require('../../services/tarot/tarot.service');
 const {
   formatTarotMenu,
   formatSingleCard,

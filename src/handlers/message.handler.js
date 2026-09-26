@@ -1,12 +1,12 @@
 const { messages } = require('../messages');
 const { replyText } = require('../core/reply');
-const { parseCommand, sendTyping, getMessageText, getSenderJid } = require('../utils/message.utils');
+const { parseCommand, sendTyping, getMessageText, getSenderJid } = require('../utils/message');
 const { getNativeFlowResponseId, sendMainMenu, sendCategoryMenu } = require('../commands/general/menu');
 const { handleCommand } = require('./command.handler');
 const { getSession } = require('../features/games/game.state');
-const { buyLimit } = require('../features/limit/limit.service');
+const { buyLimit } = require('../services/limit/limit.service');
 const { isGroupMessage, groupAccessMiddleware } = require('../core/middleware');
-const { getAfk, clearAfk, formatAfkDuration } = require('../features/afk/afk.service');
+const { getAfk, clearAfk, formatAfkDuration } = require('../services/afk/afk.service');
 const { incrementMessageCount, enforceAntilink, enforceAntitoxic } = require('../features/group/moderation');
 const { logger } = require('../utils/logger');
 
@@ -196,7 +196,7 @@ async function handleGroupModeration(client, message) {
   if (muted) return true;
 
   // AFK mention detection
-  const { resolveMentionJids } = require('../utils/message.utils');
+  const { resolveMentionJids } = require('../utils/message');
   const mentioned = resolveMentionJids(message);
   for (const targetJid of mentioned) {
     const afkStatus = getAfk(targetJid);

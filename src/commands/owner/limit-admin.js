@@ -1,7 +1,7 @@
 const { createCommand } = require('../../core/command.factory');
 const { replyText } = require('../../core/reply');
 const { getUserByJid, saveUser } = require('../../database/repositories/user.repository');
-const { resolveMentionJids, getSenderJid } = require('../../utils/message.utils');
+const { resolveMentionJids, getSenderJid } = require('../../utils/message');
 const { isGroupMessage } = require('../../core/middleware');
 const config = require('../../config/bot.config');
 

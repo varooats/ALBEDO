@@ -4,7 +4,7 @@ const { messages } = require('../../messages');
 const { QUIZ_BANK, pickRandom, formatQuizChoices } = require('../../features/games/quiz.bank');
 const { setSession, hasSession, deleteSession } = require('../../features/games/game.state');
 const { awardXp } = require('../../features/games/xp.engine');
-const { resolveJid } = require('../../utils/message.utils');
+const { resolveJid } = require('../../utils/message');
 
 module.exports = createCommand({
   name: 'quiz',

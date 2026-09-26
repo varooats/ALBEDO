@@ -11,7 +11,7 @@ const {
   getNativeFlowResponseId,
   getInteractiveAdditionalNodes,
 } = require('../../utils/interactive');
-const { sendTyping } = require('../../utils/message.utils');
+const { sendTyping } = require('../../utils/message');
 const { sendMenuAudio } = require('../../features/menu/menu.audio');
 
 function getRandomBannerVideo() {

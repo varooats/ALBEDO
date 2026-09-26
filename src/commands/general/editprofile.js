@@ -3,7 +3,7 @@ const { createCommand } = require('../../core/command.factory');
 const { replyText } = require('../../core/reply');
 const { getUserByJid, updateProfileField } = require('../../database/repositories/user.repository');
 const { messages } = require('../../messages');
-const { resolveJid } = require('../../utils/message.utils');
+const { resolveJid } = require('../../utils/message');
 
 const EDITPROFILE_THUMBNAIL = path.resolve(__dirname, '../../../assets/thumbnail-1.jpg');
 

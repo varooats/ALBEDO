@@ -1,5 +1,5 @@
 const { getUserByJid, saveUser } = require('../../database/repositories/user.repository');
-const { getLevelForXp } = require('../games/xp.engine');
+const { getLevelForXp } = require('../../features/games/xp.engine');
 
 const DEFAULT_LIMIT = 20;
 

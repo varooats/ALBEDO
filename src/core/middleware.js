@@ -30,7 +30,7 @@ function isOwnerMessage(message = {}, ownerNumber = config?.owner) {
 
   // Check dynamic owners from cache/service if available
   try {
-    const { getOwners } = require('../features/owner/owner.service');
+    const { getOwners } = require('../services/owner/owner.service');
     // Note: getOwners is async, but isOwnerMessage is synchronous.
     // For synchronous check, baseOwner is primary.
   } catch (e) {}
@@ -42,7 +42,7 @@ async function isOwnerAsync(message = {}) {
   const sender = getSenderNumber(message);
   if (!sender) return false;
   try {
-    const { isOwner } = require('../features/owner/owner.service');
+    const { isOwner } = require('../services/owner/owner.service');
     return await isOwner(sender);
   } catch {
     return isOwnerMessage(message);

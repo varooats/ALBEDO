@@ -6,7 +6,7 @@ const {
   getSenderJid,
   jidToMentionName,
   formatCurrency,
-} = require('../../utils/message.utils');
+} = require('../../utils/message');
 
 const {
   defaultResponses,

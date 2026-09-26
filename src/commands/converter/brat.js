@@ -3,7 +3,7 @@ const { replyText } = require('../../core/reply');
 const stickerService = require('../../services/media/sticker.service');
 const { createBratImage } = require('../../services/media/brat.service');
 const { messages } = require('../../messages');
-const { sendTyping, sendReaction, REACTIONS } = require('../../utils/message.utils');
+const { sendTyping, sendReaction, REACTIONS } = require('../../utils/message');
 
 module.exports = createCommand({
   name: 'brat',

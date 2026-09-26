@@ -2,7 +2,7 @@ const { createCommand } = require('../../core/command.factory');
 const { replyText } = require('../../core/reply');
 const { getUserByJid, ensureUser } = require('../../database/repositories/user.repository');
 const { messages, formatMessage } = require('../../messages');
-const { resolveJid } = require('../../utils/message.utils');
+const { resolveJid } = require('../../utils/message');
 
 module.exports = createCommand({
   name: 'register',

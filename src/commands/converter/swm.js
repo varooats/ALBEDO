@@ -3,7 +3,7 @@ const { replyText } = require('../../core/reply');
 const { messages } = require('../../messages');
 const { extractMediaBuffer } = require('../../utils/media-helper');
 const stickerService = require('../../services/media/sticker.service');
-const { sendReaction, REACTIONS } = require('../../utils/message.utils');
+const { sendReaction, REACTIONS } = require('../../utils/message');
 
 module.exports = createCommand({
   name: 'swm',

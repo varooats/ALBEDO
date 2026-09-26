@@ -1,7 +1,7 @@
 const { createCommand } = require('../../core/command.factory');
 const { replyText } = require('../../core/reply');
 const { messages } = require('../../messages');
-const { sendTyping } = require('../../utils/message.utils');
+const { sendTyping } = require('../../utils/message');
 
 module.exports = createCommand({
   name: 'ping',

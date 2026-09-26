@@ -1,4 +1,4 @@
-const { getAllCards } = require('./tarot.cards');
+const { getAllCards } = require('../../features/tarot/tarot.cards');
 const { getUserByJid, saveUser } = require('../../database/repositories/user.repository');
 
 /**

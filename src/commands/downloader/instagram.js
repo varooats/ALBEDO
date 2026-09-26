@@ -6,7 +6,7 @@ const {
   checkUrlContentLength,
   MAX_VIDEO_SIZE_BYTES,
 } = require('../../services/downloader/tioo.service');
-const { sendTyping, sendReaction, REACTIONS } = require('../../utils/message.utils');
+const { sendTyping, sendReaction, REACTIONS } = require('../../utils/message');
 
 module.exports = createCommand({
   name: 'instagram',

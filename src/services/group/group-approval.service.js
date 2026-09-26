@@ -1,6 +1,6 @@
 const { getGroup, updateGroupSettings, approveGroup } = require('../../database/repositories/group.repository');
 const config = require('../../config/bot.config');
-const { jidToMentionName } = require('../../utils/message.utils');
+const { jidToMentionName } = require('../../utils/message');
 
 // Timers for auto-leave: groupJid -> { timer, timeoutAt, inviteNotified }
 const pendingGroups = new Map();

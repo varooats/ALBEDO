@@ -1,7 +1,7 @@
 const { createCommand } = require('../../core/command.factory');
 const { replyText } = require('../../core/reply');
-const { resolveMentionJids } = require('../../utils/message.utils');
-const { getOwners, addOwner, delOwner } = require('../../features/owner/owner.service');
+const { resolveMentionJids } = require('../../utils/message');
+const { getOwners, addOwner, delOwner } = require('../../services/owner/owner.service');
 
 function extractTargetNumber(message, args = []) {
   const mentioned = resolveMentionJids(message);

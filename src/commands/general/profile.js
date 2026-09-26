@@ -4,7 +4,7 @@ const { createCommand } = require('../../core/command.factory');
 const { replyText } = require('../../core/reply');
 const { getUserByJid, findUserByQuery } = require('../../database/repositories/user.repository');
 const { messages } = require('../../messages');
-const { resolveJid, resolveMentionJids, sendReaction, REACTIONS } = require('../../utils/message.utils');
+const { resolveJid, resolveMentionJids, sendReaction, REACTIONS } = require('../../utils/message');
 const { sendNativeFlow, createNativeFlowButton } = require('../../utils/interactive');
 const { buildCategorySelect } = require('../../features/menu/menu.builder');
 const {

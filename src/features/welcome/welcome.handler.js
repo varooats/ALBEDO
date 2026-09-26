@@ -1,10 +1,10 @@
 const { getProfilePictureDataUri } = require('../profile/profile.card');
 const { generateWelcomeCard } = require('./welcome.card');
 const { welcomeMessages } = require('../../messages/welcome.messages');
-const { jidToMentionName } = require('../../utils/message.utils');
+const { jidToMentionName } = require('../../utils/message');
 const { getUserByJid } = require('../../database/repositories/user.repository');
 const { getGroupSettings } = require('../../database/repositories/group.repository');
-const { handleBotGroupJoin } = require('../group/group-approval.service');
+const { handleBotGroupJoin } = require('../../services/group/group-approval.service');
 const { logger } = require('../../utils/logger');
 
 /**

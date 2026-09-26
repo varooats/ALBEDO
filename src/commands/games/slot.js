@@ -2,7 +2,7 @@ const { createCommand } = require('../../core/command.factory');
 const { replyText } = require('../../core/reply');
 const { messages } = require('../../messages');
 const { awardXp } = require('../../features/games/xp.engine');
-const { getSenderJid } = require('../../utils/message.utils');
+const { getSenderJid } = require('../../utils/message');
 
 const ICONS = ['🍎', '🍒', '🍋', '💎', '7️⃣', '🔔'];
 

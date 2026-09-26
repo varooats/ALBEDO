@@ -2,9 +2,9 @@ const { createCommand } = require('../../core/command.factory');
 const { replyText } = require('../../core/reply');
 const { messages } = require('../../messages');
 const { getUserByJid } = require('../../database/repositories/user.repository');
-const { calculateLimitPrice, buyLimit } = require('../../features/limit/limit.service');
+const { calculateLimitPrice, buyLimit } = require('../../services/limit/limit.service');
 const { sendNativeFlow } = require('../../utils/interactive');
-const { getSenderJid } = require('../../utils/message.utils');
+const { getSenderJid } = require('../../utils/message');
 
 async function sendStoreMenu(client, message, senderJid) {
   const user = await getUserByJid(senderJid);

@@ -2,9 +2,9 @@ const { createCommand } = require('../../core/command.factory');
 const { replyText } = require('../../core/reply');
 const { messages } = require('../../messages');
 const { getUserByJid } = require('../../database/repositories/user.repository');
-const { calculateLimitPrice, DEFAULT_LIMIT } = require('../../features/limit/limit.service');
+const { calculateLimitPrice, DEFAULT_LIMIT } = require('../../services/limit/limit.service');
 const { sendNativeFlow } = require('../../utils/interactive');
-const { getSenderJid, resolveMentionJids } = require('../../utils/message.utils');
+const { getSenderJid, resolveMentionJids } = require('../../utils/message');
 const { isOwnerMessage } = require('../../core/middleware');
 
 module.exports = createCommand({

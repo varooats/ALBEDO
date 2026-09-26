@@ -1,7 +1,7 @@
 const { createCommand } = require('../../core/command.factory');
 const { replyText } = require('../../core/reply');
-const { getSenderJid } = require('../../utils/message.utils');
-const { setAfk, clearAfk } = require('../../features/afk/afk.service');
+const { getSenderJid } = require('../../utils/message');
+const { setAfk, clearAfk } = require('../../services/afk/afk.service');
 
 module.exports = createCommand({
   name: 'afk', description: 'Atur status AFK.', isFree: true,

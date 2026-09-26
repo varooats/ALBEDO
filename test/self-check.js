@@ -31,7 +31,7 @@ assert.strictEqual(messages.store.renderProgressBar(6, 20), '▰▰▰▱▱▱�
 assert.strictEqual(messages.store.renderProgressBar(14, 20), '▰▰▰▰▰▰▰▱▱▱ 70%');
 
 // 2. Check utils
-const { resolveJid, jidToMentionName, formatCurrency, sendReaction, REACTIONS } = require('../src/utils/message.utils');
+const { resolveJid, jidToMentionName, formatCurrency, sendReaction, REACTIONS } = require('../src/utils/message');
 assert.strictEqual(resolveJid({ key: { remoteJid: 'user@s.whatsapp.net' } }), 'user@s.whatsapp.net');
 assert.strictEqual(jidToMentionName('12345@s.whatsapp.net'), '@12345');
 assert.strictEqual(typeof formatCurrency(50000), 'string');
@@ -126,7 +126,7 @@ deleteSession('test@chat');
 assert.strictEqual(getSession('test@chat'), null);
 
 // 7. Check Limit Service & Price Scaling
-const { calculateLimitPrice, DEFAULT_LIMIT } = require('../src/features/limit/limit.service');
+const { calculateLimitPrice, DEFAULT_LIMIT } = require('../src/services/limit/limit.service');
 assert.strictEqual(DEFAULT_LIMIT, 20);
 // Base price for 10 limit at base limit 20 = 500 EXP
 assert.strictEqual(calculateLimitPrice(20, 10), 500);
@@ -284,7 +284,7 @@ const { groupAccessMiddleware, checkCommandAccess } = require('../src/core/middl
 assert.strictEqual(typeof groupAccessMiddleware, 'function');
 assert.strictEqual(typeof checkCommandAccess, 'function');
 
-const groupApproval = require('../src/features/group/group-approval.service');
+const groupApproval = require('../src/services/group/group-approval.service');
 assert.strictEqual(typeof groupApproval.handleBotGroupJoin, 'function');
 assert.strictEqual(typeof groupApproval.scheduleAutoLeave, 'function');
 assert.strictEqual(typeof groupApproval.cancelAutoLeave, 'function');

@@ -166,19 +166,25 @@ ALBEDO-BOT/
 │   │   ├── middleware.js
 │   │   └── reply.js
 │   ├── handlers/          [>>] Message handlers
-│   ├── features/          [#] Feature services
+│   ├── features/          [#] Features & UI logic
 │   │   ├── menu/
 │   │   ├── profile/
 │   │   ├── group/
-│   │   ├── afk/
-│   │   ├── owner/
-│   │   ├── limit/
 │   │   ├── welcome/
+│   │   ├── games/
+│   │   ├── converter/
 │   │   └── tarot/
 │   ├── database/          [DB] Firebase & repositories
 │   ├── config/            [=] Configuration
 │   ├── messages/          [<] Message templates
-│   ├── services/          [~] External services
+│   ├── services/          [~] Services & business logic
+│   │   ├── afk/
+│   │   ├── owner/
+│   │   ├── limit/
+│   │   ├── group/
+│   │   ├── tarot/
+│   │   ├── downloader/
+│   │   └── media/
 │   ├── utils/             [!] Utilities
 │   └── data/              [@] JSON data files
 ├── assets/                [*] Static assets: audio, banner, templates, tarot (Masuk Git)

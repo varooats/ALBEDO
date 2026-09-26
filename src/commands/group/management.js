@@ -1,6 +1,6 @@
 const { createCommand } = require('../../core/command.factory');
 const { replyText } = require('../../core/reply');
-const { resolveMentionJids } = require('../../utils/message.utils');
+const { resolveMentionJids } = require('../../utils/message');
 const {
   getGroupSettings,
   updateGroupSettings,
@@ -8,8 +8,8 @@ const {
   setGroupStatus,
   getGroup,
 } = require('../../database/repositories/group.repository');
-const GroupService = require('../../features/group/group.service');
-const MessageStatsService = require('../../features/group/message-stats.service');
+const GroupService = require('../../services/group/group.service');
+const MessageStatsService = require('../../services/group/message-stats.service');
 
 const groupAdmin = { access: 'group-admin' };
 const botAdmin = { access: 'bot-admin' };

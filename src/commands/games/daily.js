@@ -3,7 +3,7 @@ const { replyText } = require('../../core/reply');
 const { messages } = require('../../messages');
 const { getUserByJid, saveUser } = require('../../database/repositories/user.repository');
 const { awardXp } = require('../../features/games/xp.engine');
-const { getSenderJid } = require('../../utils/message.utils');
+const { getSenderJid } = require('../../utils/message');
 
 const COOLDOWN_MS = 24 * 60 * 60 * 1000;
 

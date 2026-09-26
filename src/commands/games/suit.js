@@ -1,7 +1,7 @@
 const { createCommand } = require('../../core/command.factory');
 const { replyText } = require('../../core/reply');
 const { messages } = require('../../messages');
-const { resolveMentionJids, getSenderJid } = require('../../utils/message.utils');
+const { resolveMentionJids, getSenderJid } = require('../../utils/message');
 const { setSession, hasSession, deleteSession } = require('../../features/games/game.state');
 const { awardXp } = require('../../features/games/xp.engine');
 
