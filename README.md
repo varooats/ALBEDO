@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🤖 ALBEDO-BOT
+# ALBEDO-BOT
 
 **Advanced WhatsApp Bot dengan Fitur Modular & Interactive**
 
@@ -13,43 +13,44 @@
 
 ---
 
-## 📋 Daftar Isi
-- [✨ Fitur](#-fitur)
-- [📦 Persyaratan](#-persyaratan)
-- [🚀 Instalasi](#-instalasi)
-- [⚙️ Konfigurasi](#-konfigurasi)
-- [🏗️ Struktur Proyek](#-struktur-proyek)
-- [📚 Perintah Bot](#-perintah-bot)
-- [🛠️ Development](#-development)
+## [TABLE OF CONTENTS]
+
+- [>> FITUR](#-fitur)
+- [>> PERSYARATAN](#-persyaratan)
+- [>> INSTALASI](#-instalasi)
+- [>> KONFIGURASI](#-konfigurasi)
+- [>> STRUKTUR PROYEK](#-struktur-proyek)
+- [>> PERINTAH BOT](#-perintah-bot)
+- [>> DEVELOPMENT](#-development)
 
 ---
 
-## ✨ Fitur
+## >> FITUR
 
-### 🎮 Entertainment & Games
+### | ENTERTAINMENT & GAMES
 - 20+ mini games (tebakan, quiz, duel)
 - Tarot card reading interaktif
 - Fun commands (cek personality)
 - Konverter text & media (sticker, video, dll)
 
-### 👥 Group Management  
+### | GROUP MANAGEMENT  
 - Proteksi link & kata kasar
 - Manajemen member (kick, promote, demote)
 - Statistik group & pesan
 - Pin chat & hidetag
 
-### 🔐 Bot Control
+### | BOT CONTROL
 - Limit system per user
 - Owner management & authentication
 - Settings group & bot
 - AFK status dengan notifikasi mention
 
-### 📥 Media Downloader
+### | MEDIA DOWNLOADER
 - YouTube, TikTok, Instagram, Spotify
 - Konversi media & sticker maker
 - Download/streaming musik
 
-### 📊 User Features
+### | USER FEATURES
 - Profile management & editing
 - User statistics & score tracking
 - Store & item system
@@ -57,7 +58,7 @@
 
 ---
 
-## 📦 Persyaratan
+## >> PERSYARATAN
 
 | Requirement | Versi | Keterangan |
 |:-----------:|:-----:|-----------|
@@ -66,31 +67,31 @@
 | **WhatsApp** | Aktif | Akun untuk login (QR Scan) |
 | **Firebase** | Optional | Untuk Firestore features |
 
-> ⚠️ **Catatan**: Firebase diperlukan untuk group settings, user limits, dan owner management
+> [!] Firebase diperlukan untuk group settings, user limits, dan owner management
 
 ---
 
-## 🚀 Instalasi
+## >> INSTALASI
 
-### 1️⃣ Clone Repository
+### [1] Clone Repository
 ```bash
 git clone https://github.com/varooats/BOT-WA.git
 cd BOT-WA
 ```
 
-### 2️⃣ Install Dependencies
+### [2] Install Dependencies
 ```bash
 npm install
 ```
 
-### 3️⃣ Setup Firebase (Optional)
+### [3] Setup Firebase (Optional)
 Letakkan file `serviceAccountKey.json` di folder `src/database/secrets/`:
 ```
 src/database/secrets/serviceAccountKey.json
 ```
-> 🔒 Folder ini di-ignore oleh Git untuk keamanan kredensial
+> [LOCK] Folder ini di-ignore oleh Git untuk keamanan kredensial
 
-### 4️⃣ Jalankan Bot
+### [4] Jalankan Bot
 ```bash
 npm start
 ```
@@ -99,14 +100,14 @@ npm start
 ```
 [INFO] Scanning QR Code...
 [INFO] Session saved to storage/auth/
-[INFO] Bot connected ✓
+[INFO] Bot connected OK
 ```
 
 Pindai QR dengan WhatsApp. Sesi otomatis tersimpan dan digunakan kembali saat restart.
 
 ---
 
-## ⚙️ Konfigurasi
+## >> KONFIGURASI
 
 ### Environment Variables
 
@@ -140,29 +141,29 @@ DEV_GITHUB=https://github.com/varooats
 
 ---
 
-## 🏗️ Struktur Proyek
+## >> STRUKTUR PROYEK
 
 ```
 ALBEDO-BOT/
 ├── src/
-│   ├── commands/          # ⚡ Command handlers
-│   │   ├── general/       # Menu, profile, settings, afk
-│   │   ├── group/         # Group management
-│   │   ├── owner/         # Owner commands
-│   │   ├── games/         # Game commands
-│   │   ├── fun/           # Fun & entertainment
-│   │   ├── downloader/    # Media downloader
-│   │   ├── converter/     # Media converter
-│   │   ├── ai/            # AI features
-│   │   ├── support/       # Support commands
-│   │   └── tarot/         # Tarot readings
-│   ├── core/              # 🔧 Core system
+│   ├── commands/          [+] Command handlers
+│   │   ├── general/       Menu, profile, settings, afk
+│   │   ├── group/         Group management
+│   │   ├── owner/         Owner commands
+│   │   ├── games/         Game commands
+│   │   ├── fun/           Fun & entertainment
+│   │   ├── downloader/    Media downloader
+│   │   ├── converter/     Media converter
+│   │   ├── ai/            AI features
+│   │   ├── support/       Support commands
+│   │   └── tarot/         Tarot readings
+│   ├── core/              [*] Core system
 │   │   ├── command.factory.js
 │   │   ├── command.loader.js
 │   │   ├── middleware.js
 │   │   └── reply.js
-│   ├── handlers/          # 📩 Message handlers
-│   ├── features/          # 🎯 Feature services
+│   ├── handlers/          [>>] Message handlers
+│   ├── features/          [#] Feature services
 │   │   ├── menu/
 │   │   ├── profile/
 │   │   ├── group/
@@ -171,30 +172,30 @@ ALBEDO-BOT/
 │   │   ├── limit/
 │   │   ├── welcome/
 │   │   └── tarot/
-│   ├── database/          # 🗄️ Firebase & repositories
-│   ├── config/            # ⚙️ Configuration
-│   ├── messages/          # 💬 Message templates
-│   ├── services/          # 🔌 External services
-│   ├── utils/             # 🛠️ Utilities
-│   └── data/              # 📊 JSON data files
+│   ├── database/          [DB] Firebase & repositories
+│   ├── config/            [=] Configuration
+│   ├── messages/          [<] Message templates
+│   ├── services/          [~] External services
+│   ├── utils/             [!] Utilities
+│   └── data/              [@] JSON data files
 ├── public/
-│   └── assets/            # 🖼️ Images, videos, audio
+│   └── assets/            [*] Images, videos, audio
 ├── storage/
-│   ├── auth/              # WhatsApp session
+│   ├── auth/              WhatsApp session
 │   ├── media/
 │   └── temp/
-├── test/                  # 🧪 Self-check tests
+├── test/                  [?] Self-check tests
 └── package.json
 ```
 
 ---
 
-## 📚 Perintah Bot
+## >> PERINTAH BOT
 
 <details>
-<summary><strong>👥 Group Commands (Admin/Owner)</strong></summary>
+<summary><strong>[*] GROUP COMMANDS (ADMIN/OWNER)</strong></summary>
 
-### 🔗 Link Protection
+### LINK PROTECTION
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
 | Antilink | `.antilink <all\|custom\|off>` | Aktifkan proteksi link |
@@ -202,7 +203,7 @@ ALBEDO-BOT/
 | Del Link | `.dellink <domain>` | Hapus domain trusted |
 | List Link | `.listlink` | Lihat daftar domain |
 
-### 🚫 Toxic Protection
+### TOXIC PROTECTION
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
 | Antitoxic | `.antitoxic <on\|off>` | Aktifkan filter kata |
@@ -210,7 +211,7 @@ ALBEDO-BOT/
 | Del Badword | `.delbadword <word>` | Hapus kata kasar |
 | List Badword | `.listbadword` | Lihat daftar kata |
 
-### 👤 Management
+### MANAGEMENT
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
 | Hidetag | `.hidetag <pesan>` atau `.ta` | Kirim pesan ke semua |
@@ -224,7 +225,7 @@ ALBEDO-BOT/
 | Member Count | `.membercount` | Jumlah member |
 | Message Count | `.messagecount <day\|month\|all>` | Statistik pesan |
 
-### 📌 Chat Pin
+### CHAT PIN
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
 | Pin Chat | `.pinchat <24h\|7d\|30d>` | Pin pesan |
@@ -233,23 +234,23 @@ ALBEDO-BOT/
 </details>
 
 <details>
-<summary><strong>👑 Owner Commands</strong></summary>
+<summary><strong>[*] OWNER COMMANDS</strong></summary>
 
-### 💰 Limit System
+### LIMIT SYSTEM
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
 | Set Limit | `.setlimit <jumlah> <@user\|all>` | Set limit user |
 | Add Limit | `.addlimit <jumlah> <@user\|all>` | Tambah limit |
 | Get Limit | `.getlimit <@user>` | Lihat limit user |
 
-### 👨‍💼 Owner Management
+### OWNER MANAGEMENT
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
 | List Owner | `.listowner` | Daftar owner |
 | Add Owner | `.addowner <nomor>` | Tambah owner baru |
 | Del Owner | `.delowner <nomor>` | Hapus owner |
 
-### 🎮 Bot Control
+### BOT CONTROL
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
 | Restart | `.restart` | Restart bot |
@@ -260,9 +261,9 @@ ALBEDO-BOT/
 </details>
 
 <details>
-<summary><strong>⚙️ Settings & General</strong></summary>
+<summary><strong>[*] SETTINGS & GENERAL</strong></summary>
 
-### Main Commands
+### MAIN COMMANDS
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
 | Menu | `.menu` | Tampilkan menu |
@@ -272,7 +273,7 @@ ALBEDO-BOT/
 | Limit | `.limit` | Lihat limit command |
 | Store | `.store` | Buka toko item |
 
-### Settings
+### SETTINGS
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
 | Settings | `.settings` | Lihat pengaturan |
@@ -295,9 +296,9 @@ ALBEDO-BOT/
 </details>
 
 <details>
-<summary><strong>🎮 Games & Entertainment</strong></summary>
+<summary><strong>[*] GAMES & ENTERTAINMENT</strong></summary>
 
-### 🎯 Games
+### GAMES
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
 | Quiz | `.quiz` | Tanya jawab umum |
@@ -311,7 +312,7 @@ ALBEDO-BOT/
 | Siapa Kah Aku | `.siapakahaku` | Tebakan profesi |
 | Asa Hotak | `.asahotak` | Akronim bahasa |
 
-### ⚔️ PvP Games
+### PVP GAMES
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
 | Duel | `.duel @user` | Main duel 1v1 |
@@ -323,7 +324,7 @@ ALBEDO-BOT/
 | Daily | `.daily` | Klaim reward harian |
 | Score | `.score` | Lihat score game |
 
-### 🎭 Fun Commands
+### FUN COMMANDS
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
 | Cek Femboy | `.cekfemboy @user` | Hasil jadi femboy % |
@@ -335,7 +336,7 @@ ALBEDO-BOT/
 | Cek Cocok | `.cekcocok @user` | Compatibility % |
 | Fun | `.fun` | Random fun fact |
 
-### 🃏 Tarot & Converter
+### TAROT & CONVERTER
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
 | Tarot | `.tarot` | Tarikan kartu tarot |
@@ -349,7 +350,7 @@ ALBEDO-BOT/
 </details>
 
 <details>
-<summary><strong>📥 Downloader & Converter</strong></summary>
+<summary><strong>[*] DOWNLOADER & CONVERTER</strong></summary>
 
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
@@ -366,9 +367,9 @@ ALBEDO-BOT/
 
 ---
 
-## 🛠️ Development
+## >> DEVELOPMENT
 
-### ✅ Self-Check / Testing
+### SELF-CHECK / TESTING
 ```bash
 npm test
 ```
@@ -378,7 +379,7 @@ Menjalankan self-check untuk memverifikasi:
 - Message formatting
 - Error handling
 
-### 📝 Git Workflow
+### GIT WORKFLOW
 ```bash
 # Lihat perubahan
 git status
@@ -394,7 +395,7 @@ git tag v1.x.x
 git push origin v1.x.x
 ```
 
-### 🔍 Debugging
+### DEBUGGING
 Enable debug mode:
 ```bash
 DEBUG=* npm start
@@ -402,20 +403,20 @@ DEBUG=* npm start
 
 ---
 
-## 📊 Statistics & Monitoring
+## STATISTICS & MONITORING
 
 Bot mencatat:
-- ✅ Perintah yang dijalankan
-- ✅ Statistik group (member, pesan, activity)
-- ✅ User limits & usage
-- ✅ Error logs
-- ✅ Performance metrics
+- [OK] Perintah yang dijalankan
+- [OK] Statistik group (member, pesan, activity)
+- [OK] User limits & usage
+- [OK] Error logs
+- [OK] Performance metrics
 
 Data tersimpan di Firestore (jika connected) atau JSON cache.
 
 ---
 
-## 🤝 Kontribusi
+## KONTRIBUSI
 
 Kontribusi welcome! Fork repository dan submit pull request.
 
@@ -427,7 +428,7 @@ git push origin feature/new-feature
 
 ---
 
-## 📄 Lisensi
+## LISENSI
 
 MIT License - bebas digunakan untuk komersial & non-komersial.
 
@@ -435,7 +436,7 @@ MIT License - bebas digunakan untuk komersial & non-komersial.
 
 <div align="center">
 
-**Made with ❤️ by [Varo](https://github.com/varooats)**
+**Made with LOVE by [Varo](https://github.com/varooats)**
 
 [![GitHub Stars](https://img.shields.io/github/stars/varooats/BOT-WA?style=social)](https://github.com/varooats/BOT-WA)
 [![GitHub Followers](https://img.shields.io/github/followers/varooats?style=social)](https://github.com/varooats)
