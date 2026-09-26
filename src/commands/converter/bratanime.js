@@ -4,8 +4,9 @@ const { createCommand } = require('../../core/command.factory');
 const { replyText } = require('../../core/reply');
 const stickerService = require('../../services/media/sticker.service');
 const { messages } = require('../../messages');
+const { logger } = require('../../utils/logger');
 
-const TEMPLATE_PATH = path.join(process.cwd(), 'public/assets/bratanime.jpg');
+const TEMPLATE_PATH = path.join(process.cwd(), 'assets/bratanime.jpg');
 const ORIGINAL_TEMPLATE = { width: 1289, height: 1536 };
 const ORIGINAL_PAPER = { left: 645, top: 805, right: 1070, bottom: 1195 };
 
@@ -133,9 +134,14 @@ module.exports = createCommand({
     }
 
     try {
+      logger.media('Processing image template');
+      const startMs = Date.now();
       const imageBuffer = await createBratanime(text);
       const stickerBuffer = await stickerService.create(imageBuffer);
+      logger.media('Sticker generated', Date.now() - startMs);
+
       await client.sendMessage(jid, { sticker: stickerBuffer }, { quoted: message });
+      logger.resp('sticker');
       return true;
     } catch (error) {
       console.error('[BRATANIME] Error:', error?.message || error);

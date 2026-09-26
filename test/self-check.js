@@ -264,6 +264,8 @@ assert.ok(commandMap.has('addlimit'), 'addlimit command should exist');
 assert.ok(commandMap.has('addowner'), 'addowner command should exist');
 assert.ok(commandMap.has('delowner'), 'delowner command should exist');
 assert.ok(commandMap.has('listowner'), 'listowner command should exist');
+assert.ok(commandMap.has('approvegroup'), 'approvegroup command should exist');
+assert.ok(commandMap.has('leavegroup'), 'leavegroup command should exist');
 assert.ok(commandMap.has('restart'), 'restart command should exist');
 assert.ok(commandMap.has('backup'), 'backup command should exist');
 
@@ -276,5 +278,37 @@ assert.strictEqual(typeof menuAudio.convertToOpus, 'function');
 assert.strictEqual(typeof menuAudio.generateWaveform, 'function');
 assert.strictEqual(typeof menuAudio.calculateWaveformWithFfmpeg, 'function');
 assert.strictEqual(typeof menuAudio.sendMenuAudio, 'function');
+
+// 20. Check Group Access Middleware & Approval Logic
+const { groupAccessMiddleware, checkCommandAccess } = require('../src/core/middleware');
+assert.strictEqual(typeof groupAccessMiddleware, 'function');
+assert.strictEqual(typeof checkCommandAccess, 'function');
+
+const groupApproval = require('../src/features/group/group-approval.service');
+assert.strictEqual(typeof groupApproval.handleBotGroupJoin, 'function');
+assert.strictEqual(typeof groupApproval.scheduleAutoLeave, 'function');
+assert.strictEqual(typeof groupApproval.cancelAutoLeave, 'function');
+
+// 21. Check Dynamic Config Loading
+const configIndex = require('../src/config');
+assert.strictEqual(typeof configIndex.getConfig, 'function');
+
+// 22. Check Firebase Env Resolution
+const firebaseModule = require('../src/database/firebase');
+assert.strictEqual(typeof firebaseModule.resolveServiceAccount, 'function');
+assert.ok(firebaseModule.resolveServiceAccount() !== null, 'Should resolve local or env service account');
+
+// 23. Check Cyberpunk Soft Logger
+const { logger: albedoLogger, ANSI } = require('../src/utils/logger');
+assert.strictEqual(typeof albedoLogger.banner, 'function');
+assert.strictEqual(typeof albedoLogger.msg, 'function');
+assert.strictEqual(typeof albedoLogger.cmd, 'function');
+assert.strictEqual(typeof albedoLogger.resp, 'function');
+assert.strictEqual(typeof albedoLogger.media, 'function');
+assert.strictEqual(typeof albedoLogger.group, 'function');
+assert.strictEqual(typeof albedoLogger.security, 'function');
+assert.strictEqual(typeof albedoLogger.warn, 'function');
+assert.strictEqual(typeof albedoLogger.error, 'function');
+assert.ok(ANSI.cyan && ANSI.lavender && ANSI.emerald && ANSI.coral && ANSI.amber, 'Soft cyberpunk colors defined');
 
 console.log('✅ All self-checks passed! (Commands:', commands.length, ')');

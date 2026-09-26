@@ -4,6 +4,8 @@ const { welcomeMessages } = require('../../messages/welcome.messages');
 const { jidToMentionName } = require('../../utils/message.utils');
 const { getUserByJid } = require('../../database/repositories/user.repository');
 const { getGroupSettings } = require('../../database/repositories/group.repository');
+const { handleBotGroupJoin } = require('../group/group-approval.service');
+const { logger } = require('../../utils/logger');
 
 /**
  * Handle group-participants.update event from Baileys
@@ -22,6 +24,21 @@ async function handleGroupParticipantsUpdate(client, update) {
   }
 
   const isWelcome = action === 'add';
+
+  // 0. Check if ALBEDO (the bot itself) was added to the group
+  const botId = client?.user?.id ? client.user.id.split(':')[0].split('@')[0] : null;
+  if (isWelcome && botId) {
+    const botWasAdded = participants.some((p) => p && p.split(':')[0].split('@')[0] === botId);
+    if (botWasAdded) {
+      let groupName = '';
+      try {
+        const meta = await client.groupMetadata(groupJid);
+        groupName = meta?.subject || '';
+      } catch {}
+      await handleBotGroupJoin(client, groupJid, groupName);
+      return true;
+    }
+  }
 
   // Check group settings if welcome / left messages are enabled
   try {
@@ -46,13 +63,17 @@ async function handleGroupParticipantsUpdate(client, update) {
   for (const userJid of participants) {
     // Avoid sending messages to bot's own JID or empty
     if (!userJid) continue;
+    if (botId && userJid.split(':')[0].split('@')[0] === botId) continue;
 
     try {
       // 2. Fetch user details
       const registeredUser = await getUserByJid(userJid);
       const cardName = registeredUser?.name || userJid.split('@')[0] || 'Pengembara';
-      // Clickable tag mention format for WhatsApp
       const tagMention = jidToMentionName(userJid);
+
+      logger.group(`${tagMention} ${isWelcome ? 'joined' : 'left'} "${groupName}"`);
+      logger.security('Group policy checked');
+      logger.security('Access: ALLOWED');
 
       let avatarDataUri = null;
       try {

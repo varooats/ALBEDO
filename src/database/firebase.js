@@ -27,23 +27,75 @@ async function getFirebaseAdmin() {
   }
 }
 
-function resolveServiceAccountPath() {
+function resolveServiceAccount() {
+  // 1. Opsi A: Path file JSON kredensial (paling mudah di-edit di server/local)
+  const credPath = process.env.FIREBASE_CREDENTIALS_PATH;
+  if (credPath) {
+    const resolvedPath = path.isAbsolute(credPath) ? credPath : path.resolve(process.cwd(), credPath);
+    if (fs.existsSync(resolvedPath)) {
+      try {
+        return JSON.parse(fs.readFileSync(resolvedPath, 'utf8'));
+      } catch (err) {
+        console.warn(`[FIREBASE] Gagal membaca file FIREBASE_CREDENTIALS_PATH (${resolvedPath}):`, err.message);
+      }
+    }
+  }
+
+  // 2. Opsi B: Variabel terpisah per field (mudah dibaca & diedit manual di .env)
+  if (process.env.FIREBASE_PROJECT_ID && process.env.FIREBASE_CLIENT_EMAIL && process.env.FIREBASE_PRIVATE_KEY) {
+    let privateKey = process.env.FIREBASE_PRIVATE_KEY.trim();
+    // Bersihkan kutip ganda atau tunggal yang membungkus key
+    if ((privateKey.startsWith('"') && privateKey.endsWith('"')) || (privateKey.startsWith("'") && privateKey.endsWith("'"))) {
+      privateKey = privateKey.slice(1, -1);
+    }
+    // Ganti literal \n dengan newline asli
+    privateKey = privateKey.replace(/\\n/g, '\n');
+
+    return {
+      type: 'service_account',
+      project_id: process.env.FIREBASE_PROJECT_ID.trim(),
+      client_email: process.env.FIREBASE_CLIENT_EMAIL.trim(),
+      private_key: privateKey,
+      client_id: process.env.FIREBASE_CLIENT_ID || undefined,
+    };
+  }
+
+  // 3. Opsi C: JSON String utuh atau Base64 Encoded di FIREBASE_SERVICE_ACCOUNT
+  const envSecret = process.env.FIREBASE_SERVICE_ACCOUNT;
+  if (envSecret && envSecret.trim()) {
+    try {
+      const trimmed = envSecret.trim();
+      if (trimmed.startsWith('{')) {
+        return JSON.parse(trimmed);
+      }
+      // Coba decode jika formatnya base64
+      const decoded = Buffer.from(trimmed, 'base64').toString('utf8');
+      if (decoded.trim().startsWith('{')) {
+        return JSON.parse(decoded);
+      }
+    } catch (err) {
+      console.warn('[FIREBASE] Gagal mem-parse FIREBASE_SERVICE_ACCOUNT:', err.message);
+    }
+  }
+
+  // 4. Opsi D: Fallback otomatis ke folder src/database/secrets/
   const secretsDir = path.join(__dirname, 'secrets');
+  if (fs.existsSync(secretsDir)) {
+    const files = fs
+      .readdirSync(secretsDir)
+      .filter((file) => file.endsWith('.json'))
+      .sort();
 
-  if (!fs.existsSync(secretsDir)) {
-    return null;
+    if (files.length > 0) {
+      try {
+        return JSON.parse(fs.readFileSync(path.join(secretsDir, files[0]), 'utf8'));
+      } catch (err) {
+        console.warn('[FIREBASE] Gagal membaca file secret lokal:', err.message);
+      }
+    }
   }
 
-  const files = fs
-    .readdirSync(secretsDir)
-    .filter((file) => file.endsWith('.json'))
-    .sort();
-
-  if (files.length === 0) {
-    return null;
-  }
-
-  return path.join(secretsDir, files[0]);
+  return null;
 }
 
 async function initializeFirebase() {
@@ -52,7 +104,6 @@ async function initializeFirebase() {
   }
 
   const admin = await getFirebaseAdmin();
-
   const certFactory = admin?.credential?.cert || admin?.cert;
 
   if (!admin || typeof certFactory !== 'function') {
@@ -61,17 +112,13 @@ async function initializeFirebase() {
     );
   }
 
-  const serviceAccountPath = resolveServiceAccountPath();
+  const serviceAccount = resolveServiceAccount();
 
-  if (!serviceAccountPath) {
+  if (!serviceAccount) {
     throw new Error(
-      'Firebase service account file not found in src/database/secrets.'
+      'Firebase credentials not found. Silakan set FIREBASE_CREDENTIALS_PATH atau FIREBASE_PROJECT_ID & FIREBASE_PRIVATE_KEY di .env.'
     );
   }
-
-  const serviceAccount = JSON.parse(
-    fs.readFileSync(serviceAccountPath, 'utf8')
-  );
 
   appInstance = admin.initializeApp({
     credential: certFactory(serviceAccount),
@@ -144,4 +191,5 @@ module.exports = {
   getApp,
   getDb,
   disconnectFirebase,
+  resolveServiceAccount,
 };

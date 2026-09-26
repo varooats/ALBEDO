@@ -5,7 +5,7 @@ const { getUserByJid, updateProfileField } = require('../../database/repositorie
 const { messages } = require('../../messages');
 const { resolveJid } = require('../../utils/message.utils');
 
-const EDITPROFILE_THUMBNAIL = path.resolve(__dirname, '../../../public/assets/thumbnail-1.jpg');
+const EDITPROFILE_THUMBNAIL = path.resolve(__dirname, '../../../assets/thumbnail-1.jpg');
 
 const FIELD_MAP = {
   gender: 'gender',

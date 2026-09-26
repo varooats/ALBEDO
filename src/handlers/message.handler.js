@@ -5,9 +5,10 @@ const { getNativeFlowResponseId, sendMainMenu, sendCategoryMenu } = require('../
 const { handleCommand } = require('./command.handler');
 const { getSession } = require('../features/games/game.state');
 const { buyLimit } = require('../features/limit/limit.service');
-const { isGroupMessage } = require('../core/middleware');
+const { isGroupMessage, groupAccessMiddleware } = require('../core/middleware');
 const { getAfk, clearAfk, formatAfkDuration } = require('../features/afk/afk.service');
 const { incrementMessageCount, enforceAntilink, enforceAntitoxic } = require('../features/group/moderation');
+const { logger } = require('../utils/logger');
 
 async function handleGameMessage(client, message) {
   const jid = message?.key?.remoteJid;
@@ -47,6 +48,20 @@ async function handleInteractiveMessage(client, message, commandMap) {
   if (!jid) return false;
 
   console.log(`[MESSAGE] Interactive selected ID: ${selectedId}`);
+
+  // Group Whitelist Check for Interactive responses
+  const groupAccess = await groupAccessMiddleware(client, message);
+  if (!groupAccess.allowed) {
+    if (groupAccess.status === 'pending') {
+      await replyText(
+        client,
+        message,
+        '🔒 *GRUP BELUM TERDAFTAR*\n\nALBEDO belum disetujui di grup ini. Hubungi Bot Owner untuk mendaftarkan grup ini (`.approvegroup`).'
+      );
+    }
+    return false;
+  }
+
   await sendTyping(client, jid, 'composing');
 
   try {
@@ -231,9 +246,28 @@ async function handleMessage(client, message, commandMap) {
     const parsed = parseCommand(message);
     if (!parsed || !parsed.isCommand) return false;
 
+    // Group Whitelist Gatekeeper (groupAccessMiddleware)
+    // pending -> reject, blocked -> leave, suspended -> ignore, active -> continue
+    const groupAccess = await groupAccessMiddleware(client, message);
+    if (!groupAccess.allowed) {
+      if (groupAccess.status === 'pending') {
+        const jid = message?.key?.remoteJid;
+        await replyText(
+          client,
+          message,
+          '🔒 *GRUP BELUM TERDAFTAR*\n\nALBEDO belum disetujui di grup ini. Hubungi Bot Owner untuk mendaftarkan grup ini (`.approvegroup`).'
+        );
+      }
+      return false;
+    }
+
     const { command, args } = parsed;
     const commandItem = commandMap?.get(command);
     if (!commandItem) return false;
+
+    const senderJid = getSenderJid(message);
+    const userTag = senderJid ? `@${senderJid.split('@')[0]}` : '@user';
+    logger.msg(userTag, rawText);
 
     const jid = message?.key?.remoteJid;
     await sendTyping(client, jid, 'composing');
@@ -246,7 +280,10 @@ async function handleMessage(client, message, commandMap) {
 
     return true;
   } catch (error) {
-    console.error('[MESSAGE] Handler error:', error);
+    logger.error('Message handler error', {
+      module: 'message.handler',
+      reason: error?.message || 'Unknown error',
+    });
     return false;
   }
 }

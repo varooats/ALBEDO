@@ -84,26 +84,26 @@ cd BOT-WA
 npm install
 ```
 
-### [3] Setup Firebase (Optional)
-Letakkan file `serviceAccountKey.json` di folder `src/database/secrets/`:
+### [3] Setup Firebase Credentials
+Simpan credentials Firebase di file `.env` (Recommended) atau taruh file JSON di `src/database/secrets/`:
+
+```env
+# Paste isi service account JSON utuh (atau base64 encoded)
+FIREBASE_SERVICE_ACCOUNT={"type":"service_account","project_id":"..."}
 ```
-src/database/secrets/serviceAccountKey.json
-```
-> [LOCK] Folder ini di-ignore oleh Git untuk keamanan kredensial
 
 ### [4] Jalankan Bot
+Pilih metode login sesi yang diinginkan:
+
 ```bash
-npm start
-```
+# Opsi A: Login via Scan QR Code
+npm run start:qr
+# atau: npm start
 
-**Output pertama kali:**
+# Opsi B: Login via Pairing Code (Tanpa Scan QR)
+npm run start:code
+# atau atur LOGIN_METHOD=code & PAIRING_NUMBER=628xxx di .env
 ```
-[INFO] Scanning QR Code...
-[INFO] Session saved to storage/auth/
-[INFO] Bot connected OK
-```
-
-Pindai QR dengan WhatsApp. Sesi otomatis tersimpan dan digunakan kembali saat restart.
 
 ---
 
@@ -127,6 +127,9 @@ DEV_GITHUB=https://github.com/varooats
 
 | Variable | Default | Deskripsi |
 |:---------|:-------:|-----------|
+| `LOGIN_METHOD` | `qr` | Metode login WhatsApp (`qr` atau `code`) |
+| `PAIRING_NUMBER` | - | Nomor WhatsApp bot jika menggunakan login `code` |
+| `FIREBASE_SERVICE_ACCOUNT` | - | Isi JSON Service Account Firebase (string/base64) |
 | `BOT_NAME` | `ALBEDO` | Nama yang tampil di bot |
 | `BOT_PREFIX` | `.` | Prefix untuk menjalankan command |
 | `OWNER_NUMBER` | `6285746345170` | Nomor WhatsApp owner |
@@ -178,12 +181,13 @@ ALBEDO-BOT/
 │   ├── services/          [~] External services
 │   ├── utils/             [!] Utilities
 │   └── data/              [@] JSON data files
-├── public/
-│   └── assets/            [*] Images, videos, audio
-├── storage/
-│   ├── auth/              WhatsApp session
-│   ├── media/
-│   └── temp/
+├── assets/                [*] Static assets: audio, banner, templates, tarot (Masuk Git)
+│   ├── audio/             Voice note audio (.mp3, .ogg)
+│   ├── banner/            Video banner menu (.mp4)
+│   └── tarot/             Gambar kartu tarot
+├── storage/               [!] Dynamic runtime storage (Di-ignore Git)
+│   ├── auth/              WhatsApp multi-device session
+│   └── temp/              Temporary files
 ├── test/                  [?] Self-check tests
 └── package.json
 ```

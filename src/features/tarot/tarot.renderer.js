@@ -11,7 +11,7 @@ function getCardImagePath(card) {
 
   if (card.arcana === 'major') {
     const num = String(card.number).padStart(2, '0');
-    const dir = path.resolve(__dirname, '../../../public/assets/tarot/major-arcana');
+    const dir = path.resolve(__dirname, '../../../assets/tarot/major-arcana');
     if (!fs.existsSync(dir)) return null;
     const files = fs.readdirSync(dir).filter((f) => f.startsWith(`RWS_Tarot_${num}`) && f.endsWith('.jpg'));
     return files[0] ? path.join(dir, files[0]) : null;
@@ -26,7 +26,7 @@ function getCardImagePath(card) {
     if (!conf) return null;
     const num = String(card.number).padStart(2, '0');
     const filename = `${conf.prefix}${num}.jpg`;
-    const full = path.resolve(__dirname, '../../../public/assets/tarot', conf.dir, filename);
+    const full = path.resolve(__dirname, '../../../assets/tarot', conf.dir, filename);
     return fs.existsSync(full) ? full : null;
   }
 }

@@ -199,7 +199,7 @@ async function sendMenuAudio(client, message) {
     return false;
   }
 
-  const audioDir = path.resolve(__dirname, '../../../public/assets/audio');
+  const audioDir = path.resolve(__dirname, '../../../assets/audio');
   const chosenAudio = getRandomAudioFile(audioDir);
 
   if (!chosenAudio) {

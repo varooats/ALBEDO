@@ -15,7 +15,7 @@ const { sendTyping } = require('../../utils/message.utils');
 const { sendMenuAudio } = require('../../features/menu/menu.audio');
 
 function getRandomBannerVideo() {
-  const bannerDir = path.resolve(__dirname, '../../../public/assets/banner');
+  const bannerDir = path.resolve(__dirname, '../../../assets/banner');
   if (fs.existsSync(bannerDir)) {
     const entries = fs.readdirSync(bannerDir).filter((f) => {
       const ext = path.extname(f).toLowerCase();
@@ -28,7 +28,7 @@ function getRandomBannerVideo() {
     }
   }
 
-  const fallback = path.resolve(__dirname, '../../../public/assets/animation-gagak.mp4');
+  const fallback = path.resolve(__dirname, '../../../assets/animation-gagak.mp4');
   return fs.existsSync(fallback) ? fallback : null;
 }
 

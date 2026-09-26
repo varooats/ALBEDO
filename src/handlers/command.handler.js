@@ -5,6 +5,7 @@ const { getSenderJid } = require('../utils/message.utils');
 const { getUserByJid } = require('../database/repositories/user.repository');
 const { checkAndConsumeLimit, calculateLimitPrice } = require('../features/limit/limit.service');
 const { sendNativeFlow } = require('../utils/interactive');
+const { logger } = require('../utils/logger');
 
 // Commands that guests (unregistered users) are permitted to run
 const GUEST_COMMANDS = new Set([
@@ -33,6 +34,7 @@ const FREE_COMMANDS = new Set([
   'group', 'groupmenu', 'gcmenu',
   'antilink', 'addlink', 'dellink', 'listlink',
   'antitoxic', 'addbadword', 'delbadword', 'listbadword',
+  'approvegroup', 'accgroup', 'acgc', 'leavegroup', 'outgroup', 'keluargrup',
   'hidetag', 'ta', 'grouplink', 'groupinfo', 'membercount', 'messagecount',
   'kick', 'promote', 'demote', 'opengroup', 'closegroup', 'pinchat', 'unpinchat',
   'setlimit', 'changelimit', 'addlimit', 'restart', 'backup', 'listowner', 'addowner', 'delowner', 'deleteowner',
@@ -89,9 +91,19 @@ module.exports = {
     try {
       const access = await checkCommandAccess(client, message, command.access || 'public', args);
       if (!access.allowed) {
-        await replyText(client, message, access.reason === 'group'
-          ? 'Perintah ini hanya dapat digunakan di dalam grup.'
-          : 'Khusus admin grup dan owner bot.');
+        if (access.reason === 'bot-admin') {
+          await replyText(
+            client,
+            message,
+            '❌ BOT NOT ADMIN\n\nALBEDO membutuhkan permission admin untuk menjalankan command ini.'
+          );
+        } else if (access.reason === 'admin') {
+          await replyText(client, message, 'Khusus admin grup dan owner bot.');
+        } else if (access.reason === 'group') {
+          await replyText(client, message, 'Perintah ini hanya dapat digunakan di dalam grup.');
+        } else {
+          await replyText(client, message, 'Khusus admin grup dan owner bot.');
+        }
         return false;
       }
     } catch (error) {
@@ -123,11 +135,21 @@ module.exports = {
       }
     }
 
+    const startTime = Date.now();
     try {
       await command.execute(client, message, args);
+      const elapsed = Date.now() - startTime;
+      logger.cmd(commandName);
+      logger.resp(commandName, elapsed);
       return true;
     } catch (error) {
-      console.error('Command execution error:', error);
+      const senderNumber = senderJid ? senderJid.split('@')[0] : 'unknown';
+      logger.error('Command execution failed', {
+        command: `.${commandName}`,
+        user: senderNumber,
+        module: `command.${commandName}`,
+        reason: error?.message || 'Internal error',
+      });
       const jid = message?.key?.remoteJid;
 
       if (jid) {

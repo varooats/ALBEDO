@@ -12,17 +12,10 @@ yarn-error.log*
 src/database/secrets/*.json
 src/database/secrets/
 
-# WhatsApp Session / Baileys Auth & Local Storage
-storage/auth/
-storage/auth/*
-storage/temp/
-storage/temp/*
-storage/media/
-storage/media/*
-storage/stickers/
-storage/stickers/*
-storage/*.db
-storage/**/*.db
+# Runtime Storage (Local Session & Temporary Files)
+# Semua file di bawah folder storage bersifat dinamis dan tidak masuk git
+storage/
+!storage/.gitkeep
 
 # OS Files
 .DS_Store
@@ -30,3 +23,7 @@ Thumbs.db
 
 # Logs & Runtime
 *.log
+
+# Editor Directories & Files
+.idea/
+CHANGELOG_PERUBAHAN.md

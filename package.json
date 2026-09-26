@@ -1,10 +1,20 @@
 {
   "name": "albedo-bot",
-  "version": "1.0.0",
+  "version": "1.1.4",
   "description": "Bot WhatsApp with modular command structure",
   "main": "src/app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/varooats/BOT-WA.git"
+  },
+  "homepage": "https://github.com/varooats/BOT-WA",
+  "bugs": {
+    "url": "https://github.com/varooats/BOT-WA/issues"
+  },
   "scripts": {
     "start": "node src/app.js",
+    "start:code": "node src/app.js --code",
+    "start:qr": "node src/app.js --qr",
     "migrate": "node scripts/migrate.js",
     "test": "node test/self-check.js"
   },
@@ -25,7 +35,7 @@
     "pino": "^9.1.0",
     "puppeteer": "^25.12.0",
     "qrcode-terminal": "^0.12.0",
-    "sharp": "^0.33.5",
+    "sharp": "^0.35.4",
     "yt-search": "^2.12.1",
     "ytdl-core": "^4.11.5"
   }
