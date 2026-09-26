@@ -140,6 +140,50 @@ const commands = [
       }
     },
   }),
+  createCommand({
+    name: 'group',
+    aliases: ['groupmenu', 'gcmenu'],
+    ...groupAdmin,
+    description: 'Tampilkan menu administrasi grup.',
+    execute: async (client, message) => {
+      const text = [
+        '╭─〔 GROUP MENU 〕',
+        '│',
+        '├─ LINK PROTECTION',
+        '│  ├─ .antilink <all|custom|off>',
+        '│  ├─ .addlink <domain>',
+        '│  ├─ .dellink <domain>',
+        '│  └─ .listlink',
+        '│',
+        '├─ TOXIC PROTECTION',
+        '│  ├─ .antitoxic <on|off>',
+        '│  ├─ .addbadword <word>',
+        '│  ├─ .delbadword <word>',
+        '│  └─ .listbadword',
+        '│',
+        '├─ GROUP MANAGEMENT',
+        '│  ├─ .hidetag <pesan>',
+        '│  ├─ .grouplink',
+        '│  ├─ .kick @user',
+        '│  ├─ .promote @user',
+        '│  ├─ .demote @user',
+        '│  ├─ .opengroup',
+        '│  └─ .closegroup',
+        '│',
+        '├─ GROUP INFORMATION',
+        '│  ├─ .groupinfo',
+        '│  ├─ .membercount',
+        '│  └─ .messagecount <day|month|all>',
+        '│',
+        '└─ CHAT PIN',
+        '   ├─ .pinchat <24h|7d|30d>',
+        '   └─ .unpinchat',
+        '╰──────────────────',
+        '> 「Khusus Admin Grup & Bot Owner」',
+      ].join('\n');
+      return replyText(client, message, text);
+    },
+  }),
 ];
 
 module.exports = commands;

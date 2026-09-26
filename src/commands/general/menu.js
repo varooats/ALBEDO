@@ -12,6 +12,7 @@ const {
   getInteractiveAdditionalNodes,
 } = require('../../utils/interactive');
 const { sendTyping } = require('../../utils/message.utils');
+const { sendMenuAudio } = require('../../features/menu/menu.audio');
 
 function getRandomBannerVideo() {
   const bannerDir = path.resolve(__dirname, '../../../public/assets/banner');
@@ -162,11 +163,18 @@ module.exports = {
   sendCategoryMenu,
   sendSection1: sendMainMenu,
   sendSection2: sendCategoryMenu,
+  sendMenuAudio,
   handleConverterCategory,
   handleMenuSelection,
   execute: async (client, message) => {
     try {
-      return await sendMainMenu(client, message);
+      const res = await sendMainMenu(client, message);
+      try {
+        await sendMenuAudio(client, message);
+      } catch (audioErr) {
+        console.warn('[MENU] Audio voice note error:', audioErr?.message || audioErr);
+      }
+      return res;
     } catch (error) {
       console.error('[MENU] Error:', error);
       const jid = message?.key?.remoteJid;

@@ -20,16 +20,32 @@ Ahh, napasku rasanya begitu berat hanya karena dipanggil olehmu. Aku milik Tuan 
 │ 👑 [ \`SUPREME MENU\` ]
 │ ⟢ \`\`\`.menu\`\`\`
 │ ⟢ \`\`\`.profile\`\`\`
+│ ⟢ \`\`\`.afk\`\`\`
 │ ⟢ \`\`\`.limit\`\`\`
 │ ⟢ \`\`\`.store\`\`\`
+│ ⟢ \`\`\`.settings\`\`\`
 │ ⟢ \`\`\`.owner\`\`\`
+│
+│ 👥 [ \`GROUP MANAGEMENT\` ]
+│ ⟢ \`\`\`.group\`\`\`
+│ ⟢ \`\`\`.antilink\`\`\`
+│ ⟢ \`\`\`.antitoxic\`\`\`
+│ ⟢ \`\`\`.hidetag\`\`\`
+│ ⟢ \`\`\`.kick\`\`\`
+│ ⟢ \`\`\`.promote\`\`\`
+│ ⟢ \`\`\`.demote\`\`\`
+│ ⟢ \`\`\`.groupinfo\`\`\`
+│ ⟢ \`\`\`.messagecount\`\`\`
+│ ⟢ \`\`\`.pinchat\`\`\`
 │
 │ ⚔️ [ \`GUARDIAN TOOLS\` ]
 │ ⟢ \`\`\`.download\`\`\`
 │ ⟢ \`\`\`.play\`\`\`
 │ ⟢ \`\`\`.games\`\`\`
 │ ⟢ \`\`\`.fun\`\`\`
+│ ⟢ \`\`\`.tarot\`\`\`
 │ ⟢ \`\`\`.sticker\`\`\`
+│ ⟢ \`\`\`.iqc\`\`\`
 │
 ╰──────────────────
 

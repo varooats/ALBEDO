@@ -254,6 +254,7 @@ assert.ok(commandMap.has('membercount'), 'membercount command should exist');
 assert.ok(commandMap.has('messagecount'), 'messagecount command should exist');
 assert.ok(commandMap.has('pinchat'), 'pinchat command should exist');
 assert.ok(commandMap.has('unpinchat'), 'unpinchat command should exist');
+assert.ok(commandMap.has('group'), 'group command should exist');
 assert.ok(commandMap.has('afk'), 'afk command should exist');
 assert.ok(commandMap.has('settings'), 'settings command should exist');
 assert.ok(commandMap.has('enable'), 'enable command should exist');
@@ -265,5 +266,13 @@ assert.ok(commandMap.has('delowner'), 'delowner command should exist');
 assert.ok(commandMap.has('listowner'), 'listowner command should exist');
 assert.ok(commandMap.has('restart'), 'restart command should exist');
 assert.ok(commandMap.has('backup'), 'backup command should exist');
+
+// 19. Check Menu Audio Voice Note Feature
+const menuAudio = require('../src/features/menu/menu.audio');
+assert.strictEqual(typeof menuAudio.getFfmpegPath, 'function');
+assert.strictEqual(typeof menuAudio.getAudioFiles, 'function');
+assert.strictEqual(typeof menuAudio.getRandomAudioFile, 'function');
+assert.strictEqual(typeof menuAudio.convertMp3ToOpus, 'function');
+assert.strictEqual(typeof menuAudio.sendMenuAudio, 'function');
 
 console.log('✅ All self-checks passed! (Commands:', commands.length, ')');

@@ -13,6 +13,7 @@ const GUEST_COMMANDS = new Set([
   'ping', 'p',
   'owner', 'ownerinfo', 'rules', 'runtime', 'status', 'donate', 'dev', 'github', 'portfolio',
   'settings', 'setting', 'enable', 'disable',
+  'group', 'groupmenu', 'gcmenu',
 ]);
 
 // Commands that do not consume limits for registered users
@@ -29,6 +30,7 @@ const FREE_COMMANDS = new Set([
   'games', 'game', 'gamemenu', 'fun',
   'afk',
   'settings', 'setting', 'enable', 'disable',
+  'group', 'groupmenu', 'gcmenu',
   'antilink', 'addlink', 'dellink', 'listlink',
   'antitoxic', 'addbadword', 'delbadword', 'listbadword',
   'hidetag', 'ta', 'grouplink', 'groupinfo', 'membercount', 'messagecount',

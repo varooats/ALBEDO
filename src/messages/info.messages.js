@@ -4,16 +4,30 @@ const infoContents = {
   help: {
     commandBoxes: [
       {
-        title: 'SUPREME',
-        commands: ['.owner', '.ownerinfo', '.rules', '.runtime', '.status', '.donate'],
+        title: 'MAIN & SETTINGS',
+        commands: ['.menu', '.profile', '.afk', '.limit', '.store', '.settings', '.enable', '.disable'],
       },
       {
-        title: 'SUPPORT',
-        commands: ['.help', '.faq', '.report', '.bug', '.request', '.feedback'],
+        title: 'GROUP MANAGEMENT',
+        commands: [
+          '.group', '.antilink', '.addlink', '.dellink', '.listlink',
+          '.antitoxic', '.addbadword', '.delbadword', '.listbadword',
+          '.hidetag', '.grouplink', '.kick', '.promote', '.demote',
+          '.opengroup', '.closegroup', '.groupinfo', '.membercount',
+          '.messagecount', '.pinchat', '.unpinchat',
+        ],
       },
       {
-        title: 'DEVELOPER',
-        commands: ['.dev', '.github', '.portfolio'],
+        title: 'OWNER MENU',
+        commands: [
+          '.owner', '.ownerinfo', '.rules', '.runtime', '.status',
+          '.setlimit', '.addlimit', '.listowner', '.addowner', '.delowner',
+          '.backup', '.restart', '.donate',
+        ],
+      },
+      {
+        title: 'SUPPORT & DEV',
+        commands: ['.help', '.faq', '.report', '.bug', '.request', '.feedback', '.dev', '.github', '.portfolio'],
       },
     ],
     sectionKey: 'support',

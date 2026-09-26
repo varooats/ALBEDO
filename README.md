@@ -60,3 +60,29 @@ Perintah ini menjalankan self-check command bot.
 - `public/` — aset gambar dan video
 - `storage/` — sesi WhatsApp dan file runtime lokal
 - `test/` — self-check
+
+## Daftar Perintah (Menu)
+
+### 1. Group Menu (Admin / Owner)
+- **Link Protection:** `.antilink <all|custom|off>`, `.addlink <domain>`, `.dellink <domain>`, `.listlink`
+- **Toxic Protection:** `.antitoxic <on|off>`, `.addbadword <word>`, `.delbadword <word>`, `.listbadword`
+- **Group Management:** `.hidetag` / `.ta <pesan>`, `.grouplink`, `.kick @user`, `.promote @user`, `.demote @user`, `.opengroup`, `.closegroup`
+- **Group Info & Stats:** `.groupinfo`, `.membercount`, `.messagecount <day|month|all>`
+- **Chat Pin:** `.pinchat <24h|7d|30d>`, `.unpinchat`
+
+### 2. Owner Menu (Bot Owner)
+- **Limit:** `.setlimit <jumlah> <@user|all>`, `.addlimit <jumlah> <@user|all>`
+- **Owner Management:** `.listowner`, `.addowner <nomor>`, `.delowner <nomor>`
+- **Bot Control:** `.restart`, `.backup`, `.status`, `.runtime`
+
+### 3. Main & Settings Menu
+- **Main:** `.menu`, `.profile`, `.editprofile`, `.afk <alasan>`, `.limit`, `.store`
+- **Settings:** `.settings`, `.enable <fitur>`, `.disable <fitur>`
+  - *Group:* `welcome`, `left`, `detect`, `antidetect`, `autolevelup`
+  - *Bot:* `public`, `autoread`, `grouponly`, `anticall`
+
+### 4. Media, Games & Entertainment
+- **Downloader:** `.download <url>`, `.play <judul>`, `.tiktok`, `.youtube`, `.instagram`, `.spotify`
+- **Games:** `.quiz`, `.tebakkata`, `.susunkata`, `.tebakgambar`, `.tebakangka`, `.tebakbendera`, `.tebaklagu`, `.caklontong`, `.siapakahaku`, `.asahotak`, `.duel @user`, `.suit @user`, `.tictactoe @user`, `.coinflip`, `.roulette`, `.slot`, `.daily`, `.score`
+- **Fun:** `.cekfemboy @user`, `.cekbeban @user`, `.cektampan`, `.cekcantik`, `.cekhargadiri`, `.cekjodoh`, `.cekcocok`, `.fun`
+- **Tarot & Converter:** `.tarot`, `.brat <teks>`, `.bratvid <teks>`, `.bratanime <teks>`, `.sticker`, `.swm <pack|author>`, `.iqc`
