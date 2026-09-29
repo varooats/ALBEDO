@@ -4,7 +4,7 @@ module.exports = {
   owner: process.env.OWNER_NUMBER || '6285746345170',
   ownerName: process.env.OWNER_NAME || 'varo',
   ownerRole: process.env.OWNER_ROLE || 'OWNER BOT',
-  ownerContact: process.env.OWNER_CONTACT || process.env.OWNER_NUMBER || '6285111411152',
+  ownerContact: process.env.OWNER_CONTACT || process.env.OWNER_NUMBER,
   donateInfo: process.env.DONATE_INFO || 'Hubungi owner untuk detail donasi operasional bot.',
   developerName: process.env.DEV_NAME || 'Varo',
   developerRole: process.env.DEV_ROLE || 'Developer',
@@ -12,4 +12,9 @@ module.exports = {
   developerWebsite: process.env.DEV_WEBSITE || 'https://varooats.xyz',
   developerInstagram: process.env.DEV_INSTAGRAM || '@varooats',
   debug: process.env.NODE_ENV !== 'production',
+  ai: {
+    baseUrl: process.env.APMIX_BASE_URL || 'https://api.apmix.ai/v1',
+    apiKey: process.env.APMIX_API_KEY || 'apx_live.....',
+    model: process.env.APMIX_MODEL || 'deepseek-v4-flash-free',
+  },
 };

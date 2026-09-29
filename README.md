@@ -7,7 +7,7 @@
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=flat-square&logo=node.js)](https://nodejs.org/)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-varooats%2FBOT--WA-black?style=flat-square&logo=github)](https://github.com/varooats/BOT-WA)
-[![Version](https://img.shields.io/badge/Version-1.1.5-orange?style=flat-square)](https://github.com/varooats/BOT-WA/releases)
+[![Version](https://img.shields.io/badge/Version-1.1.6-orange?style=flat-square)](https://github.com/varooats/BOT-WA/releases)
 
 </div>
 
@@ -162,6 +162,9 @@ DEV_GITHUB=https://github.com/varooats
 | `DEV_ROLE` | `Developer` | Role developer |
 | `DEV_GITHUB` | Konfigurasi | URL GitHub developer |
 | `DEV_WEBSITE` | Konfigurasi | Website developer |
+| `APMIX_BASE_URL` | `https://api.apmix.ai/v1` | Base URL endpoint APMIX AI |
+| `APMIX_API_KEY` | - | API Key APMIX (`apx_live_...`) |
+| `APMIX_MODEL` | `deepseek-v4-flash-free` | Model LLM yang digunakan |
 
 ---
 
@@ -201,6 +204,7 @@ ALBEDO-BOT/
 │   ├── messages/          [<] Message templates
 │   ├── services/          [~] Services & business logic
 │   │   ├── afk/           AFK status tracking
+│   │   ├── ai/            APMIX DeepSeek AI reasoning & chat
 │   │   ├── audit/         Structured audit log engine
 │   │   ├── downloader/    Tioo API & YTDL streams
 │   │   ├── feature/       Global & per-group kill switch
@@ -209,6 +213,7 @@ ALBEDO-BOT/
 │   │   ├── media/         Brat generator & WebP EXIF
 │   │   ├── owner/         Owner hierarchy (Superowner/Owner/Admin)
 │   │   ├── security/      Blacklist & ban management
+│   │   ├── support/       Ticket forwarding to Owner WhatsApp
 │   │   ├── system/        Shutdown & maintenance control
 │   │   ├── tarot/         Tarot deck services
 │   │   └── user/          Privacy preferences service
@@ -221,7 +226,7 @@ ALBEDO-BOT/
 ├── storage/               [!] Dynamic runtime storage (Git ignored)
 │   ├── auth/              WhatsApp multi-device session
 │   └── temp/              Temporary files
-├── test/                  [?] Self-check tests (33 suites)
+├── test/                  [?] Self-check tests (35 suites)
 └── package.json
 ```
 
@@ -458,26 +463,31 @@ ALBEDO-BOT/
 </details>
 
 <details>
-<summary><strong>[*] AI & CHATBOT</strong></summary>
+<summary><strong>[*] AI & CHATBOT (APMIX DeepSeek)</strong></summary>
 
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
-| AI Reasoning | `.ai <pertanyaan>` | Analisis & jawaban cerdas AI |
-| AI Chat | `.chat <pesan>` | Obrolan percakapan interaktif AI |
+| AI Reasoning | `.ai <pertanyaan>` | Analisis & jawaban cerdas AI instan |
+| AI Chat | `.chat <pesan>` | Obrolan percakapan dengan memori sesi |
+| Reset Chat | `.chat reset` | Hapus riwayat memori sesi percakapan |
+
+> **Backend:** Ditenagai oleh model `deepseek-v4-flash-free` via APMIX.AI (OpenAI-compatible protocol).
 
 </details>
 
 <details>
-<summary><strong>[*] SUPPORT & FEEDBACK</strong></summary>
+<summary><strong>[*] SUPPORT & FEEDBACK (Owner Forwarding)</strong></summary>
 
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
-| Report | `.report <masalah>` | Laporkan member atau pelanggaran |
-| Bug Report | `.bug <kendala>` | Laporkan bug sistem bot ke tim |
-| Feedback | `.feedback <saran>` | Kirim kritik & saran pengembangan |
-| Feature Request | `.request <fitur>` | Ajukan ide fitur baru untuk ALBEDO |
+| Report | `.report <masalah>` | Laporkan kendala, langsung diteruskan ke WA Owner |
+| Bug Report | `.bug <kendala>` | Laporkan bug error, langsung diteruskan ke WA Owner |
+| Feedback | `.feedback <saran>` | Kirim kritik & saran langsung ke WA Owner |
+| Feature Request | `.request <fitur>` | Ajukan ide fitur baru langsung ke WA Owner |
 | FAQ | `.faq` | Jawaban pertanyaan yang sering diajukan |
 | Support | `.support` | Pusat bantuan & saluran resmi bot |
+
+> Jika dipanggil tanpa argumen, bot menampilkan panduan format laporan & menu interaktif.
 
 </details>
 

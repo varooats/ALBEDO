@@ -1,6 +1,6 @@
 {
   "name": "albedo-bot",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Bot WhatsApp with modular command structure",
   "main": "src/app.js",
   "repository": {

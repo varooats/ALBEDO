@@ -502,6 +502,32 @@ step('Verifying user privacy mode engine', () => {
   assert.ok(card.includes('Activity history   : Private'));
 });
 
+// 34. AI Service (APMIX DeepSeek Integration)
+step('Verifying AI service & chat session', () => {
+  assert.ok(commandMap.has('ai'), 'ai command should exist');
+  assert.ok(commandMap.has('chat'), 'chat command should exist');
+  const aiService = require('../src/services/ai/ai.service');
+  assert.strictEqual(typeof aiService.askAi, 'function');
+  assert.strictEqual(typeof aiService.chatAi, 'function');
+  assert.strictEqual(typeof aiService.clearSession, 'function');
+  assert.strictEqual(typeof aiService.getSession, 'function');
+  assert.ok(aiService.DEFAULT_SYSTEM_PROMPT.includes('ALBEDO'));
+});
+
+// 35. Support Ticket Forwarding
+step('Verifying support ticket forwarding service', () => {
+  assert.ok(commandMap.has('report'), 'report command should exist');
+  assert.ok(commandMap.has('bug'), 'bug command should exist');
+  assert.ok(commandMap.has('feedback'), 'feedback command should exist');
+  assert.ok(commandMap.has('request'), 'request command should exist');
+  const supportService = require('../src/services/support/support.service');
+  assert.strictEqual(typeof supportService.sendTicketToOwners, 'function');
+  assert.ok(supportService.TYPE_LABELS.report);
+  assert.ok(supportService.TYPE_LABELS.bug);
+  assert.ok(supportService.TYPE_LABELS.feedback);
+  assert.ok(supportService.TYPE_LABELS.request);
+});
+
 console.log(`
 ${ANSI.darkGray}──────────────────────────────────────────────────────────────${ANSI.reset}
 ${ANSI.cyan}[ALBEDO]${ANSI.reset} ${ANSI.emerald}All self-checks passed! ${passedCount}/${passedCount} test suites OK.${ANSI.reset}
