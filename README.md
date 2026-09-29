@@ -59,14 +59,22 @@
 
 ### | MEDIA DOWNLOADER
 - YouTube, TikTok, Instagram, Spotify
-- Konversi media & sticker maker
-- Download/streaming musik
+- Konversi media & sticker maker (Brat text & WebP EXIF)
+- Download/streaming musik dengan pencarian YouTube
 
-### | USER FEATURES
-- Profile management & editing
+### | AI & ASSISTANT
+- AI Reasoning & Tanya Jawab interaktif
+- Chatbot percakapan alami
+- Sistem tiket bantuan, laporan bug, & feedback pengguna
+
+### | USER & INTERACTIVE UI
+- WhatsApp Native Flow button & carousel interactive menu
+- Menu Audio Voice Note (efek suara acak saat membuka menu)
+- Cyberpunk soft terminal logger dengan timestamp dan pelacakan event
+- Profile management & editing (Student Identity Card generator)
 - User statistics & score tracking
-- Store & item system
-- Daily rewards
+- Store & item system pembelian kuota limit dengan EXP
+- Daily rewards & level auto-scaling
 - Privacy settings (profile, stats, history)
 
 ---
@@ -163,22 +171,23 @@ DEV_GITHUB=https://github.com/varooats
 ALBEDO-BOT/
 ├── src/
 │   ├── commands/          [+] Command handlers
-│   │   ├── general/       Menu, profile, settings, afk
-│   │   ├── group/         Group management
-│   │   ├── owner/         Owner commands
-│   │   ├── games/         Game commands
-│   │   ├── fun/           Fun & entertainment
-│   │   ├── downloader/    Media downloader
-│   │   ├── converter/     Media converter
-│   │   ├── ai/            AI features
-│   │   ├── support/       Support commands
-│   │   └── tarot/         Tarot readings
+│   │   ├── general/       Menu, profile, settings, privacy, afk
+│   │   ├── group/         Group management & moderation
+│   │   ├── owner/         Hierarchy, blacklist, audit, system control
+│   │   ├── games/         25+ Game commands & leaderboard
+│   │   ├── fun/           Fun & personality tests
+│   │   ├── downloader/    Media downloader (YT, TT, IG, Spotify)
+│   │   ├── converter/     Brat, sticker maker, toimg, iqc
+│   │   ├── ai/            AI reasoning & chat
+│   │   ├── support/       Bug report, feedback, request, FAQ
+│   │   └── tarot/         Tarot card readings
 │   ├── core/              [*] Core system
 │   │   ├── command.factory.js
 │   │   ├── command.loader.js
 │   │   ├── middleware.js
+│   │   ├── rate-limit.js
 │   │   └── reply.js
-│   ├── handlers/          [>>] Message handlers
+│   ├── handlers/          [>>] Message & command handlers
 │   ├── features/          [#] Features & UI logic
 │   │   ├── menu/
 │   │   ├── profile/
@@ -188,26 +197,31 @@ ALBEDO-BOT/
 │   │   ├── converter/
 │   │   └── tarot/
 │   ├── database/          [DB] Firebase & repositories
-│   ├── config/            [=] Configuration
+│   ├── config/            [=] Dynamic configuration
 │   ├── messages/          [<] Message templates
 │   ├── services/          [~] Services & business logic
-│   │   ├── afk/
-│   │   ├── owner/
-│   │   ├── limit/
-│   │   ├── group/
-│   │   ├── tarot/
-│   │   ├── downloader/
-│   │   └── media/
-│   ├── utils/             [!] Utilities
-│   └── data/              [@] JSON data files
-├── assets/                [*] Static assets: audio, banner, templates, tarot (Masuk Git)
+│   │   ├── afk/           AFK status tracking
+│   │   ├── audit/         Structured audit log engine
+│   │   ├── downloader/    Tioo API & YTDL streams
+│   │   ├── feature/       Global & per-group kill switch
+│   │   ├── group/         Approval, stats, settings
+│   │   ├── limit/         Daily limit & store engine
+│   │   ├── media/         Brat generator & WebP EXIF
+│   │   ├── owner/         Owner hierarchy (Superowner/Owner/Admin)
+│   │   ├── security/      Blacklist & ban management
+│   │   ├── system/        Shutdown & maintenance control
+│   │   ├── tarot/         Tarot deck services
+│   │   └── user/          Privacy preferences service
+│   ├── utils/             [!] Utilities & cyberpunk logger
+│   └── data/              [@] JSON data banks
+├── assets/                [*] Static assets: audio, banner, tarot (Git tracked)
 │   ├── audio/             Voice note audio (.mp3, .ogg)
 │   ├── banner/            Video banner menu (.mp4)
 │   └── tarot/             Gambar kartu tarot
-├── storage/               [!] Dynamic runtime storage (Di-ignore Git)
+├── storage/               [!] Dynamic runtime storage (Git ignored)
 │   ├── auth/              WhatsApp multi-device session
 │   └── temp/              Temporary files
-├── test/                  [?] Self-check tests
+├── test/                  [?] Self-check tests (33 suites)
 └── package.json
 ```
 
@@ -237,22 +251,25 @@ ALBEDO-BOT/
 ### MANAGEMENT
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
-| Hidetag | `.hidetag <pesan>` atau `.ta` | Kirim pesan ke semua |
-| Group Link | `.grouplink` | Dapat link grup |
-| Kick | `.kick @user` | Keluarkan member |
-| Promote | `.promote @user` | Jadikan admin |
-| Demote | `.demote @user` | Lepas admin |
-| Open Group | `.opengroup` | Buka grup |
-| Close Group | `.closegroup` | Tutup grup |
-| Group Info | `.groupinfo` | Info grup |
-| Member Count | `.membercount` | Jumlah member |
-| Message Count | `.messagecount <day\|month\|all>` | Statistik pesan |
+| Hidetag | `.hidetag <pesan>` atau `.ta` | Kirim pesan ke semua member |
+| Group Link | `.grouplink` | Dapatkan link invite grup |
+| Kick | `.kick @user` | Keluarkan member dari grup |
+| Promote | `.promote @user` | Jadikan member sebagai admin |
+| Demote | `.demote @user` | Turunkan admin menjadi member |
+| Open Group | `.opengroup` | Buka chat grup untuk semua |
+| Close Group | `.closegroup` | Tutup grup khusus pesan admin |
+| Group Info | `.groupinfo` | Info lengkap detail grup & whitelist |
+| Member Count | `.membercount` | Total seluruh member grup |
+| Message Count | `.messagecount <day\|month\|all>` | Statistik volume pesan grup |
+| Group Menu | `.group` | Buka panel interaktif grup |
+| Approve Group | `.approvegroup [id@g.us]` | Setujui grup bot (Owner) |
+| Leave Group | `.leavegroup [id@g.us]` | Keluarkan bot dari grup (Owner) |
 
 ### CHAT PIN
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
-| Pin Chat | `.pinchat <24h\|7d\|30d>` | Pin pesan |
-| Unpin | `.unpinchat` | Unpin pesan |
+| Pin Chat | `.pinchat <24h\|7d\|30d>` | Sematkan pesan di grup |
+| Unpin | `.unpinchat` | Lepas sematan pin pesan |
 
 </details>
 
@@ -291,8 +308,14 @@ ALBEDO-BOT/
 | Maintenance | `.maintenance <on\|off>` | OWNER | Toggle mode maintenance bot |
 | Restart | `.restart` | SUPEROWNER | Restart proses bot |
 | Backup | `.backup` | OWNER | Backup data & konfigurasi bot |
+| Eval | `.eval <code...>` | SUPEROWNER | Eksekusi kode runtime bot |
+| Exec | `.exec <command...>` | SUPEROWNER | Eksekusi shell command bot |
+| Broadcast | `.broadcast <pesan>` | OWNER | Broadcast pesan ke semua chat |
 | Status | `.status` | ALL | Status server, memori, & uptime |
 | Runtime | `.runtime` | ALL | Uptime bot |
+| Owner Info | `.owner` / `.ownerinfo` | ALL | Kontak profil pemilik bot |
+| Rules | `.rules` | ALL | Aturan penggunaan bot |
+| Donate | `.donate` | ALL | Informasi donasi bot |
 
 ### LIMIT MANAGEMENT
 | Command | Syntax | Izin | Deskripsi |
@@ -309,12 +332,17 @@ ALBEDO-BOT/
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
 | Menu | `.menu` | Tampilkan menu utama |
+| Register | `.register [nama]` atau `.daftar` | Daftar akun baru di ALBEDO |
 | Profile | `.profile [@user]` | Lihat profil identity card |
 | Edit Profile | `.editprofile` | Edit profil sendiri |
 | Privacy | `.privacy [field] [public\|private]` | Atur privasi profil, stats, & riwayat |
 | AFK | `.afk <alasan>` | Atur status AFK |
 | Limit | `.limit` | Lihat sisa kuota limit command |
 | Store | `.store` | Buka toko pembelian limit |
+| Ping | `.ping` atau `.p` | Tes respons bot & status sistem |
+| Dev Info | `.dev` | Informasi developer pembuat bot |
+| Source Code | `.github` / `.sc` | Link repositori GitHub resmi |
+| Portfolio | `.portfolio` | Website portofolio developer |
 
 ### SETTINGS & FEATURE CONTROL
 | Command | Syntax | Deskripsi |
@@ -355,65 +383,101 @@ ALBEDO-BOT/
 |:--------|:-------|-----------|
 | Quiz | `.quiz` | Tanya jawab umum |
 | Tebak Kata | `.tebakkata` | Tebak kata dari emoji |
-| Susun Kata | `.susunkata` | Susun kata berantai |
-| Tebak Gambar | `.tebakgambar` | Tebak apa itu |
-| Tebak Angka | `.tebakangka` | Tebak angka 1-100 |
-| Tebak Bendera | `.tebakbendera` | Tebak bendera negara |
-| Tebak Lagu | `.tebaklagu` | Tebak judul lagu |
-| Caklontong | `.caklontong` | Tebakan tradisional |
-| Siapa Kah Aku | `.siapakahaku` | Tebakan profesi |
-| Asa Hotak | `.asahotak` | Akronim bahasa |
+| Susun Kata | `.susunkata` | Susun kata berantakan |
+| Tebak Gambar | `.tebakgambar` | Tebak gambar petunjuk |
+| Tebak Angka | `.tebakangka` | Tebak angka tersembunyi 1-100 |
+| Tebak Bendera | `.tebakbendera` | Tebak bendera negara dunia |
+| Tebak Lagu | `.tebaklagu` | Tebak judul lagu dari lirik |
+| Tebak Film | `.tebakfilm` | Tebak judul film dari clue |
+| Tebak Game | `.tebakgame` | Tebak judul game populer |
+| Tebak Genshin | `.tebakgenshin` | Tebak karakter Genshin Impact |
+| Tebak Hewan | `.tebakhewan` | Tebak nama fauna & satwa |
+| Tebak Karakter | `.tebakkarakter` | Tebak tokoh fiksi & anime |
+| Tebak Logo | `.tebaklogo` | Tebak logo merk & brand |
+| Caklontong | `.caklontong` | Tebakan teka-teki logika humor |
+| Siapa Kah Aku | `.siapakahaku` | Tebakan benda & profesi |
+| Asa Hotak | `.asahotak` | Tes asah otak & logika |
+| Kata Bersambung | `.katabersambung` | Permainan rantai kata member |
+| Wordle | `.wordle` | Tebak kata 5 huruf (6 kesempatan) |
 
-### PVP GAMES
+### PVP & LEADERBOARD
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
-| Duel | `.duel @user` | Main duel 1v1 |
-| Suit | `.suit @user` | Main suit/gunting kertas |
-| Tictactoe | `.tictactoe @user` | Main X & O |
-| Coinflip | `.coinflip` | Flip koin |
-| Roulette | `.roulette` | Permainan roulette |
-| Slot | `.slot` | Main mesin slot |
-| Daily | `.daily` | Klaim reward harian |
-| Score | `.score` | Lihat score game |
+| Duel | `.duel @user` | Tantang duel 1v1 turn-based |
+| Suit | `.suit @user` | Main gunting, batu, kertas |
+| Tictactoe | `.tictactoe @user` | Papan catur mini X & O |
+| Coinflip | `.coinflip <head\|tail>` | Lempar koin keberuntungan |
+| Roulette | `.roulette` | Taruhan angka keberuntungan |
+| Slot | `.slot` | Putar mesin slot kasino |
+| Daily | `.daily` atau `.claim` | Klaim bonus harian XP & limit |
+| Score | `.score` / `.rank` / `.level` | Cek XP, level, & ranking user |
+| Leaderboard | `.leaderboard` atau `.lb` | Papan peringkat 50 besar pemain |
 
 ### FUN COMMANDS
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
-| Cek Femboy | `.cekfemboy @user` | Hasil jadi femboy % |
-| Cek Beban | `.cekbeban @user` | Hasil jadi beban % |
-| Cek Tampan | `.cektampan` | Seberapa tampan? |
-| Cek Cantik | `.cekcantik` | Seberapa cantik? |
-| Cek Harga Diri | `.cekhargadiri` | Harga diri mu |
-| Cek Jodoh | `.cekjodoh [@user]` | Cocok dengan siapa? |
-| Cek Cocok | `.cekcocok @user` | Compatibility % |
-| Fun | `.fun` | Random fun fact |
-
-### TAROT & CONVERTER
-| Command | Syntax | Deskripsi |
-|:--------|:-------|-----------|
-| Tarot | `.tarot` | Tarikan kartu tarot |
-| Brat | `.brat <teks>` | Generator sticker brat |
-| Brat Video | `.bratvid <teks>` | Brat video dengan teks |
-| Brat Anime | `.bratanime <teks>` | Brat anime version |
-| Sticker | `.sticker` | Buat stiker dari gambar |
-| Swm | `.swm <pack\|author>` | Sticker pack metadata |
-| IQC | `.iqc` | Image quality checker |
+| Cek Femboy | `.cekfemboy [@user]` | Persentase kadar femboy |
+| Cek Beban | `.cekbeban [@user]` | Persentase kadar beban grup |
+| Cek Tampan | `.cektampan [@user]` | Persentase ketampanan |
+| Cek Cantik | `.cekcantik [@user]` | Persentase kecantikan |
+| Cek Harga Diri | `.cekhargadiri` | Estimasi nilai harga diri |
+| Cek Jodoh | `.cekjodoh [@user]` | Ramal kecocokan pasangan |
+| Cek Cocok | `.cekcocok @user` | Nilai kompatibilitas dua user |
+| Fun | `.fun` | Fakta menarik & kata mutiara acak |
 
 </details>
 
 <details>
-<summary><strong>[*] DOWNLOADER & CONVERTER</strong></summary>
+<summary><strong>[*] TAROT, CONVERTER & STICKER</strong></summary>
 
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
-| Download | `.download <url>` | Download media |
-| Play | `.play <judul>` | Streaming musik |
-| TikTok | `.tiktok <url>` | Download TikTok |
-| YouTube | `.youtube <url>` | Download YouTube |
-| Instagram | `.instagram <url>` | Download Instagram |
-| Spotify | `.spotify <url>` | Download Spotify |
-| Audio Convert | `.mp3`, `.wav`, dll | Konversi format audio |
-| Video Convert | `.mp4`, `.webm`, dll | Konversi format video |
+| Tarot | `.tarot` | Pembacaan kartu tarot visual & tafsir |
+| Brat | `.brat <teks>` | Generator stiker tren teks brat |
+| Brat Video | `.bratvid <teks>` | Stiker animasi video brat |
+| Brat Anime | `.bratanime <teks>` | Stiker brat bergaya anime |
+| Sticker | `.sticker` atau `.s` (reply media) | Konversi gambar/video jadi stiker WA |
+| Swm | `.swm <pack\|author>` | Ganti metadata watermark stiker |
+| To Image | `.toimg` (reply sticker) | Ekstrak stiker WebP kembali jadi gambar |
+| IQC | `.iqc` (reply foto) | Analisis & verifikasi kualitas gambar |
+
+</details>
+
+<details>
+<summary><strong>[*] DOWNLOADER</strong></summary>
+
+| Command | Syntax | Deskripsi |
+|:--------|:-------|-----------|
+| Download | `.download <url>` | Deteksi otomatis & unduh media |
+| Play | `.play <judul lagu>` | Cari di YouTube & kirim audio musik |
+| TikTok | `.tiktok <url>` | Unduh video TikTok tanpa watermark |
+| YouTube | `.youtube <url>` | Unduh video/audio YouTube |
+| Instagram | `.instagram <url>` | Unduh reels, post, & video Instagram |
+| Spotify | `.spotify <url>` | Unduh lagu dari link Spotify |
+
+</details>
+
+<details>
+<summary><strong>[*] AI & CHATBOT</strong></summary>
+
+| Command | Syntax | Deskripsi |
+|:--------|:-------|-----------|
+| AI Reasoning | `.ai <pertanyaan>` | Analisis & jawaban cerdas AI |
+| AI Chat | `.chat <pesan>` | Obrolan percakapan interaktif AI |
+
+</details>
+
+<details>
+<summary><strong>[*] SUPPORT & FEEDBACK</strong></summary>
+
+| Command | Syntax | Deskripsi |
+|:--------|:-------|-----------|
+| Report | `.report <masalah>` | Laporkan member atau pelanggaran |
+| Bug Report | `.bug <kendala>` | Laporkan bug sistem bot ke tim |
+| Feedback | `.feedback <saran>` | Kirim kritik & saran pengembangan |
+| Feature Request | `.request <fitur>` | Ajukan ide fitur baru untuk ALBEDO |
+| FAQ | `.faq` | Jawaban pertanyaan yang sering diajukan |
+| Support | `.support` | Pusat bantuan & saluran resmi bot |
 
 </details>
 
