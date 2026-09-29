@@ -353,25 +353,25 @@ ALBEDO-BOT/
 | Global Toggle | `.disable <fitur> global` | Kill switch fitur global (Owner) |
 
 **Pilihan Fitur (Kill Switch & Per-Group Control):**
-- `downloader` — YouTube, TikTok, IG, Spotify downloader
-- `games` — Kuis, tebak kata/gambar, duel, roulette, slot
-- `fun` — Cek femboy, beban, jodoh, harga diri
-- `tarot` — Pembacaan kartu tarot
-- `ai` — Fitur chat AI
-- `converter` — Pembuat stiker & brat generator
+- `downloader` YouTube, TikTok, IG, Spotify downloader
+- `games` Kuis, tebak kata/gambar, duel, roulette, slot
+- `fun` Cek femboy, beban, jodoh, harga diri
+- `tarot` Pembacaan kartu tarot
+- `ai` Fitur chat AI
+- `converter` Pembuat stiker & brat generator
 
 **Group Settings:**
-- `welcome` — Pesan sambutan member baru
-- `left` — Pesan ucapan selamat tinggal
-- `detect` — Deteksi konten
-- `antidetect` — Block anti-deteksi
-- `autolevelup` — Naikkan level otomatis
+- `welcome` Pesan sambutan member baru
+- `left` Pesan ucapan selamat tinggal
+- `detect` Deteksi konten
+- `antidetect` Block anti-deteksi
+- `autolevelup` Naikkan level otomatis
 
 **Bot Settings (Owner Only):**
-- `public` — Bot bisa digunakan di DM
-- `autoread` — Baca pesan otomatis
-- `grouponly` — Hanya berlaku di grup
-- `anticall` — Block panggilan
+- `public` Bot bisa digunakan di DM
+- `autoread` Baca pesan otomatis
+- `grouponly` Hanya berlaku di grup
+- `anticall` Block panggilan
 
 </details>
 
