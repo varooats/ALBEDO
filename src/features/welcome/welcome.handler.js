@@ -5,6 +5,7 @@ const { jidToMentionName } = require('../../utils/message');
 const { getUserByJid } = require('../../database/repositories/user.repository');
 const { getGroupSettings } = require('../../database/repositories/group.repository');
 const { handleBotGroupJoin } = require('../../services/group/group-approval.service');
+const { logAudit } = require('../../services/audit/audit.service');
 const { logger } = require('../../utils/logger');
 
 /**
@@ -16,6 +17,16 @@ async function handleGroupParticipantsUpdate(client, update) {
 
   if (!groupJid || !Array.isArray(participants) || participants.length === 0) {
     return false;
+  }
+
+  // Handle promote and demote events
+  if (action === 'promote' || action === 'demote') {
+    for (const userJid of participants) {
+      const tag = jidToMentionName(userJid);
+      logger.group(`${tag} ${action}d in group ${groupJid}`);
+      logAudit('ADMIN', `${action === 'promote' ? 'Promoted' : 'Demoted'}: ${tag} in ${groupJid}`, { user: userJid, group: groupJid, action }).catch(() => {});
+    }
+    return true;
   }
 
   // Only handle 'add' (join) and 'remove' (leave/kick)

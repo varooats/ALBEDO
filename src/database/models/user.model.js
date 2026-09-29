@@ -55,6 +55,11 @@ function createUserModel(data = {}) {
     maxLimit: Math.max(20, baseLimit),
     balance: normalizeNumber(data.balance, 0),
     premium: normalizeBoolean(data.premium),
+    privacy: {
+      profile: data.privacy?.profile === 'private' ? 'private' : 'public',
+      stats: data.privacy?.stats === 'private' ? 'private' : 'public',
+      history: data.privacy?.history === 'public' ? 'public' : 'private',
+    },
     lastDaily: normalizeText(data.lastDaily, ''),
     lastLimitReset: normalizeText(data.lastLimitReset, ''),
     createdAt: data.createdAt || now,

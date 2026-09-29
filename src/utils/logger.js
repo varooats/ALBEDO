@@ -11,7 +11,7 @@ const ANSI = {
 
   // Cyberpunk soft colors
   cyan: '\x1b[38;2;69;222;230m',       // #45DEE6 - Neon Cyan soft
-  lavender: '\x1b[38;2;192;132;252m',   // #C084FC - Soft Violet / Purple
+  lavender: '\x1b[38;2;192;132;252m',  // #C084FC - Soft Violet / Purple
   emerald: '\x1b[38;2;52;211;153m',    // #34D399 - Soft Emerald / Neon Mint
   rose: '\x1b[38;2;244;114;182m',      // #F472B6 - Soft Neon Rose / Pink
   coral: '\x1b[38;2;251;113;133m',     // #FB7185 - Soft Coral Red (No aggressive red)

@@ -7,7 +7,7 @@
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=flat-square&logo=node.js)](https://nodejs.org/)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-varooats%2FBOT--WA-black?style=flat-square&logo=github)](https://github.com/varooats/BOT-WA)
-[![Version](https://img.shields.io/badge/Version-1.1.0-orange?style=flat-square)](https://github.com/varooats/BOT-WA/releases)
+[![Version](https://img.shields.io/badge/Version-1.1.5-orange?style=flat-square)](https://github.com/varooats/BOT-WA/releases)
 
 </div>
 
@@ -27,6 +27,17 @@
 
 ## >> FITUR
 
+### | SECURITY & ACCESS CONTROL
+- Anti Abuse & Rate Limit: User (10/10s), Group (50/10s), Global (1000/60s)
+- User Blacklist & Ban System (`.banuser`, `.unbanuser`, `.checkban`, `.listban`)
+- Bot Owner Hierarchy (`SUPEROWNER` > `OWNER` > `ADMIN` > `GROUP_ADMIN` > `USER`)
+- Anti Self-Target / Dangerous Actions block (proteksi bot dan pemilik dari kick/demote)
+- Structured Audit Log (`[OWNER]`, `[GROUP]`, `[ADMIN]`, `[SECURITY]`, `[SETTINGS]`)
+- Emergency Shutdown (`.shutdown`, `.shutdown 10m`) & Maintenance Mode (`.maintenance on|off`)
+- Feature Kill Switch global & per-grup (`.enable <fitur>`, `.disable <fitur>`)
+- Invite/Leave Protection dengan approval countdown 5 menit
+- User Privacy Mode (`.privacy profile|stats|history`)
+
 ### | ENTERTAINMENT & GAMES
 - 20+ mini games (tebakan, quiz, duel)
 - Tarot card reading interaktif
@@ -35,13 +46,14 @@
 
 ### | GROUP MANAGEMENT  
 - Proteksi link & kata kasar
-- Manajemen member (kick, promote, demote)
+- Manajemen member (kick, promote, demote) dengan verifikasi izin
 - Statistik group & pesan
 - Pin chat & hidetag
+- Approval whitelist grup bot
 
 ### | BOT CONTROL
 - Limit system per user
-- Owner management & authentication
+- Owner & Bot Admin hierarchy management
 - Settings group & bot
 - AFK status dengan notifikasi mention
 
@@ -55,6 +67,7 @@
 - User statistics & score tracking
 - Store & item system
 - Daily rewards
+- Privacy settings (profile, stats, history)
 
 ---
 
@@ -244,29 +257,48 @@ ALBEDO-BOT/
 </details>
 
 <details>
-<summary><strong>[*] OWNER COMMANDS</strong></summary>
+<summary><strong>[*] OWNER & ADMIN COMMANDS</strong></summary>
 
-### LIMIT SYSTEM
-| Command | Syntax | Deskripsi |
-|:--------|:-------|-----------|
-| Set Limit | `.setlimit <jumlah> <@user\|all>` | Set limit user |
-| Add Limit | `.addlimit <jumlah> <@user\|all>` | Tambah limit |
-| Get Limit | `.getlimit <@user>` | Lihat limit user |
+### OWNER & ADMIN HIERARCHY
+| Command | Syntax | Izin | Deskripsi |
+|:--------|:-------|:----:|-----------|
+| List Owner | `.listowner` | ADMIN | Daftar hierarki Superowner, Owner, Admin |
+| Add Owner | `.addowner <nomor>` | SUPEROWNER | Tambah owner baru |
+| Del Owner | `.delowner <nomor>` | SUPEROWNER | Hapus owner terdaftar |
+| Add Admin | `.addadmin <nomor>` | OWNER | Tambah bot admin baru |
+| Del Admin | `.deladmin <nomor>` | OWNER | Hapus bot admin |
 
-### OWNER MANAGEMENT
-| Command | Syntax | Deskripsi |
-|:--------|:-------|-----------|
-| List Owner | `.listowner` | Daftar owner |
-| Add Owner | `.addowner <nomor>` | Tambah owner baru |
-| Del Owner | `.delowner <nomor>` | Hapus owner |
+### USER BLACKLIST & BAN
+| Command | Syntax | Izin | Deskripsi |
+|:--------|:-------|:----:|-----------|
+| Ban User | `.banuser @user [alasan]` | ADMIN | Blacklist pengguna dari bot |
+| Unban User | `.unbanuser @user` | ADMIN | Buka blacklist pengguna |
+| Check Ban | `.checkban @user` | ADMIN | Periksa status blacklist |
+| List Ban | `.listban` | ADMIN | Daftar semua user yang diban |
 
-### BOT CONTROL
-| Command | Syntax | Deskripsi |
-|:--------|:-------|-----------|
-| Restart | `.restart` | Restart bot |
-| Backup | `.backup` | Backup database |
-| Status | `.status` | Status bot |
-| Runtime | `.runtime` | Uptime bot |
+### AUDIT LOG SYSTEM
+| Command | Syntax | Izin | Deskripsi |
+|:--------|:-------|:----:|-----------|
+| Audit | `.audit` | ADMIN | Lihat 15 log audit terbaru |
+| Audit Group | `.audit group` | ADMIN | Filter log aktivitas grup |
+| Audit User | `.audit user` | ADMIN | Filter log moderasi / keamanan user |
+
+### SYSTEM CONTROL & MAINTENANCE
+| Command | Syntax | Izin | Deskripsi |
+|:--------|:-------|:----:|-----------|
+| Shutdown | `.shutdown` | SUPEROWNER | Emergency shutdown total |
+| Temp Shutdown | `.shutdown <10m\|1h>` | SUPEROWNER | Shutdown sementara dengan timer auto-resume |
+| Maintenance | `.maintenance <on\|off>` | OWNER | Toggle mode maintenance bot |
+| Restart | `.restart` | SUPEROWNER | Restart proses bot |
+| Backup | `.backup` | OWNER | Backup data & konfigurasi bot |
+| Status | `.status` | ALL | Status server, memori, & uptime |
+| Runtime | `.runtime` | ALL | Uptime bot |
+
+### LIMIT MANAGEMENT
+| Command | Syntax | Izin | Deskripsi |
+|:--------|:-------|:----:|-----------|
+| Set Limit | `.setlimit <jumlah> <@user\|all>` | OWNER | Set limit user |
+| Add Limit | `.addlimit <jumlah> <@user\|all>` | OWNER | Tambah limit user |
 
 </details>
 
@@ -276,19 +308,29 @@ ALBEDO-BOT/
 ### MAIN COMMANDS
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
-| Menu | `.menu` | Tampilkan menu |
-| Profile | `.profile [@user]` | Lihat profil |
+| Menu | `.menu` | Tampilkan menu utama |
+| Profile | `.profile [@user]` | Lihat profil identity card |
 | Edit Profile | `.editprofile` | Edit profil sendiri |
+| Privacy | `.privacy [field] [public\|private]` | Atur privasi profil, stats, & riwayat |
 | AFK | `.afk <alasan>` | Atur status AFK |
-| Limit | `.limit` | Lihat limit command |
-| Store | `.store` | Buka toko item |
+| Limit | `.limit` | Lihat sisa kuota limit command |
+| Store | `.store` | Buka toko pembelian limit |
 
-### SETTINGS
+### SETTINGS & FEATURE CONTROL
 | Command | Syntax | Deskripsi |
 |:--------|:-------|-----------|
-| Settings | `.settings` | Lihat pengaturan |
-| Enable | `.enable <fitur>` | Aktifkan fitur |
-| Disable | `.disable <fitur>` | Nonaktifkan fitur |
+| Settings | `.settings` | Lihat pengaturan grup & bot |
+| Enable | `.enable <fitur>` | Aktifkan fitur / setting di grup |
+| Disable | `.disable <fitur>` | Matikan fitur / setting di grup |
+| Global Toggle | `.disable <fitur> global` | Kill switch fitur global (Owner) |
+
+**Pilihan Fitur (Kill Switch & Per-Group Control):**
+- `downloader` — YouTube, TikTok, IG, Spotify downloader
+- `games` — Kuis, tebak kata/gambar, duel, roulette, slot
+- `fun` — Cek femboy, beban, jodoh, harga diri
+- `tarot` — Pembacaan kartu tarot
+- `ai` — Fitur chat AI
+- `converter` — Pembuat stiker & brat generator
 
 **Group Settings:**
 - `welcome` — Pesan sambutan member baru
@@ -297,7 +339,7 @@ ALBEDO-BOT/
 - `antidetect` — Block anti-deteksi
 - `autolevelup` — Naikkan level otomatis
 
-**Bot Settings:**
+**Bot Settings (Owner Only):**
 - `public` — Bot bisa digunakan di DM
 - `autoread` — Baca pesan otomatis
 - `grouponly` — Hanya berlaku di grup

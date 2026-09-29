@@ -11,11 +11,16 @@ function loadCommands(baseDir) {
         walk(fullPath);
       } else if (entry.isFile() && entry.name.endsWith('.js')) {
         const command = require(fullPath);
+        const folderCategory = path.basename(dir);
         if (Array.isArray(command)) {
           for (const c of command) {
-            commands.push(c);
+            if (c && typeof c === 'object') {
+              if (!c.category) c.category = folderCategory;
+              commands.push(c);
+            }
           }
-        } else {
+        } else if (command && typeof command === 'object') {
+          if (!command.category) command.category = folderCategory;
           commands.push(command);
         }
       }

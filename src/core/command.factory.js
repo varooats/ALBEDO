@@ -6,6 +6,8 @@ function createCommand({
   aliases = [],
   description = '',
   access = 'public',
+  permission,
+  category = '',
   execute,
 }) {
   return {
@@ -13,6 +15,8 @@ function createCommand({
     aliases,
     description,
     access,
+    permission: permission || access,
+    category,
     execute: async (client, message, args = []) => {
       if (typeof execute === 'function') {
         return execute(client, message, args);
@@ -27,11 +31,15 @@ function createPlaceholderCommand({
   name,
   aliases = [],
   description = '',
+  permission = 'SUPEROWNER',
+  access = 'owner',
 }) {
   return createCommand({
     name,
     aliases,
     description,
+    access,
+    permission,
     execute: async (client, message) => {
       return replyText(client, message, messages.bot.notImplemented(name));
     },

@@ -52,6 +52,8 @@ async function bootstrap() {
 
   // 1. Database
   await connectDatabase();
+  const { initSystemState } = require('./services/system/system-control.service');
+  await initSystemState();
   if (attemptCount === 0) {
     logger.initStep('Loading database');
   }

@@ -4,6 +4,7 @@ const { messages } = require('../../messages');
 const { getUserByJid } = require('../../database/repositories/user.repository');
 const { getLeaderboard } = require('../../features/games/xp.engine');
 const { getSenderJid, resolveMentionJids } = require('../../utils/message');
+const { isOwnerAsync } = require('../../core/middleware');
 
 module.exports = createCommand({
   name: 'score',
@@ -17,6 +18,13 @@ module.exports = createCommand({
     const user = await getUserByJid(targetJid);
     if (!user) {
       await replyText(client, message, 'User belum terdaftar. Ketik ```.register``` terlebih dahulu.');
+      return true;
+    }
+
+    const senderJid = getSenderJid(message);
+    const isOwner = await isOwnerAsync(message);
+    if (targetJid !== senderJid && !isOwner && user.privacy?.stats === 'private') {
+      await replyText(client, message, '🔒 *PRIVACY*\n\nStatistik user ini bersifat privat.');
       return true;
     }
 

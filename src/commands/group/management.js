@@ -8,6 +8,8 @@ const {
   setGroupStatus,
   getGroup,
 } = require('../../database/repositories/group.repository');
+const { validateActionTarget } = require('../../core/middleware');
+const { logAudit } = require('../../services/audit/audit.service');
 const GroupService = require('../../services/group/group.service');
 const MessageStatsService = require('../../services/group/message-stats.service');
 
@@ -77,6 +79,7 @@ const commands = [
       } catch {}
 
       await approveGroup(targetJid, groupName, 'owner');
+      await logAudit('GROUP', `Approved: ${groupName || targetJid}`, { groupJid: targetJid });
       await replyText(client, message, `✅ Grup *${groupName || targetJid}* berhasil disetujui (STATUS: ACTIVE).`);
 
       // Send welcoming message inside the approved group
@@ -106,6 +109,7 @@ const commands = [
 
       try {
         await setGroupStatus(targetJid, 'blocked');
+        await logAudit('GROUP', `Leave group: ${targetJid}`, { groupJid: targetJid });
         await client.sendMessage(targetJid, {
           text: '👋 *ALBEDO MENINGGALKAN GRUP*\n\nBot diperintahkan oleh Owner untuk keluar.',
         });
@@ -233,7 +237,18 @@ const commands = [
     execute: async (client, message, args) => {
       const targets = targetJids(message, args);
       if (!targets.length) return replyText(client, message, 'Tag user yang ingin dikeluarkan.');
+
+      for (const t of targets) {
+        const val = await validateActionTarget(client, message, t);
+        if (!val.allowed) {
+          return replyText(client, message, val.message);
+        }
+      }
+
       await client.groupParticipantsUpdate(groupJid(message), targets, 'remove');
+      for (const t of targets) {
+        await logAudit('ADMIN', `Kicked: ${String(t).split('@')[0]} in ${groupJid(message)}`, { target: t, group: groupJid(message) });
+      }
       return replyText(client, message, 'Anggota berhasil dikeluarkan.');
     },
   }),
@@ -245,6 +260,9 @@ const commands = [
       const targets = targetJids(message, args);
       if (!targets.length) return replyText(client, message, 'Tag user yang ingin dijadikan admin.');
       await client.groupParticipantsUpdate(groupJid(message), targets, 'promote');
+      for (const t of targets) {
+        await logAudit('ADMIN', `Promoted: ${String(t).split('@')[0]} in ${groupJid(message)}`, { target: t, group: groupJid(message) });
+      }
       return replyText(client, message, 'Admin berhasil ditambahkan.');
     },
   }),
@@ -255,7 +273,18 @@ const commands = [
     execute: async (client, message, args) => {
       const targets = targetJids(message, args);
       if (!targets.length) return replyText(client, message, 'Tag admin yang ingin diturunkan.');
+
+      for (const t of targets) {
+        const val = await validateActionTarget(client, message, t);
+        if (!val.allowed) {
+          return replyText(client, message, val.message);
+        }
+      }
+
       await client.groupParticipantsUpdate(groupJid(message), targets, 'demote');
+      for (const t of targets) {
+        await logAudit('ADMIN', `Demoted: ${String(t).split('@')[0]} in ${groupJid(message)}`, { target: t, group: groupJid(message) });
+      }
       return replyText(client, message, 'Admin berhasil dicabut.');
     },
   }),

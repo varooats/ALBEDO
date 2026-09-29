@@ -3,6 +3,7 @@ const { replyText } = require('../../core/reply');
 const { getUserByJid, saveUser } = require('../../database/repositories/user.repository');
 const { resolveMentionJids, getSenderJid } = require('../../utils/message');
 const { isGroupMessage } = require('../../core/middleware');
+const { logAudit } = require('../../services/audit/audit.service');
 const config = require('../../config/bot.config');
 
 // ponytail: owner list stored in Firestore; for now stored in config overrides only
@@ -41,23 +42,40 @@ async function setLimit(client, message, args, mode) {
 
 module.exports = [
   createCommand({
-    name: 'setlimit', aliases: ['changelimit'], access: 'owner', description: 'Set limit user.',
+    name: 'setlimit',
+    aliases: ['changelimit'],
+    permission: 'OWNER',
+    category: 'owner',
+    description: 'Set limit user.',
     execute: async (client, message, args) => setLimit(client, message, args, 'set'),
   }),
   createCommand({
-    name: 'addlimit', access: 'owner', description: 'Tambah limit user.',
+    name: 'addlimit',
+    permission: 'OWNER',
+    category: 'owner',
+    description: 'Tambah limit user.',
     execute: async (client, message, args) => setLimit(client, message, args, 'add'),
   }),
   createCommand({
-    name: 'restart', access: 'owner', description: 'Restart bot.', isFree: true,
+    name: 'restart',
+    permission: 'SUPEROWNER',
+    category: 'owner',
+    description: 'Restart bot.',
+    isFree: true,
     execute: async (client, message) => {
+      await logAudit('OWNER', 'Bot restart initiated');
       await replyText(client, message, 'Memulai ulang...');
       setTimeout(() => process.exit(0), 500);
     },
   }),
   createCommand({
-    name: 'backup', access: 'owner', description: 'Backup data bot.', isFree: true,
+    name: 'backup',
+    permission: 'OWNER',
+    category: 'owner',
+    description: 'Backup data bot.',
+    isFree: true,
     execute: async (client, message) => {
+      await logAudit('OWNER', 'Bot backup exported');
       const payload = JSON.stringify({ config: { name: config.name, prefix: config.prefix }, timestamp: new Date().toISOString() }, null, 2);
       return client.sendMessage(message.key.remoteJid, { document: Buffer.from(payload), mimetype: 'application/json', fileName: `albedo-backup-${Date.now()}.json` });
     },

@@ -1,11 +1,19 @@
 const { messages } = require('../messages');
 const { replyText } = require('../core/reply');
-const { isOwnerMessage, checkCommandAccess } = require('../core/middleware');
-const { getSenderJid } = require('../utils/message');
+const { isOwnerMessage, isOwnerAsync, checkCommandAccess } = require('../core/middleware');
+const { getSenderJid, getChatJid } = require('../utils/message');
 const { getUserByJid } = require('../database/repositories/user.repository');
 const { checkAndConsumeLimit, calculateLimitPrice } = require('../services/limit/limit.service');
 const { sendNativeFlow } = require('../utils/interactive');
 const { logger } = require('../utils/logger');
+const { isBanned, getBanInfo } = require('../services/security/blacklist.service');
+const { checkRateLimit, RATE_LIMIT_MESSAGE } = require('../core/rate-limit');
+const { isMaintenanceActive, MAINTENANCE_MESSAGE } = require('../services/system/system-control.service');
+const {
+  isFeatureDisabledGlobally,
+  isFeatureDisabledInGroup,
+  resolveFeature,
+} = require('../services/feature/feature-control.service');
 
 // Commands that guests (unregistered users) are permitted to run
 const GUEST_COMMANDS = new Set([
@@ -15,6 +23,7 @@ const GUEST_COMMANDS = new Set([
   'owner', 'ownerinfo', 'rules', 'runtime', 'status', 'donate', 'dev', 'github', 'portfolio',
   'settings', 'setting', 'enable', 'disable',
   'group', 'groupmenu', 'gcmenu',
+  'privacy',
 ]);
 
 // Commands that do not consume limits for registered users
@@ -38,6 +47,11 @@ const FREE_COMMANDS = new Set([
   'hidetag', 'ta', 'grouplink', 'groupinfo', 'membercount', 'messagecount',
   'kick', 'promote', 'demote', 'opengroup', 'closegroup', 'pinchat', 'unpinchat',
   'setlimit', 'changelimit', 'addlimit', 'restart', 'backup', 'listowner', 'addowner', 'delowner', 'deleteowner',
+  // Security & Control commands
+  'banuser', 'unbanuser', 'checkban', 'listban',
+  'audit',
+  'shutdown', 'maintenance',
+  'privacy',
 ]);
 
 async function handleLimitExhausted(client, message, senderJid, remaining, cost) {
@@ -85,11 +99,68 @@ module.exports = {
     }
 
     const commandName = (command.name || '').toLowerCase();
-    const isOwner = isOwnerMessage(message);
     const senderJid = getSenderJid(message);
+    const groupJid = message?.key?.remoteJid;
+    const isOwner = await isOwnerAsync(message);
 
+    // 1. User Blacklist Check
+    if (senderJid && (await isBanned(senderJid))) {
+      const banInfo = await getBanInfo(senderJid);
+      await replyText(
+        client,
+        message,
+        `❌ *KAMU DIBLACKLIST*\n\nKamu telah diban dari ALBEDO.\nAlasan: ${banInfo?.reason || 'Melanggar aturan'}`
+      );
+      return false;
+    }
+
+    // 2. Anti Abuse / Rate Limit Check
+    const rateLimit = checkRateLimit({ senderJid, groupJid, isOwner });
+    if (!rateLimit.allowed) {
+      await replyText(client, message, RATE_LIMIT_MESSAGE);
+      return false;
+    }
+
+    // 3. Maintenance Mode Check (Owner/Superowner can bypass)
+    if (isMaintenanceActive() && !isOwner) {
+      await replyText(client, message, MAINTENANCE_MESSAGE);
+      return false;
+    }
+
+    // 4. Feature Kill Switch Checks (Owner can bypass global switch)
+    const category = command.category || '';
+    const resolvedFeat = resolveFeature(commandName, category);
+
+    if (resolvedFeat && !isOwner) {
+      // 4a. Global Feature Kill Switch
+      const globallyDisabled = await isFeatureDisabledGlobally(commandName, category);
+      if (globallyDisabled) {
+        await replyText(
+          client,
+          message,
+          `⚠️ *FEATURE DISABLED*\n\n${resolvedFeat.toUpperCase()} sementara tidak tersedia.`
+        );
+        return false;
+      }
+
+      // 4b. Per-Group Feature Control
+      if (groupJid && groupJid.endsWith('@g.us')) {
+        const groupDisabled = await isFeatureDisabledInGroup(groupJid, commandName, category);
+        if (groupDisabled) {
+          await replyText(
+            client,
+            message,
+            `⚠️ *FEATURE DISABLED IN THIS GROUP*\n\nFitur ${resolvedFeat.toUpperCase()} dinonaktifkan di grup ini oleh admin.`
+          );
+          return false;
+        }
+      }
+    }
+
+    // 5. Command Permission Check (SUPEROWNER, OWNER, ADMIN, GROUP_ADMIN, USER)
+    const reqPerm = command.permission || command.access || 'USER';
     try {
-      const access = await checkCommandAccess(client, message, command.access || 'public', args);
+      const access = await checkCommandAccess(client, message, reqPerm, args);
       if (!access.allowed) {
         if (access.reason === 'bot-admin') {
           await replyText(
@@ -97,6 +168,10 @@ module.exports = {
             message,
             '❌ BOT NOT ADMIN\n\nALBEDO membutuhkan permission admin untuk menjalankan command ini.'
           );
+        } else if (access.reason === 'superowner') {
+          await replyText(client, message, 'Khusus Superowner bot.');
+        } else if (access.reason === 'owner') {
+          await replyText(client, message, 'Khusus Owner bot.');
         } else if (access.reason === 'admin') {
           await replyText(client, message, 'Khusus admin grup dan owner bot.');
         } else if (access.reason === 'group') {
@@ -112,7 +187,7 @@ module.exports = {
       return false;
     }
 
-    // 1. Registration Check: All feature commands require user to be registered
+    // 6. Registration Check
     const isGuestAllowed = GUEST_COMMANDS.has(commandName);
     if (!isGuestAllowed && !isOwner) {
       if (!senderJid) return false;
@@ -123,7 +198,7 @@ module.exports = {
       }
     }
 
-    // 2. Limit Check for non-free commands and non-owner users
+    // 7. Limit Check for non-free commands and non-owner users
     const isFree = command.isFree || FREE_COMMANDS.has(commandName);
     if (!isFree && !isOwner) {
       const cost = command.limitCost || 1;

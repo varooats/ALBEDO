@@ -2,6 +2,7 @@ const fs = require('fs/promises');
 const { prepareWAMessageMedia } = require('@whiskeysockets/baileys');
 const { createCommand } = require('../../core/command.factory');
 const { replyText } = require('../../core/reply');
+const { isOwnerAsync } = require('../../core/middleware');
 const { getUserByJid, findUserByQuery } = require('../../database/repositories/user.repository');
 const { messages } = require('../../messages');
 const { resolveJid, resolveMentionJids, sendReaction, REACTIONS } = require('../../utils/message');
@@ -42,6 +43,15 @@ module.exports = createCommand({
       if (!selectedUser) {
         await replyText(client, message, messages.profile.notFound);
         return true;
+      }
+
+      // Privacy Check: if profile is private and viewer is not target or owner
+      const isOwner = await isOwnerAsync(message);
+      if (selectedUser.jid && selectedUser.jid !== selfJid && !isOwner) {
+        if (selectedUser.privacy?.profile === 'private') {
+          await replyText(client, message, '🔒 *PRIVACY*\n\nProfil user ini bersifat privat.');
+          return true;
+        }
       }
 
       const groupTitle = await getGroupTitle(client, message);
