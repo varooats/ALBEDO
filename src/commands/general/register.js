@@ -8,8 +8,12 @@ module.exports = createCommand({
   name: 'register',
   aliases: ['daftar'],
   description: 'Daftarkan user ke database Firebase untuk profile card.',
-  execute: async (client, message, args = []) => {
-    const jid = resolveJid(message);
+  isPublic: true,
+  isFree: true,
+  limit: 0,
+  cooldown: 3,
+  execute: async (client, message, args = [], ctx = {}) => {
+    const jid = resolveJid(message) || ctx?.senderJid;
     if (!jid) return false;
 
     const rawName = (args.join(' ') || message?.pushName || 'User').trim();
@@ -20,7 +24,7 @@ module.exports = createCommand({
     }
 
     try {
-      const existingUser = await getUserByJid(jid);
+      const existingUser = (await getUserByJid(jid)) || ctx?.globalUser || (ctx?.senderNumber ? await getUserByJid(ctx.senderNumber) : null);
       if (existingUser) {
         const alreadyRegistered = formatMessage(messages.profile.register.alreadyRegistered, {
           name: existingUser.name || 'User',

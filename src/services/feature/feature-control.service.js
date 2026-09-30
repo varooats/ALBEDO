@@ -13,10 +13,39 @@ const groupDisabledCache = new Map();
 const COMMAND_FEATURE_MAP = {
   // Downloader
   download: 'downloader',
+  dl: 'downloader',
+  dlpick: 'downloader',
   play: 'downloader',
   tiktok: 'downloader',
   youtube: 'downloader',
   instagram: 'downloader',
+  facebook: 'downloader',
+  threads: 'downloader',
+  bluesky: 'downloader',
+  soundcloud: 'downloader',
+  douyin: 'downloader',
+  twitter: 'downloader',
+  dailymotion: 'downloader',
+  xiaohongshu: 'downloader',
+  weibo: 'downloader',
+  kuaishou: 'downloader',
+  reddit: 'downloader',
+  vimeo: 'downloader',
+  vk: 'downloader',
+  twitch: 'downloader',
+  pinterest: 'downloader',
+  rumble: 'downloader',
+  bilibili: 'downloader',
+  snapchat: 'downloader',
+  streamable: 'downloader',
+  bandcamp: 'downloader',
+  chzzk: 'downloader',
+  navertv: 'downloader',
+  soop: 'downloader',
+  mixcloud: 'downloader',
+  ted: 'downloader',
+  loom: 'downloader',
+  lemon8: 'downloader',
   // Games
   games: 'games',
   game: 'games',
@@ -147,8 +176,91 @@ async function setGroupFeature(groupJid, featureName, enable) {
   return !groupSet.has(feature);
 }
 
+// Global disabled commands cache
+let globalDisabledCommands = new Set();
+let globalCommandsLoaded = false;
+// Per-group disabled commands cache: groupJid -> Set<commandName>
+const groupDisabledCommandsCache = new Map();
+
+async function loadGlobalDisabledCommands() {
+  if (globalCommandsLoaded) return;
+  try {
+    const settings = await getBotSettings();
+    const list = Array.isArray(settings?.disabledCommands) ? settings.disabledCommands : [];
+    globalDisabledCommands = new Set(list.map((c) => String(c).toLowerCase().replace(/^\./, '').trim()));
+  } catch {}
+  globalCommandsLoaded = true;
+}
+
+async function isCommandDisabledGlobally(commandName) {
+  await loadGlobalDisabledCommands();
+  const cmd = String(commandName).toLowerCase().replace(/^\./, '').trim();
+  return globalDisabledCommands.has(cmd);
+}
+
+async function setGlobalCommand(commandName, enable) {
+  await loadGlobalDisabledCommands();
+  const cmd = String(commandName).toLowerCase().replace(/^\./, '').trim();
+  if (enable) {
+    globalDisabledCommands.delete(cmd);
+  } else {
+    globalDisabledCommands.add(cmd);
+  }
+  try {
+    await updateBotSettings({ disabledCommands: Array.from(globalDisabledCommands) });
+  } catch {}
+  await logAudit('SETTINGS', `Global command ${cmd} ${enable ? 'enabled' : 'disabled'}`);
+  return !globalDisabledCommands.has(cmd);
+}
+
+async function isCommandDisabledInGroup(groupJid, commandName) {
+  if (!groupJid || !groupJid.endsWith('@g.us')) return false;
+
+  let groupSet = groupDisabledCommandsCache.get(groupJid);
+  if (!groupSet) {
+    try {
+      const groupData = await getGroup(groupJid);
+      const list = Array.isArray(groupData?.disabledCommands) ? groupData.disabledCommands : [];
+      groupSet = new Set(list.map((c) => String(c).toLowerCase().replace(/^\./, '').trim()));
+      groupDisabledCommandsCache.set(groupJid, groupSet);
+    } catch {
+      return false;
+    }
+  }
+
+  const cmd = String(commandName).toLowerCase().replace(/^\./, '').trim();
+  return groupSet.has(cmd);
+}
+
+async function setGroupCommand(groupJid, commandName, enable) {
+  if (!groupJid || !groupJid.endsWith('@g.us')) throw new Error('Hanya dapat digunakan di dalam grup.');
+
+  let groupSet = groupDisabledCommandsCache.get(groupJid);
+  if (!groupSet) {
+    const groupData = await getGroup(groupJid);
+    const list = Array.isArray(groupData?.disabledCommands) ? groupData.disabledCommands : [];
+    groupSet = new Set(list.map((c) => String(c).toLowerCase().replace(/^\./, '').trim()));
+    groupDisabledCommandsCache.set(groupJid, groupSet);
+  }
+
+  const cmd = String(commandName).toLowerCase().replace(/^\./, '').trim();
+  if (enable) {
+    groupSet.delete(cmd);
+  } else {
+    groupSet.add(cmd);
+  }
+
+  await updateGroupSettings(groupJid, { disabledCommands: Array.from(groupSet) });
+  await logAudit('SETTINGS', `Group ${groupJid} command ${cmd} ${enable ? 'enabled' : 'disabled'}`);
+  return !groupSet.has(cmd);
+}
+
 function getGlobalDisabledList() {
   return Array.from(globalDisabled);
+}
+
+function getGlobalDisabledCommands() {
+  return Array.from(globalDisabledCommands);
 }
 
 module.exports = {
@@ -159,4 +271,9 @@ module.exports = {
   isFeatureDisabledInGroup,
   setGroupFeature,
   getGlobalDisabledList,
+  isCommandDisabledGlobally,
+  setGlobalCommand,
+  isCommandDisabledInGroup,
+  setGroupCommand,
+  getGlobalDisabledCommands,
 };

@@ -2,7 +2,17 @@ const { getDb } = require('../firebase');
 const { createUserModel, generateDefaultProfileId } = require('../models/user.model');
 
 function normalizeJid(value) {
-  return String(value || '').replace(/\s+/g, '').trim();
+  if (!value) return '';
+  const raw = String(value).trim();
+  const base = raw.split('@')[0].split(':')[0];
+  let digits = base.replace(/\D/g, '');
+  if (digits.startsWith('08')) {
+    digits = '628' + digits.slice(2);
+  }
+  if (digits && digits.length >= 7) {
+    return `${digits}@s.whatsapp.net`;
+  }
+  return raw.split(':')[0];
 }
 
 function normalizeFieldValue(field, value) {
@@ -40,20 +50,50 @@ function normalizeFieldValue(field, value) {
 }
 
 async function getUserByJid(jid) {
+  if (!jid) return null;
   const normalizedJid = normalizeJid(jid);
-
-  if (!normalizedJid) {
-    return null;
-  }
+  const rawJid = String(jid).trim();
 
   const db = await getDb();
-  const snapshot = await db.collection('users').doc(normalizedJid).get();
 
-  if (!snapshot.exists) {
-    return null;
+  // 1. Cek normalized JID (standar)
+  let snapshot = await db.collection('users').doc(normalizedJid).get();
+  if (snapshot.exists) {
+    return createUserModel(snapshot.data());
   }
 
-  return createUserModel(snapshot.data());
+  // 2. Cek raw JID jika berbeda (misal doc tersimpan dengan device suffix atau format lama)
+  if (rawJid && rawJid !== normalizedJid) {
+    snapshot = await db.collection('users').doc(rawJid).get();
+    if (snapshot.exists) {
+      const data = snapshot.data();
+      const user = createUserModel({ ...data, jid: normalizedJid });
+      // Self-healing migrasi ke normalized JID
+      saveUser(user).catch(() => {});
+      return user;
+    }
+  }
+
+  // 3. Fallback pencarian fleksibel berdasarkan nomor telepon
+  const baseNumber = rawJid.split('@')[0].split(':')[0].replace(/\D/g, '');
+  if (baseNumber && baseNumber.length >= 7) {
+    try {
+      const querySnap = await db.collection('users')
+        .where('jid', '>=', baseNumber)
+        .where('jid', '<=', baseNumber + '')
+        .limit(1)
+        .get();
+
+      if (!querySnap.empty) {
+        const data = querySnap.docs[0].data();
+        const user = createUserModel({ ...data, jid: normalizedJid });
+        saveUser(user).catch(() => {});
+        return user;
+      }
+    } catch {}
+  }
+
+  return null;
 }
 
 async function saveUser(data = {}) {

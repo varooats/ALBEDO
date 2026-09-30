@@ -7,6 +7,9 @@ module.exports = createCommand({
   name: 'ping',
   aliases: ['p'],
   description: 'Cek respon bot di grup.',
+  isPublic: true,
+  limit: 0,
+  cooldown: 3,
   execute: async (client, message) => {
     const jid = message?.key?.remoteJid;
     if (!jid) return false;

@@ -1,4 +1,4 @@
-const { proto, generateWAMessageFromContent, isJidGroup } = require('@whiskeysockets/baileys');
+const { proto, generateWAMessageFromContent } = require('@whiskeysockets/baileys');
 const { messages } = require('../messages');
 const { getInfoPayload } = require('../messages/info.messages');
 const { replyText } = require('../core/reply');
@@ -45,21 +45,10 @@ function createBizNode() {
   };
 }
 
-function getInteractiveAdditionalNodes(jid, isGroupFn = isJidGroup) {
-  const bizNode = createBizNode();
-  const isGroup = typeof isGroupFn === 'function' ? isGroupFn(jid) : String(jid || '').endsWith('@g.us');
-
-  if (isGroup) {
-    return [bizNode];
-  }
-
-  return [
-    {
-      tag: 'bot',
-      attrs: { biz_bot: '1' },
-    },
-    bizNode,
-  ];
+// ponytail: hanya bizNode untuk semua jid; node bot biz_bot:'1' menyembunyikan profile photo di private chat.
+// Tambahkan kembali node bot jika diperlukan untuk fitur verified business badge.
+function getInteractiveAdditionalNodes() {
+  return [createBizNode()];
 }
 
 function getNativeFlowResponseId(message) {
@@ -167,7 +156,7 @@ async function sendNativeFlow(
 
   await client.relayMessage(jid, generatedMessage.message, {
     messageId,
-    additionalNodes: getInteractiveAdditionalNodes(jid, isJidGroup),
+    additionalNodes: getInteractiveAdditionalNodes(),
   });
 
   return true;

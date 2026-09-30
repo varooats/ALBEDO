@@ -278,23 +278,31 @@ async function fetchAudioBuffer(initialAudioUrl, maxPollAttempts = 4) {
   throw new Error('Waktu tunggu konversi audio habis.');
 }
 
-function normalizeTiooResponse(data, originalUrl) {
-  if (!data) return null;
+function normalizeTiooResponse(raw, originalUrl) {
+  if (!raw) return null;
+
+  // Unwrap wrapper object (seperti res_data pada Spotify, result, atau data)
+  const inner = raw.res_data || raw.result || raw.data || {};
+  const data = { ...raw, ...inner };
+  const source = detectPlatform(originalUrl);
+  const isAudioPlatform = source === 'Spotify' || source === 'SoundCloud' || source === 'Bandcamp';
 
   // 1. Extract video URL
   let videoUrl = null;
-  if (typeof data.mp4 === 'string' && data.mp4) {
-    videoUrl = data.mp4;
-  } else if (Array.isArray(data.video) && data.video[0]) {
-    videoUrl = data.video[0];
-  } else if (typeof data.video === 'string' && data.video) {
-    videoUrl = data.video;
-  } else if (Array.isArray(data.url) && data.url[0]) {
-    videoUrl = data.url[0];
-  } else if (typeof data.url === 'string' && data.url && !data.url.endsWith('.mp3')) {
-    videoUrl = data.url;
-  } else if (Array.isArray(data.media) && data.media[0]?.url) {
-    videoUrl = data.media[0].url;
+  if (!isAudioPlatform) {
+    if (typeof data.mp4 === 'string' && data.mp4) {
+      videoUrl = data.mp4;
+    } else if (Array.isArray(data.video) && data.video[0]) {
+      videoUrl = data.video[0];
+    } else if (typeof data.video === 'string' && data.video) {
+      videoUrl = data.video;
+    } else if (Array.isArray(data.url) && data.url[0] && !data.url[0].endsWith('.mp3')) {
+      videoUrl = data.url[0];
+    } else if (typeof data.url === 'string' && data.url && !data.url.endsWith('.mp3')) {
+      videoUrl = data.url;
+    } else if (Array.isArray(data.media) && data.media[0]?.url) {
+      videoUrl = data.media[0].url;
+    }
   }
 
   // 2. Extract audio URL
@@ -307,11 +315,27 @@ function normalizeTiooResponse(data, originalUrl) {
     audioUrl = data.audio;
   } else if (typeof data.download === 'string' && data.download) {
     audioUrl = data.download;
-  } else if (typeof data.url === 'string' && data.url && (data.url.includes('.mp3') || data.url.includes('audio'))) {
+  } else if (typeof data.url === 'string' && data.url && (data.url.includes('.mp3') || data.url.includes('audio') || isAudioPlatform)) {
     audioUrl = data.url;
   }
 
-  // If only video available, it can also serve as audio stream
+  // Extract from formats array (e.g. Spotify res_data.formats)
+  if (Array.isArray(data.formats) && data.formats.length > 0) {
+    for (const f of data.formats) {
+      if (f.url) {
+        if (f.ext === 'mp3' || f.acodec || f.vcodec === 'none' || isAudioPlatform) {
+          if (!audioUrl) audioUrl = f.url;
+        } else if (!videoUrl) {
+          videoUrl = f.url;
+        }
+      }
+    }
+    if (isAudioPlatform && !audioUrl && data.formats[0]?.url) {
+      audioUrl = data.formats[0].url;
+    }
+  }
+
+  // If only video available on non-audio platform, it can also serve as audio stream
   if (!audioUrl && videoUrl) {
     audioUrl = videoUrl;
   }
@@ -323,22 +347,32 @@ function normalizeTiooResponse(data, originalUrl) {
     data.picture ||
     data.cover ||
     data.image ||
+    raw.thumbnail ||
+    raw.res_data?.thumbnail ||
     null;
 
-  // 4. Extract title
-  const title =
+  // 4. Extract title & author
+  let title =
     data.title ||
     data.title_audio ||
     data.name ||
-    data.author ||
-    data.creator ||
+    raw.res_data?.title ||
+    raw.result?.title ||
     'Media Download';
 
-  const source = detectPlatform(originalUrl);
+  let author = data.author || data.artist || data.creator || '';
+  if (!author && title.includes(' - ')) {
+    const parts = title.split(' - ');
+    if (parts.length >= 2) {
+      author = parts[1].trim();
+      title = parts[0].trim();
+    }
+  }
 
   return {
     title,
-    duration: data.duration || '—',
+    author,
+    duration: data.duration && data.duration !== 0 ? data.duration : '—',
     source,
     thumbnail,
     video: videoUrl ? { url: videoUrl, quality: 'HD', extension: 'mp4' } : null,
@@ -442,6 +476,34 @@ async function fallbackInstagram(url) {
   return null;
 }
 
+function ensureMediaArray(result) {
+  if (!result) return result;
+  if (!Array.isArray(result.media)) {
+    result.media = [];
+    if (result.video?.url) {
+      result.media.push({
+        type: 'video',
+        role: 'video',
+        url: result.video.url,
+        label: result.video.quality || 'Video (HD)',
+        container: result.video.extension || 'mp4',
+        thumbnail: result.thumbnail,
+      });
+    }
+    if (result.audio?.url && result.audio.url !== result.video?.url) {
+      result.media.push({
+        type: 'audio',
+        role: 'audio',
+        url: result.audio.url,
+        label: result.audio.quality || 'Audio (MP3)',
+        container: result.audio.extension || 'mp3',
+        thumbnail: result.thumbnail,
+      });
+    }
+  }
+  return result;
+}
+
 async function downloadMedia(targetUrl, options = {}) {
   const rawUrl = String(targetUrl || '').trim();
   if (!rawUrl || !/^https?:\/\//i.test(rawUrl)) {
@@ -453,22 +515,39 @@ async function downloadMedia(targetUrl, options = {}) {
   const platform = detectPlatform(url);
   console.log(`[DOWNLOADER] Processing URL: ${url} (Platform: ${platform})`);
 
+  // 1. Primary API: SMDownloader
+  try {
+    const { smDownloader, normalizeSmResponse } = require('./sm.service');
+    console.log(`[DOWNLOADER] Trying primary API (SMDownloader) for URL: ${url}`);
+    const smData = await smDownloader.extract(url);
+    const normalized = normalizeSmResponse(smData, url);
+    if (normalized && Array.isArray(normalized.media) && normalized.media.length > 0) {
+      console.log(`[DOWNLOADER] Primary API (SMDownloader) success: "${normalized.title}" (${normalized.media.length} items)`);
+      return normalized;
+    }
+  } catch (smErr) {
+    console.warn(`[DOWNLOADER] Primary API (SMDownloader) failed: ${smErr.message}. Falling back to backup APIs...`);
+  }
+
+  // 2. Backup APIs (Tioo / Instagram Fallback / Ytdl)
   const endpoints = resolveEndpoints(url);
   let lastError = null;
 
   for (const ep of endpoints) {
     try {
-      console.log(`[DOWNLOADER] Trying endpoint: ${ep}`);
+      console.log(`[DOWNLOADER] [Backup] Trying endpoint: ${ep}`);
       const rawData = await fetchFromTioo(ep, url);
       if (rawData && (rawData.status === true || rawData.mp4 || rawData.mp3 || rawData.video || rawData.audio || rawData.url)) {
         const normalized = normalizeTiooResponse(rawData, url);
         if (normalized && (normalized.video || normalized.audio)) {
-          console.log(`[DOWNLOADER] Successfully parsed media: "${normalized.title}" (Video: ${Boolean(normalized.video)}, Audio: ${Boolean(normalized.audio)})`);
-          return normalized;
+          console.log(`[DOWNLOADER] [Backup] Successfully parsed media: "${normalized.title}" (Video: ${Boolean(normalized.video)}, Audio: ${Boolean(normalized.audio)})`);
+          return ensureMediaArray(normalized);
         }
       }
-      if (rawData?.error || rawData?.message) {
-        lastError = new Error(rawData.error || rawData.message);
+      if (rawData?.error) {
+        lastError = new Error(rawData.error);
+      } else if (rawData?.message && !['success', 'ok', 'true'].includes(String(rawData.message).toLowerCase())) {
+        lastError = new Error(rawData.message);
       }
     } catch (err) {
       lastError = err;
@@ -479,7 +558,7 @@ async function downloadMedia(targetUrl, options = {}) {
   if (platform === 'Instagram') {
     console.log('[DOWNLOADER] API 1 failed for Instagram. Trying Instagram fallback APIs...');
     const igResult = await fallbackInstagram(url);
-    if (igResult) return igResult;
+    if (igResult) return ensureMediaArray(igResult);
   }
 
   // 2. Fallback for YouTube if API 1 fails
@@ -488,7 +567,7 @@ async function downloadMedia(targetUrl, options = {}) {
     try {
       const { downloadWithYtdlCore } = require('./ytdl.service');
       const ytdlResult = await downloadWithYtdlCore(url);
-      if (ytdlResult) return ytdlResult;
+      if (ytdlResult) return ensureMediaArray(ytdlResult);
     } catch (ytdlErr) {
       console.warn('[DOWNLOADER] ytdl fallback failed:', ytdlErr.message);
       lastError = ytdlErr;
@@ -510,5 +589,6 @@ module.exports = {
   fetchAudioBuffer,
   downloadMedia,
   fetchFromTioo,
+  normalizeTiooResponse,
   fallbackInstagram,
 };

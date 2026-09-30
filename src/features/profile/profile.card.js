@@ -304,24 +304,41 @@ function buildProfileSvg(user, avatarDataUri = null, groupTitle = null) {
   `.replace(/<!--[\s\S]*?-->/g, '').trim();
 }
 
+async function getDefaultAvatarDataUri() {
+  try {
+    const defaultAvatarPath = path.resolve(__dirname, '../../../assets/profile-picture.jpeg');
+    const imageBuffer = await fs.readFile(defaultAvatarPath);
+    if (Buffer.isBuffer(imageBuffer) && imageBuffer.length > 0) {
+      return 'data:image/jpeg;base64,' + imageBuffer.toString('base64');
+    }
+  } catch (err) {
+    console.warn('[PROFILE] Failed to read default avatar from assets:', err?.message || err);
+  }
+  return null;
+}
+
 async function getProfilePictureDataUri(client, jid) {
-  if (!client || !jid) return null;
+  if (!client || !jid) return await getDefaultAvatarDataUri();
   try {
     const imageUrl = await client.profilePictureUrl(jid, 'image');
-    if (!imageUrl) return null;
+    if (!imageUrl) {
+      return await getDefaultAvatarDataUri();
+    }
 
     const response = await fetch(imageUrl);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     const arrayBuffer = await response.arrayBuffer();
     const imageBuffer = Buffer.from(arrayBuffer);
-    if (!Buffer.isBuffer(imageBuffer) || imageBuffer.length === 0) return null;
+    if (!Buffer.isBuffer(imageBuffer) || imageBuffer.length === 0) {
+      return await getDefaultAvatarDataUri();
+    }
 
     const contentType = response.headers.get('content-type') || 'image/jpeg';
     return `data:${contentType};base64,` + imageBuffer.toString('base64');
   } catch (error) {
-    console.warn('[PROFILE] Profile picture unavailable:', error?.message || error);
-    return null;
+    console.warn('[PROFILE] Profile picture unavailable, using default asset:', error?.message || error);
+    return await getDefaultAvatarDataUri();
   }
 }
 
@@ -366,6 +383,7 @@ async function removeTempFile(filePath) {
 module.exports = {
   buildProfileSvg,
   getProfilePictureDataUri,
+  getDefaultAvatarDataUri,
   getGroupTitle,
   generateProfileImage,
   createTempImageFile,

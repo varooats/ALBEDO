@@ -12,30 +12,31 @@ module.exports = createCommand({
   aliases: ['ceklimit', 'kuota'],
   isFree: true,
   description: 'Cek sisa limit, progress bar penggunaan, dan status user.',
-  execute: async (client, message) => {
+  execute: async (client, message, args = [], ctx = {}) => {
     const mentions = resolveMentionJids(message);
-    const targetJid = mentions[0] || getSenderJid(message);
+    const targetJid = mentions[0] || ctx?.senderJid || getSenderJid(message);
     if (!targetJid) return false;
 
-    const user = await getUserByJid(targetJid);
+    const user = (await getUserByJid(targetJid)) || (targetJid === ctx?.senderJid ? ctx?.globalUser : null);
     if (!user) {
       await replyText(client, message, messages.profile.register.required);
       return true;
     }
 
-    const isOwner = isOwnerMessage(message);
-    const currentLimit = user.limit ?? DEFAULT_LIMIT;
-    const maxLimit = Math.max(DEFAULT_LIMIT, user.maxLimit || currentLimit);
-    const currentExp = user.exp || 0;
-    const p10 = calculateLimitPrice(currentLimit, 10);
+    const isOwner = ctx?.isOwner || isOwnerMessage(message);
+    const scoped = ctx?.scopedUser;
+    const currentLimit = isOwner ? '∞' : (scoped?.limit ?? user.limit ?? DEFAULT_LIMIT);
+    const maxLimit = isOwner ? '∞' : Math.max(DEFAULT_LIMIT, scoped?.maxLimit || user.maxLimit || (scoped?.limit ?? user.limit ?? DEFAULT_LIMIT));
+    const currentExp = scoped?.exp ?? user.exp ?? 0;
+    const p10 = calculateLimitPrice(typeof currentLimit === 'number' ? currentLimit : DEFAULT_LIMIT, 10);
 
     const bar = isOwner
       ? '▰▰▰▰▰▰▰▰▰▰ 100%'
-      : messages.store.renderProgressBar(currentLimit, maxLimit, 10);
+      : messages.store.renderProgressBar(typeof currentLimit === 'number' ? currentLimit : DEFAULT_LIMIT, typeof maxLimit === 'number' ? maxLimit : DEFAULT_LIMIT, 10);
 
     const userStatus = isOwner
       ? 'Owner (Unlimited ∞)'
-      : user.premium
+      : (scoped?.tier === 'vip' || user.premium)
         ? 'VIP Premium'
         : 'Free User';
 

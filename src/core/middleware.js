@@ -9,12 +9,31 @@ const {
 const { logAudit } = require('../services/audit/audit.service');
 
 function normalizeNumber(value = '') {
-  return String(value || '')
-    .replace(/\s+/g, '')
-    .replace(/[^\d]/g, '');
+  let num = String(value || '')
+    .split('@')[0]
+    .split(':')[0]
+    .replace(/\D/g, '');
+  if (num.startsWith('08')) {
+    num = '628' + num.slice(2);
+  }
+  return num;
 }
 
 function getSenderNumber(message = {}) {
+  if (message?.key?.fromMe) {
+    return normalizeNumber(config?.owner);
+  }
+  // Cek Phone Number (PN) dari properti Baileys terbaru jika pengirim memakai LID
+  const pn =
+    message?.key?.participantPn ||
+    message?.key?.senderPn ||
+    message?.participantPn ||
+    message?.senderPn ||
+    message?.message?.extendedTextMessage?.contextInfo?.participantPn ||
+    null;
+  if (pn) {
+    return normalizeNumber(pn);
+  }
   const sender = message?.sender || message?.key?.participant || message?.key?.remoteJid || '';
   return normalizeNumber(sender);
 }
@@ -29,17 +48,53 @@ function isGroupMessage(message = {}) {
 }
 
 function isOwnerMessage(message = {}, ownerNumber = config?.owner) {
+  if (message?.key?.fromMe) return true;
   const sender = getSenderNumber(message);
   if (!sender) return false;
 
-  const baseOwner = normalizeNumber(ownerNumber || config?.owner);
-  return !!baseOwner && sender === baseOwner;
+  const baseOwners = String(ownerNumber || config?.owner || '')
+    .split(',')
+    .map(normalizeNumber)
+    .filter(Boolean);
+  return baseOwners.includes(sender);
 }
 
-async function isOwnerAsync(message = {}) {
+async function isOwnerAsync(message = {}, client = null) {
+  if (message?.key?.fromMe) return true;
   const sender = getSenderNumber(message);
-  if (!sender) return false;
-  return isOwner(sender);
+  if (sender && (await isOwner(sender))) return true;
+
+  // Resolusi nomor dari metadata grup jika participant berupa LID
+  const participantRaw = message?.key?.participant || message?.participant;
+  if (isGroupMessage(message) && client && participantRaw) {
+    try {
+      const meta = await getGroupMetadata(client, message);
+      console.log(`[DEBUG LID RESOLUTION] Target LID: ${participantRaw}, Found ${meta?.participants?.length || 0} participants in groupMetadata`);
+      if (meta?.participants) {
+        const lidTarget = normalizeNumber(participantRaw);
+        for (const p of meta.participants) {
+          const pLid = normalizeNumber(p.lid || p.id);
+          const pPhone = normalizeNumber(p.id || p.jid);
+          console.log(`  -> participant: id=${p.id}, jid=${p.jid}, lid=${p.lid}`);
+          if (pLid === lidTarget || pPhone === lidTarget) {
+            const realPhone = normalizeNumber(p.id || p.jid);
+            console.log(`  -> MATCHED LID! realPhone=${realPhone}`);
+            if (realPhone && (await isOwner(realPhone))) {
+              try {
+                const { addOwnerLid } = require('../services/owner/owner.service');
+                await addOwnerLid(lidTarget);
+              } catch {}
+              return true;
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('[MIDDLEWARE] Failed resolving LID via groupMetadata:', e?.message || e);
+    }
+  }
+
+  return false;
 }
 
 async function getGroupMetadata(client, message) {
@@ -98,7 +153,16 @@ async function checkCommandAccess(client, message, accessOrPerm = 'USER', args =
   if (requiredRole === 'USER') return { allowed: true };
 
   const senderNumber = getSenderNumber(message);
-  const botRole = await getUserRole(senderNumber);
+  let botRole = await getUserRole(senderNumber);
+
+  // Jika nomor sender berupa LID, resolusi ke nomor asli via metadata grup
+  if (botRole === 'USER' && isGroupMessage(message) && client) {
+    const isOw = await isOwnerAsync(message, client);
+    if (isOw) {
+      botRole = 'SUPEROWNER';
+    }
+  }
+
   const botRank = ROLE_RANKS[botRole] || 0;
 
   if (requiredRole === 'SUPEROWNER') {
@@ -213,8 +277,9 @@ async function groupAccessMiddleware(client, message) {
   }
 
   const status = groupData?.status || 'pending';
+  const isOwner = await isOwnerAsync(message, client);
 
-  if (await isOwnerAsync(message)) {
+  if (isOwner) {
     return { allowed: true, status, groupData, isOwner: true };
   }
 
@@ -238,6 +303,66 @@ async function groupAccessMiddleware(client, message) {
   return { allowed: false, status: 'pending', action: 'reject', groupData };
 }
 
+/**
+ * UNIFIED PIPELINE RESOLVER
+ * Menyelesaikan User, Scope (grup/DM), Role, dan Status Keamanan
+ */
+async function resolveUserAndScope(client, message) {
+  const senderNumber = getSenderNumber(message);
+  const senderJid = senderNumber ? `${senderNumber}@s.whatsapp.net` : (message?.key?.participant || message?.key?.remoteJid || '');
+  const groupJid = isGroupMessage(message) ? getChatJid(message) : null;
+  const scopeId = groupJid || 'dm';
+  const isGroup = !!groupJid;
+
+  const isSuperOw = await isSuperOwner(senderNumber);
+  const isOw = isSuperOw || (await isOwnerAsync(message, client));
+  const isBotAdm = isOw || (await isBotAdmin(senderNumber));
+
+  let isGrpAdmin = false;
+  let botIsAdmin = false;
+  if (isGroup) {
+    isGrpAdmin = isOw || (await isGroupAdmin(client, message));
+    botIsAdmin = await isBotAdmin(client, message);
+  }
+
+  const { getUserByJid } = require('../database/repositories/user.repository');
+  const { getScopedUser } = require('../database/repositories/user-scope.repository');
+  const { resolveEffectiveRole } = require('./roles');
+
+  const globalUser = senderJid ? await getUserByJid(senderJid) : null;
+  const scopedUser = senderJid ? await getScopedUser(senderJid, scopeId) : null;
+
+  const isRegistered = !!globalUser;
+  const userTier = scopedUser?.tier || (globalUser?.premium ? 'premium' : 'free');
+
+  const effectiveRole = resolveEffectiveRole({
+    isSuperOwner: isSuperOw,
+    isOwner: isOw,
+    isBotAdmin: isBotAdm,
+    isGroupAdmin: isGrpAdmin,
+    tier: isOw ? 'vip' : userTier,
+    isRegistered,
+  });
+
+  return {
+    senderNumber,
+    senderJid,
+    groupJid,
+    scopeId,
+    isGroup,
+    isSuperOwner: isSuperOw,
+    isOwner: isOw,
+    isBotAdmin: isBotAdm,
+    isGroupAdmin: isGrpAdmin,
+    botIsAdmin,
+    globalUser,
+    scopedUser,
+    isRegistered,
+    tier: userTier,
+    effectiveRole,
+  };
+}
+
 module.exports = {
   normalizeNumber,
   getSenderNumber,
@@ -251,4 +376,5 @@ module.exports = {
   checkCommandAccess,
   validateActionTarget,
   groupAccessMiddleware,
+  resolveUserAndScope,
 };

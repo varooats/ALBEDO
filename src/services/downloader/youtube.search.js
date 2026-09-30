@@ -38,20 +38,33 @@ async function searchYouTube(query) {
   const cleanQuery = String(query || '').trim();
   if (!cleanQuery) return null;
 
-  // 1. Try yt-search package
+  // 1. Try youtubei.js
+  try {
+    const { searchYouTube: searchWithYoutubei } = require('./youtubei.service');
+    const result = await searchWithYoutubei(cleanQuery);
+    if (result?.url) return result;
+  } catch (err) {
+    console.warn('[YT-SEARCH] youtubei.js error, trying yt-search:', err.message);
+  }
+
+  // 2. Try yt-search package
   if (yts) {
     try {
       const results = await yts(cleanQuery);
       const videos = results?.videos || [];
       if (videos.length > 0) {
-        const v = videos[0];
-        return {
+        const candidates = videos.slice(0, 5).map((v) => ({
           url: v.url,
+          videoId: v.videoId,
           title: v.title,
           duration: v.timestamp || `${Math.floor(v.seconds / 60)}:${String(v.seconds % 60).padStart(2, '0')}`,
           thumbnail: v.thumbnail || v.image,
           author: v.author?.name || 'YouTube',
           views: v.views,
+        }));
+        return {
+          ...candidates[0],
+          candidates,
         };
       }
     } catch (err) {
@@ -59,9 +72,15 @@ async function searchYouTube(query) {
     }
   }
 
-  // 2. Native fallback scraper
+  // 3. Native fallback scraper
   try {
-    return await searchYouTubeFallback(cleanQuery);
+    const single = await searchYouTubeFallback(cleanQuery);
+    if (single) {
+      return {
+        ...single,
+        candidates: [single],
+      };
+    }
   } catch (err) {
     console.error('[YT-SEARCH] Fallback error:', err.message);
     return null;

@@ -10,66 +10,119 @@ try {
 }
 
 async function fetchFromCobalt(youtubeUrl) {
-  const cobaltInstances = [
-    'https://api.cobalt.tools/api/json',
-    'https://cobalt.kwiatekm.com/api/json',
-    'https://co.wuk.sh/api/json',
+  const cobaltBases = [
+    'https://api.cobalt.tools',
+    'https://cobalt-api.kwiatekm.com',
+    'https://co.wuk.sh',
   ];
 
-  for (const instance of cobaltInstances) {
+  for (const base of cobaltBases) {
+    for (const subpath of ['', '/api/json']) {
+      const instance = `${base}${subpath}`;
+      try {
+        console.log(`[COBALT] Trying instance: ${instance}`);
+        const res = await fetch(instance, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+          },
+          body: JSON.stringify({
+            url: youtubeUrl,
+            downloadMode: 'audio',
+            audioFormat: 'mp3',
+          }),
+          signal: AbortSignal.timeout(15000),
+        });
+
+        if (!res.ok) continue;
+        const data = await res.json();
+        console.log(`[COBALT] Response:`, data);
+
+        const downloadUrl = data.url || (data.picker && data.picker[0]?.url);
+        if (downloadUrl) {
+          console.log(`[COBALT] Found audio stream URL: ${downloadUrl}`);
+          const audioRes = await fetch(downloadUrl, {
+            headers: {
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+              'Accept': '*/*',
+            },
+            signal: AbortSignal.timeout(45000),
+          });
+
+          if (audioRes.ok) {
+            const buf = Buffer.from(await audioRes.arrayBuffer());
+            if (buf.length > 20000 && buf[0] !== 0x7b && buf[0] !== 0x3c) {
+              console.log(`[COBALT] Successfully downloaded audio: ${(buf.length / 1024).toFixed(2)} KB`);
+              return {
+                title: 'YouTube Audio',
+                duration: '—',
+                source: 'YouTube',
+                thumbnail: null,
+                buffer: buf,
+                audio: {
+                  url: downloadUrl,
+                  quality: 'MP3',
+                  extension: 'mp3',
+                },
+              };
+            }
+          }
+        }
+      } catch (err) {
+        console.warn(`[COBALT] Instance ${instance} failed:`, err.message);
+      }
+    }
+  }
+
+  return null;
+}
+
+async function fetchFromInvidious(youtubeUrl) {
+  const match = youtubeUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([a-zA-Z0-9_-]{11})/i);
+  if (!match) return null;
+  const vid = match[1];
+
+  const instances = [
+    'https://inv.tux.pizza',
+    'https://invidious.nerdvpn.de',
+    'https://vid.puffyan.us',
+    'https://invidious.jing.rocks',
+  ];
+
+  for (const instance of instances) {
     try {
-      console.log(`[COBALT] Trying instance: ${instance}`);
-      const res = await fetch(instance, {
-        method: 'POST',
+      console.log(`[INVIDIOUS] Trying instance ${instance} for: ${vid}`);
+      const audioUrl = `${instance}/latest_version?id=${vid}&itag=140`;
+      const res = await fetch(audioUrl, {
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+          'Accept': '*/*',
         },
-        body: JSON.stringify({
-          url: youtubeUrl,
-          downloadMode: 'audio',
-          audioFormat: 'mp3',
-        }),
-        signal: AbortSignal.timeout(15000),
+        redirect: 'follow',
+        signal: AbortSignal.timeout(20000),
       });
 
       if (!res.ok) continue;
-      const data = await res.json();
-      console.log(`[COBALT] Response:`, data);
-
-      const downloadUrl = data.url || (data.picker && data.picker[0]?.url);
-      if (downloadUrl) {
-        console.log(`[COBALT] Found audio stream URL: ${downloadUrl}`);
-        const audioRes = await fetch(downloadUrl, {
-          headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-            'Accept': '*/*',
+      const buf = Buffer.from(await res.arrayBuffer());
+      if (buf.length > 20000 && buf[0] !== 0x7b && buf[0] !== 0x3c) {
+        console.log(`[INVIDIOUS] Successfully downloaded audio: ${(buf.length / 1024).toFixed(2)} KB`);
+        return {
+          title: 'YouTube Audio',
+          duration: '—',
+          source: 'YouTube',
+          thumbnail: `https://i.ytimg.com/vi/${vid}/hqdefault.jpg`,
+          buffer: buf,
+          audio: {
+            url: audioUrl,
+            quality: '128kbps',
+            extension: 'm4a',
           },
-          signal: AbortSignal.timeout(45000),
-        });
-
-        if (audioRes.ok) {
-          const buf = Buffer.from(await audioRes.arrayBuffer());
-          if (buf.length > 20000 && buf[0] !== 0x7b && buf[0] !== 0x3c) {
-            console.log(`[COBALT] Successfully downloaded audio: ${(buf.length / 1024).toFixed(2)} KB`);
-            return {
-              title: 'YouTube Audio',
-              duration: '—',
-              source: 'YouTube',
-              thumbnail: null,
-              buffer: buf,
-              audio: {
-                url: downloadUrl,
-                quality: 'MP3',
-                extension: 'mp3',
-              },
-            };
-          }
-        }
+        };
       }
     } catch (err) {
-      console.warn(`[COBALT] Instance ${instance} failed:`, err.message);
+      console.warn(`[INVIDIOUS] Instance ${instance} failed:`, err.message);
     }
   }
 
@@ -239,7 +292,15 @@ async function downloadWithYtdlCore(youtubeUrl) {
     console.warn('[COBALT] All instances failed:', cErr.message);
   }
 
-  // 3. Alternative high-reliability MP3 APIs
+  // 3. Invidious proxy (no cipher needed)
+  try {
+    const inv = await fetchFromInvidious(youtubeUrl);
+    if (inv) return inv;
+  } catch (invErr) {
+    console.warn('[INVIDIOUS] All instances failed:', invErr.message);
+  }
+
+  // 4. Alternative high-reliability MP3 APIs
   const alt = await fetchAlternativeYtMp3(youtubeUrl);
   if (alt) return alt;
 

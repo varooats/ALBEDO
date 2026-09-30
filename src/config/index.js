@@ -1,5 +1,4 @@
 const botConfig = require('./bot.config');
-const databaseConfig = require('./database.config');
 const { getBotSettings, updateBotSettings } = require('../database/repositories/bot-settings.repository');
 
 /**
@@ -27,14 +26,12 @@ async function getConfig() {
     developerWebsite: dbSettings.developerWebsite || botConfig.developerWebsite,
     developerInstagram: dbSettings.developerInstagram || botConfig.developerInstagram,
     debug: botConfig.debug,
-    database: databaseConfig,
     ...dbSettings, // Include dynamic flags like public, autoread, grouponly, anticall
   };
 }
 
 module.exports = {
   ...botConfig,
-  database: databaseConfig,
   getConfig,
   updateConfig: updateBotSettings,
 };

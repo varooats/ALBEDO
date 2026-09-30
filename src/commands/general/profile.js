@@ -20,7 +20,11 @@ module.exports = createCommand({
   name: 'profile',
   aliases: ['prof', 'idcard', 'id'],
   description: 'Tampilkan Student Identity Card.',
-  execute: async (client, message, args = []) => {
+  isPublic: true,
+  isFree: true,
+  limit: 0,
+  cooldown: 3,
+  execute: async (client, message, args = [], ctx = {}) => {
     const selfJid = resolveJid(message);
     if (!selfJid) return false;
 
@@ -37,7 +41,7 @@ module.exports = createCommand({
       } else if (query) {
         selectedUser = await findUserByQuery(query);
       } else {
-        selectedUser = await getUserByJid(selfJid);
+        selectedUser = (await getUserByJid(selfJid)) || ctx?.globalUser || (ctx?.senderNumber ? await getUserByJid(ctx.senderNumber) : null);
       }
 
       if (!selectedUser) {

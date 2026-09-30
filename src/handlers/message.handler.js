@@ -5,7 +5,7 @@ const { getNativeFlowResponseId, sendMainMenu, sendCategoryMenu } = require('../
 const { handleCommand } = require('./command.handler');
 const { getSession } = require('../features/games/game.state');
 const { buyLimit } = require('../services/limit/limit.service');
-const { isGroupMessage, groupAccessMiddleware } = require('../core/middleware');
+const { isGroupMessage, groupAccessMiddleware, getSenderNumber, isOwnerAsync } = require('../core/middleware');
 const { getAfk, clearAfk, formatAfkDuration } = require('../services/afk/afk.service');
 const { incrementMessageCount, enforceAntilink, enforceAntitoxic } = require('../features/group/moderation');
 const { logger } = require('../utils/logger');
@@ -65,6 +65,15 @@ async function handleInteractiveMessage(client, message, commandMap) {
   await sendTyping(client, jid, 'composing');
 
   try {
+    // Handle Downloader Multi-Option Selection
+    if (selectedId.startsWith('dl_pick:')) {
+      const [, cacheId, indexStr] = selectedId.split(':');
+      const idx = parseInt(indexStr, 10);
+      const { handleDownloadSelection } = require('../services/downloader/downloader.handler');
+      await handleDownloadSelection(client, message, cacheId, idx);
+      return true;
+    }
+
     if (selectedId === 'menu:open') {
       await sendMainMenu(client, message);
       return true;

@@ -3,7 +3,8 @@ const userRequests = new Map();
 const groupRequests = new Map();
 let globalRequests = [];
 
-const USER_LIMIT = 10;
+// Anti abuse / rate limit: User (5/10s), Group (50/10s), Global (1000/60s)
+const USER_LIMIT = 5;
 const USER_WINDOW_MS = 10 * 1000;
 
 const GROUP_LIMIT = 50;
@@ -79,8 +80,8 @@ function resetRateLimits() {
 const RATE_LIMIT_MESSAGE = [
   '⚠️ *TOO MANY REQUESTS*',
   '',
-  'Tunggu beberapa detik sebelum',
-  'menggunakan command lagi.',
+  'Too many requests.',
+  'Try again later.',
 ].join('\n');
 
 module.exports = {

@@ -42,12 +42,8 @@ function parseCommand(input = {}) {
 }
 
 function resolveJid(message) {
-  if (!message?.key) return null;
-  const participant = message.key.participant;
-  if (participant && participant !== message.key.remoteJid) {
-    return participant;
-  }
-  return message.key.remoteJid || null;
+  if (!message?.key && !message?.participant && !message?.sender) return null;
+  return getSenderJid(message);
 }
 
 function resolveMentionJids(message = {}) {
@@ -66,12 +62,36 @@ function resolveMentionJids(message = {}) {
 }
 
 function getSenderJid(message) {
-  return (
+  if (message?.key?.fromMe) {
+    try {
+      const config = require('../config/bot.config');
+      const ownerNum = String(config?.owner || '').replace(/\D/g, '');
+      if (ownerNum) return `${ownerNum}@s.whatsapp.net`;
+    } catch {}
+  }
+  // Cek Phone Number (PN) dari Baileys jika pengirim LID
+  const pn =
+    message?.key?.participantPn ||
+    message?.key?.senderPn ||
+    message?.participantPn ||
+    message?.senderPn ||
+    message?.message?.extendedTextMessage?.contextInfo?.participantPn ||
+    null;
+  if (pn) {
+    const pnClean = String(pn).split('@')[0].split(':')[0].replace(/\D/g, '');
+    if (pnClean) return `${pnClean}@s.whatsapp.net`;
+  }
+  const raw =
     message?.key?.participant ||
     message?.participant ||
     message?.key?.remoteJid ||
-    null
-  );
+    null;
+  if (!raw) return null;
+  const num = String(raw).split('@')[0].split(':')[0].replace(/\D/g, '');
+  if (num && !raw.endsWith('@g.us')) {
+    return `${num}@s.whatsapp.net`;
+  }
+  return raw;
 }
 
 function jidToMentionName(jid) {

@@ -34,7 +34,9 @@ function tag(name, color = ANSI.cyan, pad = 10) {
 }
 
 const logger = {
-  banner() {
+  banner(envInfo = {}) {
+    const envLabel = (envInfo.env || 'development').toUpperCase();
+    const envColor = envInfo.env === 'production' ? ANSI.emerald : (envInfo.env === 'staging' ? ANSI.amber : ANSI.cyan);
     console.log(`
 ${ANSI.lavender}▄█████  ██▓    ▄▄▄▄    ▓█████  ▓█████▄  ▒█████
    ▓█   ▀ ▓██▒   ▓█████▄  ▓█   ▀  ▒██▀ ██▌▒██▒  ██▒
@@ -48,6 +50,8 @@ ${ANSI.lavender}▄█████  ██▓    ▄▄▄▄    ▓████
 
 ${ANSI.darkGray}──────────────────────────────────────────────────────────────${ANSI.reset}
  ${ANSI.cyan}${ANSI.bold}ALBEDO BOT${ANSI.reset} ${ANSI.darkGray}//${ANSI.reset} ${ANSI.lavender}CORE INITIALIZATION${ANSI.reset}
+ ${ANSI.muted}Environment${ANSI.reset} : ${envColor}${ANSI.bold}[${envLabel}]${ANSI.reset}
+ ${ANSI.muted}Bot Name${ANSI.reset}    : ${ANSI.cyan}${envInfo.botName || 'ALBEDO'}${ANSI.reset} (Prefix: ${ANSI.emerald}${envInfo.prefix || '.'}${ANSI.reset})
 ${ANSI.darkGray}──────────────────────────────────────────────────────────────${ANSI.reset}
 `);
   },

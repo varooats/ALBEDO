@@ -10,19 +10,32 @@ const ROLE_RANKS = Object.freeze({
 });
 
 function normalizeNumber(value = '') {
-  return String(value || '')
-    .replace(/\s+/g, '')
-    .replace(/[^\d]/g, '');
+  let num = String(value || '')
+    .split('@')[0]
+    .split(':')[0]
+    .replace(/\D/g, '');
+  if (num.startsWith('08')) {
+    num = '628' + num.slice(2);
+  }
+  return num;
+}
+
+function parseOwnerNumbers(raw = '') {
+  return String(raw || '')
+    .split(',')
+    .map(normalizeNumber)
+    .filter(Boolean);
 }
 
 async function getSuperOwners() {
-  const base = normalizeNumber(config.owner);
+  const baseList = parseOwnerNumbers(config.owner);
   try {
     const settings = await getBotSettings();
     const dynamic = Array.isArray(settings?.superowners) ? settings.superowners.map(normalizeNumber) : [];
-    return Array.from(new Set([base, ...dynamic].filter(Boolean)));
+    const lids = Array.isArray(settings?.ownerLids) ? settings.ownerLids.map(normalizeNumber) : [];
+    return Array.from(new Set([...baseList, ...dynamic, ...lids].filter(Boolean)));
   } catch {
-    return base ? [base] : [];
+    return baseList;
   }
 }
 
@@ -31,7 +44,8 @@ async function getOwners() {
   try {
     const settings = await getBotSettings();
     const dynamic = Array.isArray(settings?.owners) ? settings.owners.map(normalizeNumber) : [];
-    return Array.from(new Set([...superOwners, ...dynamic].filter(Boolean)));
+    const lids = Array.isArray(settings?.ownerLids) ? settings.ownerLids.map(normalizeNumber) : [];
+    return Array.from(new Set([...superOwners, ...dynamic, ...lids].filter(Boolean)));
   } catch {
     return superOwners;
   }
@@ -109,6 +123,17 @@ async function delOwner(number) {
   return getOwners();
 }
 
+async function addOwnerLid(lid) {
+  const norm = normalizeNumber(lid);
+  if (!norm) return;
+  const settings = await getBotSettings();
+  const ownerLids = Array.isArray(settings?.ownerLids) ? [...settings.ownerLids] : [];
+  if (!ownerLids.includes(norm)) {
+    ownerLids.push(norm);
+    await updateBotSettings({ ownerLids });
+  }
+}
+
 async function addBotAdmin(number) {
   const norm = normalizeNumber(number);
   if (!norm) throw new Error('Nomor tidak valid.');
@@ -142,6 +167,7 @@ module.exports = {
   isBotAdmin,
   addOwner,
   delOwner,
+  addOwnerLid,
   addBotAdmin,
   delBotAdmin,
 };

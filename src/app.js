@@ -14,7 +14,6 @@ const {
 
 const { logger, ANSI } = require('./utils/logger');
 const { loadCommands } = require('./core/command.loader');
-const config = require('./config/bot.config');
 const { handleMessage } = require('./handlers/message.handler');
 const { handleGroupParticipantsUpdate } = require('./features/welcome/welcome.handler');
 const { connect: connectDatabase } = require('./database');
@@ -35,7 +34,12 @@ function askQuestion(query) {
 function clearSessionFolder(authDir) {
   try {
     if (fs.existsSync(authDir)) {
-      fs.rmSync(authDir, { recursive: true, force: true });
+      const files = fs.readdirSync(authDir);
+      for (const file of files) {
+        fs.rmSync(path.join(authDir, file), { recursive: true, force: true });
+      }
+    } else {
+      fs.mkdirSync(authDir, { recursive: true });
     }
   } catch (err) {
     logger.warn('Gagal membersihkan sesi kedaluwarsa', { reason: err?.message || err });
@@ -45,8 +49,14 @@ function clearSessionFolder(authDir) {
 let attemptCount = 0;
 
 async function bootstrap() {
+  const config = require('./config/bot.config');
+
   if (attemptCount === 0) {
-    logger.banner();
+    logger.banner({
+      env: config.env,
+      botName: config.name,
+      prefix: config.prefix,
+    });
     logger.initStep('Loading environment');
   }
 
@@ -71,8 +81,14 @@ async function bootstrap() {
     logger.initStep('Loading middleware');
   }
 
-  // 3. Auth & Session
-  const authDir = path.join(__dirname, '../storage/auth');
+  // 3. Auth & Session (Isolasi sesi per environment agar dev & prod tidak saling menimpa)
+  const defaultAuthSubdir = config.isProd ? 'auth' : `auth-${config.env}`;
+  const authDir = process.env.AUTH_DIR
+    ? path.resolve(process.cwd(), process.env.AUTH_DIR)
+    : path.join(__dirname, '../storage', defaultAuthSubdir);
+  if (!fs.existsSync(authDir)) {
+    fs.mkdirSync(authDir, { recursive: true });
+  }
   const { state, saveCreds } = await useMultiFileAuthState(authDir);
   const { version } = await fetchLatestBaileysVersion();
   if (attemptCount === 0) {
@@ -90,7 +106,7 @@ async function bootstrap() {
   const sock = makeWASocket({
     version,
     logger: pino({ level: 'silent' }),
-    browser: Browsers.windows(config.name || 'ALBEDO-BOT'),
+    browser: Browsers.ubuntu('Chrome'),
     auth: state,
     printQRInTerminal: false,
   });
@@ -148,6 +164,9 @@ async function bootstrap() {
         });
 
         // Bersihkan folder sesi lama yang sudah kedaluwarsa agar bot bisa meminta QR/Pairing baru
+        try {
+          sock.ev.removeAllListeners();
+        } catch {}
         clearSessionFolder(authDir);
         setTimeout(bootstrap, 2000);
         return;
@@ -170,7 +189,12 @@ async function bootstrap() {
 
   sock.ev.on('messages.upsert', async ({ messages }) => {
     for (const message of messages) {
-      if (!message.message || message.key?.fromMe) continue;
+      if (!message.message) continue;
+      if (message.key?.fromMe) {
+        const { parseCommand } = require('./utils/message');
+        const parsed = parseCommand(message);
+        if (!parsed || !parsed.isCommand) continue;
+      }
       await handleMessage(sock, message, commandMap);
     }
   });

@@ -7,8 +7,11 @@ module.exports = createCommand({
   name: 'ai',
   category: 'ai',
   permission: 'USER',
+  isFree: false,
+  limit: 1,
+  cooldown: 3,
   description: 'Tanya jawab cerdas dengan AI (DeepSeek v4 via APMIX).',
-  execute: async (client, message, args = []) => {
+  execute: async (client, message, args = [], ctx = {}) => {
     const prompt = args.join(' ').trim();
     if (!prompt) {
       return replyText(
@@ -25,6 +28,7 @@ module.exports = createCommand({
       await sendReaction(client, message, REACTIONS.SUCCESS);
       return replyText(client, message, `🤖 *ALBEDO AI*\n\n${answer}`);
     } catch (err) {
+      console.error('[AI] Error:', err?.message || err);
       await sendReaction(client, message, REACTIONS.FAILED);
       return replyText(client, message, `❌ Gagal memproses AI: ${err.message}`);
     }

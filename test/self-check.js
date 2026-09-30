@@ -152,6 +152,49 @@ step('Verifying downloader commands', () => {
   assert.ok(commandMap.has('tiktok'));
   assert.ok(commandMap.has('youtube'));
   assert.ok(commandMap.has('instagram'));
+  assert.ok(commandMap.has('facebook'));
+  assert.ok(commandMap.has('threads'));
+  assert.ok(commandMap.has('bluesky'));
+  assert.ok(commandMap.has('twitter'));
+  assert.ok(commandMap.has('pinterest'));
+  assert.ok(commandMap.has('dlpick'));
+  assert.ok(commandMap.has('reddit'));
+  assert.ok(commandMap.has('douyin'));
+  assert.ok(commandMap.has('soundcloud'));
+  assert.ok(commandMap.has('bilibili'));
+});
+
+// 6b. SMDownloader Response Normalization
+step('Verifying SMDownloader normalization', () => {
+  const { normalizeSmResponse } = require('../src/services/downloader/sm.service');
+  const mockResponse = {
+    ok: true,
+    data: {
+      platform: 'youtube',
+      platformName: 'YouTube',
+      title: 'Test Video',
+      author: 'Tester',
+      sourceUrl: 'https://youtube.com/watch?v=123',
+      media: [
+        {
+          type: 'video',
+          role: 'video',
+          url: '/api/youtube/download?t=123',
+          label: '720p',
+          filesizeBytes: 5000000,
+          container: 'mp4',
+          durationMs: 60000,
+        },
+      ],
+    },
+  };
+  const normalized = normalizeSmResponse(mockResponse, 'https://youtube.com/watch?v=123');
+  assert.ok(normalized, 'Normalized object should exist');
+  assert.strictEqual(normalized.title, 'Test Video');
+  assert.strictEqual(normalized.provider, 'smdownloader');
+  assert.strictEqual(normalized.video.url, 'https://www.smdownloader.com/api/youtube/download?t=123');
+  assert.strictEqual(normalized.duration, '1:00');
+  assert.strictEqual(normalized.media.length, 1);
 });
 
 // 7. XP Engine
@@ -226,7 +269,7 @@ step('Verifying game data banks', () => {
 
 // 13. Tioo Downloader Service
 step('Verifying Tioo API service', () => {
-  const { detectPlatform, downloadMedia, fetchFromTioo, detectAudioFormat, fetchAudioBuffer, isValidAudioBuffer, cleanMediaUrl } = require('../src/services/downloader/tioo.service');
+  const { detectPlatform, downloadMedia, fetchFromTioo, detectAudioFormat, fetchAudioBuffer, isValidAudioBuffer, cleanMediaUrl, normalizeTiooResponse } = require('../src/services/downloader/tioo.service');
   assert.strictEqual(detectPlatform('https://www.youtube.com/watch?v=123'), 'YouTube');
   assert.strictEqual(detectPlatform('https://music.youtube.com/watch?v=123'), 'YouTube');
   assert.strictEqual(detectPlatform('https://vt.tiktok.com/123'), 'TikTok');
@@ -238,6 +281,21 @@ step('Verifying Tioo API service', () => {
   assert.strictEqual(typeof fetchFromTioo, 'function');
   assert.strictEqual(typeof fetchAudioBuffer, 'function');
   assert.strictEqual(typeof isValidAudioBuffer, 'function');
+
+  // Verify Spotify payload parsing
+  const mockSpotify = {
+    status: true,
+    message: 'success',
+    res_data: {
+      title: "c'est la vie - demxntia",
+      thumbnail: 'https://i.scdn.co/image/test.jpg',
+      formats: [{ url: 'https://spotimate.io/dl?token=123', ext: 'mp3' }],
+    },
+  };
+  const parsed = normalizeTiooResponse(mockSpotify, 'https://open.spotify.com/track/123');
+  assert.ok(parsed.audio?.url);
+  assert.strictEqual(parsed.source, 'Spotify');
+  assert.strictEqual(parsed.thumbnail, 'https://i.scdn.co/image/test.jpg');
 });
 
 // 14. Audio format detection
@@ -262,6 +320,12 @@ step('Verifying YouTube & YTDL service', () => {
   const { downloadWithYtdlCore, isYtdlAvailable } = require('../src/services/downloader/ytdl.service');
   assert.strictEqual(typeof downloadWithYtdlCore, 'function');
   assert.strictEqual(typeof isYtdlAvailable, 'function');
+  const { extractVideoId, downloadYouTubeAudio, downloadYouTubeVideo } = require('../src/services/downloader/youtubei.service');
+  assert.strictEqual(typeof downloadYouTubeAudio, 'function');
+  assert.strictEqual(typeof downloadYouTubeVideo, 'function');
+  assert.strictEqual(extractVideoId('https://www.youtube.com/watch?v=dQw4w9WgXcQ'), 'dQw4w9WgXcQ');
+  assert.strictEqual(extractVideoId('https://youtu.be/dQw4w9WgXcQ'), 'dQw4w9WgXcQ');
+  assert.strictEqual(extractVideoId('https://youtube.com/shorts/dQw4w9WgXcQ'), 'dQw4w9WgXcQ');
 });
 
 // 16. Downloader Limits
@@ -419,16 +483,16 @@ step('Verifying user blacklist service', () => {
 step('Verifying anti-abuse rate limit engine', () => {
   const { checkRateLimit, resetRateLimits, USER_LIMIT, GROUP_LIMIT, GLOBAL_LIMIT } = require('../src/core/rate-limit');
   resetRateLimits();
-  assert.strictEqual(USER_LIMIT, 10);
+  assert.strictEqual(USER_LIMIT, 5);
   assert.strictEqual(GROUP_LIMIT, 50);
   assert.strictEqual(GLOBAL_LIMIT, 1000);
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 5; i++) {
     const res = checkRateLimit({ senderJid: 'user1@s.whatsapp.net', groupJid: 'group1@g.us' });
     assert.strictEqual(res.allowed, true, `User hit ${i + 1} should be allowed`);
   }
   const blockedRes = checkRateLimit({ senderJid: 'user1@s.whatsapp.net', groupJid: 'group1@g.us' });
-  assert.strictEqual(blockedRes.allowed, false, '11th user hit should be rate limited');
+  assert.strictEqual(blockedRes.allowed, false, '6th user hit should be rate limited');
   assert.strictEqual(blockedRes.reason, 'user');
 
   const ownerRes = checkRateLimit({ senderJid: 'user1@s.whatsapp.net', groupJid: 'group1@g.us', isOwner: true });
@@ -512,6 +576,13 @@ step('Verifying AI service & chat session', () => {
   assert.strictEqual(typeof aiService.clearSession, 'function');
   assert.strictEqual(typeof aiService.getSession, 'function');
   assert.ok(aiService.DEFAULT_SYSTEM_PROMPT.includes('ALBEDO'));
+
+  // AI Security & Sanitization
+  assert.strictEqual(typeof aiService.sanitizePrompt, 'function');
+  assert.strictEqual(typeof aiService.sanitizeResponse, 'function');
+  assert.strictEqual(aiService.sanitizePrompt('  halo apa kabar  '), 'halo apa kabar');
+  assert.throws(() => aiService.sanitizePrompt(''), /tidak boleh kosong/);
+  assert.throws(() => aiService.sanitizePrompt('a'.repeat(1001)), /terlalu panjang/);
 });
 
 // 35. Support Ticket Forwarding
@@ -526,6 +597,99 @@ step('Verifying support ticket forwarding service', () => {
   assert.ok(supportService.TYPE_LABELS.bug);
   assert.ok(supportService.TYPE_LABELS.feedback);
   assert.ok(supportService.TYPE_LABELS.request);
+});
+
+// 36. Environment & Multi-Stage Configuration
+step('Verifying environment configurations & flags', () => {
+  const fs = require('node:fs');
+  const config = require('../src/config/bot.config');
+
+  assert.ok(fs.existsSync(path.join(__dirname, '../.env.example')), '.env.example must exist');
+
+  assert.strictEqual(typeof config.env, 'string');
+  assert.strictEqual(typeof config.isProd, 'boolean');
+  assert.strictEqual(typeof config.isDev, 'boolean');
+  assert.strictEqual(typeof config.isStaging, 'boolean');
+  assert.strictEqual(typeof config.logLevel, 'string');
+  assert.strictEqual(typeof config.debug, 'boolean');
+});
+
+// 37. Role Hierarchy & Access System
+step('Verifying role hierarchy & access control', () => {
+  const { ROLES, ROLE_RANKS, hasRole, resolveEffectiveRole } = require('../src/core/roles');
+
+  assert.ok(ROLE_RANKS[ROLES.SUPEROWNER] > ROLE_RANKS[ROLES.OWNER]);
+  assert.ok(ROLE_RANKS[ROLES.OWNER] > ROLE_RANKS[ROLES.ADMIN]);
+  assert.ok(ROLE_RANKS[ROLES.ADMIN] > ROLE_RANKS[ROLES.GROUP_ADMIN]);
+  assert.ok(ROLE_RANKS[ROLES.GROUP_ADMIN] > ROLE_RANKS[ROLES.USER]);
+  assert.ok(ROLE_RANKS[ROLES.USER] > ROLE_RANKS[ROLES.GUEST]);
+  assert.strictEqual(ROLE_RANKS[ROLES.BANNED], 0);
+
+  // Owner always has access
+  assert.strictEqual(hasRole(ROLES.OWNER, [ROLES.USER]), true);
+  assert.strictEqual(hasRole(ROLES.SUPEROWNER, [ROLES.GROUP_ADMIN]), true);
+
+  // Banned user never has access
+  assert.strictEqual(hasRole(ROLES.BANNED, [ROLES.USER]), false);
+
+  // Guest access check
+  assert.strictEqual(hasRole(ROLES.GUEST, [ROLES.GUEST]), true);
+  assert.strictEqual(hasRole(ROLES.GUEST, [ROLES.USER]), false);
+
+  // Role resolution
+  assert.strictEqual(resolveEffectiveRole({ isOwner: true }), ROLES.OWNER);
+  assert.strictEqual(resolveEffectiveRole({ isGroupAdmin: true }), ROLES.GROUP_ADMIN);
+  assert.strictEqual(resolveEffectiveRole({ isRegistered: true, tier: 'free' }), ROLES.USER);
+  assert.strictEqual(resolveEffectiveRole({ isRegistered: true, tier: 'vip' }), ROLES.VIP);
+  assert.strictEqual(resolveEffectiveRole({ isRegistered: false }), ROLES.GUEST);
+});
+
+// 38. Multi-Tenant Scoped User Data
+step('Verifying multi-tenant user scope engine', () => {
+  const { createScopedUser } = require('../src/database/models/user-scope.model');
+
+  const userA = createScopedUser({ userId: '628111@s.whatsapp.net', scopeId: 'group_A@g.us', limit: 20, level: 3 });
+  const userB = createScopedUser({ userId: '628111@s.whatsapp.net', scopeId: 'group_B@g.us', limit: 5, level: 1 });
+
+  assert.strictEqual(userA.userId, userB.userId);
+  assert.notStrictEqual(userA.scopeId, userB.scopeId);
+  assert.strictEqual(userA.limit, 20);
+  assert.strictEqual(userB.limit, 5);
+  assert.strictEqual(userA.level, 3);
+  assert.strictEqual(userB.level, 1);
+});
+
+// 39. Cooldown Engine & Command Control
+step('Verifying cooldown engine & command locks', () => {
+  const { checkCooldown, resetCooldown } = require('../src/core/cooldown');
+  const { isCommandDisabledGlobally, setGlobalCommand } = require('../src/services/feature/feature-control.service');
+
+  // Cooldown tests
+  resetCooldown('user_123', 'group_1', 'tiktok');
+  const cd1 = checkCooldown('user_123', 'group_1', 'tiktok', 5, false);
+  assert.strictEqual(cd1.allowed, true);
+
+  const cd2 = checkCooldown('user_123', 'group_1', 'tiktok', 5, false);
+  assert.strictEqual(cd2.allowed, false);
+  assert.ok(cd2.remainingSec > 0);
+
+  // Owner bypass
+  const cdOwner = checkCooldown('owner_123', 'group_1', 'tiktok', 5, true);
+  assert.strictEqual(cdOwner.allowed, true);
+
+  resetCooldown('user_123', 'group_1', 'tiktok');
+
+  // Command control functions
+  assert.strictEqual(typeof isCommandDisabledGlobally, 'function');
+  assert.strictEqual(typeof setGlobalCommand, 'function');
+});
+
+// 40. Profile Default Avatar Fallback
+step('Verifying default avatar fallback for profile', async () => {
+  const { getDefaultAvatarDataUri } = require('../src/features/profile/profile.card');
+  const defaultAvatar = await getDefaultAvatarDataUri();
+  assert.ok(defaultAvatar, 'Default avatar data URI should not be null');
+  assert.ok(defaultAvatar.startsWith('data:image/jpeg;base64,'));
 });
 
 console.log(`

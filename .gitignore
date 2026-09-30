@@ -6,8 +6,8 @@ yarn-error.log*
 
 # Environment & Secret Credentials
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
 *.env
 src/database/secrets/*.json
 src/database/secrets/

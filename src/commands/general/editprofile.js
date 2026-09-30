@@ -143,11 +143,13 @@ module.exports = createCommand({
   name: 'editprofile',
   aliases: ['setprofile', 'updateprofile'],
   description: 'Edit profil user seperti name, gender, username, age, social, bio.',
-  execute: async (client, message, args = []) => {
-    const jid = resolveJid(message);
+  isFree: true,
+  cooldown: 3,
+  execute: async (client, message, args = [], ctx = {}) => {
+    const jid = resolveJid(message) || ctx?.senderJid;
     if (!jid) return false;
 
-    const user = await getUserByJid(jid);
+    const user = (await getUserByJid(jid)) || ctx?.globalUser || (ctx?.senderNumber ? await getUserByJid(ctx.senderNumber) : null);
     if (!user) {
       await replyText(client, message, messages.profile.notFound);
       return true;
